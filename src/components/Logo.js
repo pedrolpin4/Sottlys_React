@@ -1,13 +1,41 @@
 import styled from "styled-components"
 
-const Logo = ({type, size}) => (
-    <LogoImg size = {size} src = {type === 'text' ? "../assets/textLogo.jpeg" :"../assets/Girassol.png"}/>
-)
+export default function Logo () {
+    return(
+        <>
+            <LogoText src = "../assets/textLogo.jpeg"/>
+            <LogoImg src = "../assets/Girassol.png"/>
+        </>
 
-const LogoImg = styled.img`
+    )
+}
+
+const LogoText = styled.img`
+    position: absolute;
+    top: 50%;
+    left: 0;
+    display: initial;
     cursor: pointer;
-    height: ${props => props.size ? props.size : "8rem"};
-    margin-right: 60px;
+    height: 50%;
+    transform: translateY(-50%);
+
+    @media (max-width: 1000px){
+        display: none;
+    }
 `
 
-export default Logo
+const LogoImg = styled.img`
+    opacity: 0;
+    cursor: pointer;
+    height: 100%;
+    margin-right: 10vw;
+
+    @media (max-width: 1000px){
+        opacity: 1;
+        margin-right: 7vw;
+    }
+
+    @media (max-width: 600px){
+        margin-right: 4vw !important;
+    }
+`

@@ -1,13 +1,14 @@
-import Header from "./components/Header"
+import Home from "./pages/Home"
 import GlobalStyles from "./styles/GlobalStyles"
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 
-const App = () =>{
+export default function App () {
     return(
-        <>
+        <Router>
             <GlobalStyles />
-            <Header />
-        </>
+            <Routes>
+                <Route path = "/" exact element = {<Home />} />
+            </Routes>
+        </Router>
     )
 }
-
-export default App

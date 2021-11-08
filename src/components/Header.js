@@ -1,22 +1,73 @@
 import styled from "styled-components"
 import Logo from './Logo'
-import {IoPersonOutline, IoCartOutline, IoHeartOutline, IoSearchOutline} from 'react-icons/io5'
+import {IoPersonOutline, IoCartOutline, IoHeartOutline, IoSearchOutline, IoMenuOutline} from 'react-icons/io5'
+import { Link } from "react-router-dom"
+import { useEffect, useState } from "react"
 
-const Header = () =>{
+export default function Header () {
+    const [categories, setCategories] = useState([]);
+    const [trends, setTrends] = useState([]);
+    const [sales, setSales] = useState([]);
+    const [array, setArray] = useState([]);
+
+    useEffect(() => {
+        setCategories([{name: "Verão",id: 1}, {name: "Verão",id: 2},{name: "Verão",id: 3},{name: "Verão",id: 4},{name: "Verão",id: 5},{name: "Verão",id: 6},{name: "Verão",id: 7},{name: "Verão",id: 8},{name: "Verão",id: 9},{name: "Verão",id: 10}])
+        setTrends([{name: "Inverno",id: 11}])
+        setSales([{name: "Primavera",id: 11}])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
     return(
         <HeaderContainer>
-            <Filters>
-                <Logo size = {"4rem"} type = {'text'}/>
-                <DropDownOption>Categorias</DropDownOption>
-                <DropDownOption>Promoções</DropDownOption>
-                <DropDownOption>Tendências</DropDownOption>
-                <DropDownOption>Histórico</DropDownOption>
-            </Filters>
+            <Logo />
+            <Unifier>
+                <Filters>
+                    <DropDownOption>
+                        <p onMouseOver = {() => {
+                            setArray([...categories])
+                            console.log(categories);
+                        }}>
+                            Categorias
+                        </p>
+                    </DropDownOption>
+                    <DropDownOption>
+                        <p onMouseOver = {() => {
+                            setArray([...sales])
+                            console.log(categories);
+                        }
+                        }>
+                            Promoções
+                        </p>
+                    </DropDownOption>
+                    <DropDownOption className = "desktop-view">
+                        <p onMouseOver = {() => {
+                            setArray([...trends])
+                            console.log(categories);
+                        }}>
+                            Tendências
+                        </p>
+                    </DropDownOption>
+                    <div className="sub-menu">
+                            {array.map(e => {
+                                return(
+                                    <Link to = {`/categories/${e.id}`} key = {e.id}>
+                                        {e.name}
+                                    </Link>
+                                )
+                            })}
+                            <img className = "sub-menu__img" src = "https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2070&q=80" alt = "category img"/>
+                    </div>
+                </Filters>
+                <DropDownOption>
+                        <p>Histórico</p>
+                </DropDownOption>
+            </ Unifier>
             <Icons>
-                <IoSearchOutline size = {30} onClick = {() => console.log("tô clicando")}/>
-                <IoHeartOutline size = {30} onClick = {() => console.log("tô clicando")}/>
-                <IoCartOutline size = {30} onClick = {() => console.log("tô clicando")}/>
-                <IoPersonOutline size = {30} onClick = {() => console.log("tô clicando")}/>
+                <IoSearchOutline size = {25} onClick = {() => console.log("tô clicando")}/>
+                <IoHeartOutline size = {25} onClick = {() => console.log("tô clicando")}/>
+                <IoCartOutline size = {25} onClick = {() => console.log("tô clicando")}/>
+                <IoPersonOutline size = {25} onClick = {() => console.log("tô clicando")}/>
+                <IoMenuOutline size = {25} className = "mobile-view"/>
             </Icons>
         </HeaderContainer>
     )
@@ -34,10 +85,11 @@ const HeaderContainer = styled.div`
     height: 7rem;
     background-color: #fdddd3;
     box-shadow: 0px 1px 3px rgba(0, 0,0, 0.1);
+    z-index: 2;
 
     svg{
         cursor: pointer;
-        margin-right: 2rem;
+        margin-right: 2vw;
         transition: all .2s;
         color: #333;
 
@@ -46,31 +98,154 @@ const HeaderContainer = styled.div`
             color: #777;
         }
     }
+
+    @media (max-width: 1000px){
+        height: 6rem;
+
+
+        img{
+            margin-right: 3.5vw;
+        }
+
+        svg{
+            backface-visibility: hidden;
+            width: 22px;
+        }
+
+        li{
+            font-size: 1.1rem;
+        }
+    }
+
+    @media (max-width: 600px){
+        height: 5.5rem;
+
+        svg{
+            backface-visibility: hidden;
+            width: 25px;
+            margin-right: 4vw;
+        }
+
+        svg:hover{
+            transform: translateY(-1px) scale(1.1);
+        }
+    }
+`
+
+const Unifier = styled.div`
+    display: flex;
+    width: 100%;
 `
 
 const Icons = styled.div`
     display: flex;
     align-items: center;
+    backface-visibility: hidden;
+
+    .mobile-view{
+        display: none;
+    }
+
+    @media (max-width: 600px){
+        svg{
+            margin-right: 2.2vw;
+        }
+
+        .mobile-view{
+            display: initial;
+        }
+    }
+
 `
 
-const Filters = styled.div`
+const Filters = styled.ul`
+    height: 100%;
     display: flex;
     align-items: center;
-`
 
-const DropDownOption = styled.div`
-    cursor: pointer;
-    font-size: 1.2rem;
-    margin-right: 3rem;
-    color: #333;
-    transition: all .2s;
+    .sub-menu{
+        position: absolute;
+        top: 5rem;
+        left: 0;
+        width: 100vw;
+        height: 350px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex-wrap: wrap;
+        overflow-y: hidden;
+        padding: 0rem 3rem;
+        background-color: #fff;
+        color: #333;
+        transform: scaleY(0);
+        transition: all .3s ease;
+        opacity: 0;
+        z-index: 3;
 
-    &:hover{
-        transform: translateY(-2px) scale(1.05);
-        color: #555;
-        text-shadow: 4px 15px 6px rgba(0, 0, 0, 0.1);
+        a{
+            margin: 20px 0px
+        }
+
+        &__img{
+            width: calc(100vw/5);
+            align-self: center;
+            margin: auto 0;
+        }
+    }
+
+    :hover{
+        .sub-menu{
+            transform: scale(1);
+            opacity: 1;
+            box-shadow: 0px 400px 0px 0px rgba(0,0,0,0.3);
+        }
+    }
+
+    @media (max-width: 850px){
+        .desktop-view{
+            display: none;
+        }
+    }
+
+    @media (max-width: 600px){
+        li{
+            display: none;
+        }
     }
 `
 
+const DropDownOption = styled.li`
+    height: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 1.2rem;
+    margin-right: 2vw;
+    border-bottom: 0px;
+    color: #333;
+    transition: all .3s;
 
-export default Header
+    &:after{
+        content: '';
+        position: absolute;
+        top: 150%;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: black;
+        will-change: transform;
+        transform: scale(0);
+        transition: transform 0.3s ease;
+    }
+    
+    &:hover:after{
+        transform: scale(1);
+    }
+
+    @media (max-width: 600px){
+       display: none;
+    }
+
+`
