@@ -8,7 +8,7 @@ export default function Header () {
     const [categories, setCategories] = useState([]);
     const [trends, setTrends] = useState([]);
     const [sales, setSales] = useState([]);
-    const [array, setArray] = useState([]);
+    const [filters, setFilters] = useState([]);
 
     useEffect(() => {
         setCategories([{name: "Verão",id: 1}, {name: "Verão",id: 2},{name: "Verão",id: 3},{name: "Verão",id: 4},{name: "Verão",id: 5},{name: "Verão",id: 6},{name: "Verão",id: 7},{name: "Verão",id: 8},{name: "Verão",id: 9},{name: "Verão",id: 10}])
@@ -24,7 +24,7 @@ export default function Header () {
                 <Filters>
                     <DropDownOption>
                         <p onMouseOver = {() => {
-                            setArray([...categories])
+                            setFilters([...categories])
                             console.log(categories);
                         }}>
                             Categorias
@@ -32,7 +32,7 @@ export default function Header () {
                     </DropDownOption>
                     <DropDownOption>
                         <p onMouseOver = {() => {
-                            setArray([...sales])
+                            setFilters([...sales])
                             console.log(categories);
                         }
                         }>
@@ -41,14 +41,14 @@ export default function Header () {
                     </DropDownOption>
                     <DropDownOption className = "desktop-view">
                         <p onMouseOver = {() => {
-                            setArray([...trends])
+                            setFilters([...trends])
                             console.log(categories);
                         }}>
                             Tendências
                         </p>
                     </DropDownOption>
                     <div className="sub-menu">
-                            {array.map(e => {
+                            {filters.map(e => {
                                 return(
                                     <Link to = {`/categories/${e.id}`} key = {e.id}>
                                         {e.name}
@@ -134,6 +134,7 @@ const HeaderContainer = styled.div`
 
 const Unifier = styled.div`
     display: flex;
+    height: 100%;
     width: 100%;
 `
 
@@ -230,7 +231,7 @@ const DropDownOption = styled.li`
     &:after{
         content: '';
         position: absolute;
-        top: 150%;
+        top: 69%;
         left: 0;
         width: 100%;
         height: 2px;
