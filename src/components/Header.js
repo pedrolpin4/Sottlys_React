@@ -3,6 +3,7 @@ import Logo from './Logo'
 import {IoPersonOutline, IoCartOutline, IoHeartOutline, IoSearchOutline, IoMenuOutline} from 'react-icons/io5'
 import { Link } from "react-router-dom"
 import { useEffect, useState } from "react"
+import { getFilters } from "../service/filters"
 
 export default function Header () {
     const [categories, setCategories] = useState([]);
@@ -10,10 +11,49 @@ export default function Header () {
     const [sales, setSales] = useState([]);
     const [filters, setFilters] = useState([]);
 
+    async function listCategories(){
+        const result = await getFilters('categories')
+
+        if(result?.data){
+            setCategories(result.data);
+            return;
+        }
+
+        if(!result?.success){
+            return result?.message;
+        }
+    }
+
+    async function listTrends(){
+        const result = await getFilters('trends')
+
+        if(result?.data){
+            setTrends(result.data);
+            return;
+        }
+
+        if(!result?.success){
+            return result?.message;
+        }
+    }
+
+    async function listSales(){
+        const result = await getFilters('sales')
+
+        if(result?.data){
+            setSales(result.data);
+            return;
+        }
+
+        if(!result?.success){
+            return result.message;
+        }
+    }
+
     useEffect(() => {
-        setCategories([{name: "Verão",id: 1}, {name: "Verão",id: 2},{name: "Verão",id: 3},{name: "Verão",id: 4},{name: "Verão",id: 5},{name: "Verão",id: 6},{name: "Verão",id: 7},{name: "Verão",id: 8},{name: "Verão",id: 9},{name: "Verão",id: 10}])
-        setTrends([{name: "Inverno",id: 11}])
-        setSales([{name: "Primavera",id: 11}])
+        listCategories();
+        listTrends();
+        listSales();
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -33,7 +73,7 @@ export default function Header () {
                     <DropDownOption>
                         <p onMouseOver = {() => {
                             setFilters([...sales])
-                            console.log(categories);
+                            console.log(sales);
                         }
                         }>
                             Promoções
@@ -42,7 +82,7 @@ export default function Header () {
                     <DropDownOption className = "desktop-view">
                         <p onMouseOver = {() => {
                             setFilters([...trends])
-                            console.log(categories);
+                            console.log(trends);
                         }}>
                             Tendências
                         </p>
