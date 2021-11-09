@@ -134,10 +134,10 @@ export default function Header () {
                 </DropDownOption>
             </ Unifier>
             <Icons>
-                <IoSearchOutline size = {25} onClick = {() => console.log("tô clicando")}/>
-                <IoHeartOutline size = {25} onClick = {() => console.log("tô clicando")}/>
-                <IoCartOutline size = {25} onClick = {() => console.log("tô clicando")}/>
-                <IoPersonOutline size = {25} onClick = {() => console.log("tô clicando")}/>
+                <IoSearchOutline size = {25} onClick = {() => {}}/>
+                <IoHeartOutline size = {25} onClick = {() => {}}/>
+                <IoCartOutline size = {25} onClick = {() => {}}/>
+                <IoPersonOutline size = {25} onClick = {() => {}}/>
                 <IoMenuOutline size = {25} className = "mobile-view"/>
             </Icons>
         </HeaderContainer>
