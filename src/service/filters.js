@@ -22,7 +22,7 @@ async function getFilters(filter){
         message: `Looks like there are no ${filter} on the server`,
     }  
 
-    if(result.data) return {
+    if(result?.data) return {
         success: true,
         data: result.data,
     }

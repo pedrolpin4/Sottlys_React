@@ -1,31 +1,33 @@
-import styled from "styled-components"
-import Logo from './Logo'
-import {IoPersonOutline, IoCartOutline, IoHeartOutline, IoSearchOutline, IoMenuOutline} from 'react-icons/io5'
-import { Link } from "react-router-dom"
-import { useEffect, useState } from "react"
-import { getFilters } from "../service/filters"
+import styled from "styled-components";
+import Logo from './Logo';
+import {IoPersonOutline, IoCartOutline, IoHeartOutline, IoSearchOutline, IoMenuOutline} from 'react-icons/io5';
+import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getFilters } from "../service/filters";
 
 export default function Header () {
     const [categories, setCategories] = useState([]);
     const [trends, setTrends] = useState([]);
     const [sales, setSales] = useState([]);
     const [filters, setFilters] = useState([]);
+    const [errorMessage, setErrorMessage] = useState("");
 
     async function listCategories(){
-        const result = await getFilters('categories')
+        const result = await getFilters('categories');
 
         if(result?.data){
-            setCategories(result.data);
+            setCategories(result?.data);
             return;
         }
 
         if(!result?.success){
-            return result?.message;
+            setErrorMessage(result?.message);
+            return;
         }
     }
 
     async function listTrends(){
-        const result = await getFilters('trends')
+        const result = await getFilters('trends');
 
         if(result?.data){
             setTrends(result.data);
@@ -38,7 +40,7 @@ export default function Header () {
     }
 
     async function listSales(){
-        const result = await getFilters('sales')
+        const result = await getFilters('sales');
 
         if(result?.data){
             setSales(result.data);
@@ -62,28 +64,30 @@ export default function Header () {
             <Logo />
             <Unifier>
                 <Filters categories = {categories}>
-                    <DropDownOption>
-                        <p onMouseOver = {() => {
-                            setFilters([...categories])
+                    <DropDownOption onMouseOver = {() => {
+                            setFilters([...categories]);
                             console.log(categories);
-                        }}>
+                        }
+                    }>
+                        <p>
                             Categorias
                         </p>
                     </DropDownOption>
-                    <DropDownOption>
-                        <p onMouseOver = {() => {
-                            setFilters([...sales])
+                    <DropDownOption onMouseOver = {() => {
+                            setFilters([...sales]);
                             console.log(sales);
                         }
-                        }>
+                    }>
+                        <p>
                             Promoções
                         </p>
                     </DropDownOption>
-                    <DropDownOption className = "desktop-view">
-                        <p onMouseOver = {() => {
-                            setFilters([...trends])
+                    <DropDownOption className = "desktop-view" onMouseOver = {() => {
+                            setFilters([...trends]);
                             console.log(trends);
-                        }}>
+                        }
+                    }>
+                        <p>
                             Tendências
                         </p>
                     </DropDownOption>
@@ -103,11 +107,11 @@ export default function Header () {
                                                 return(
                                                     <div className = "filter-name">
                                                         <h1>{e.name}</h1>
-                                                        {e.categories.map((cat) => (
+                                                        {e.categories ? e.categories.map((cat) => (
                                                             <Link to = {`/categories/${cat.id}`} key = {cat.id}>
                                                                 {cat.name}
                                                             </Link>
-                                                        ))}
+                                                        )) :  ""}
                                                     </div>
                                                 )
                                             }) :
@@ -115,16 +119,16 @@ export default function Header () {
                                                 return(
                                                     <div className = "filter-name">
                                                         <h1>{e.name}</h1>
-                                                        {e.products.map((prod) => (
+                                                        {e.products ? e.products.map((prod) => (
                                                             <Link to = {`/products/${prod.id}`} key = {prod.id}>
                                                                 {prod.name}
                                                             </Link>
-                                                        ))}
+                                                        )) : ""}
                                                     </div>
                                                 )
                                             })
                                     :
-                                <span></span> 
+                                <span>{errorMessage}</span> 
                             }
                     </div>
                 </Filters>
@@ -241,10 +245,12 @@ const Filters = styled.ul`
         width: 100vw;
         height: 350px;
         display: flex;
-        justify-content: center;
+        justify-content: flex-start;
+        align-items: center;
+        flex-direction: column;
         flex-wrap: wrap;
         overflow-y: hidden;
-        padding: 1rem 3rem;
+        padding: 3rem 2rem;
         background-color: #fff;
         color: #333;
         transform: scaleY(0);
@@ -260,19 +266,35 @@ const Filters = styled.ul`
 
             h1{
                 margin: 15px 0px;
-                font-size: 25px;
+                font-size: 23px;
             }
 
             a{
-                margin: 12px 0px;
-                font-size: 20px;
+                margin: 13px 0px;
+                font-size: 18px;
                 color: #777;
+            }
+
+            @media (max-width: 1000px){
+                h1{
+                    font-size: 20px;
+                }
+
+                a{
+                    font-size: 16px;
+                }
             }
         }
 
-        a{
-            margin: 0px calc((100vw - 6rem)/8);
+        span{
             font-size: 25px;
+            color: rgba(170, 20, 20, 0.9);
+        }
+
+        a{
+            margin: 15px 10px;
+            font-size: 20px;
+            color: #777;
         }
 
         &__img{
