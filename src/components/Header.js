@@ -66,7 +66,6 @@ export default function Header () {
                 <Filters categories = {categories}>
                     <DropDownOption onMouseOver = {() => {
                             setFilters([...categories]);
-                            console.log(categories);
                         }
                     }>
                         <p>
@@ -75,7 +74,6 @@ export default function Header () {
                     </DropDownOption>
                     <DropDownOption onMouseOver = {() => {
                             setFilters([...sales]);
-                            console.log(sales);
                         }
                     }>
                         <p>
@@ -84,7 +82,6 @@ export default function Header () {
                     </DropDownOption>
                     <DropDownOption className = "desktop-view" onMouseOver = {() => {
                             setFilters([...trends]);
-                            console.log(trends);
                         }
                     }>
                         <p>
