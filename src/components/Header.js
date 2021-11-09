@@ -61,7 +61,7 @@ export default function Header () {
         <HeaderContainer>
             <Logo />
             <Unifier>
-                <Filters>
+                <Filters categories = {categories}>
                     <DropDownOption>
                         <p onMouseOver = {() => {
                             setFilters([...categories])
@@ -88,14 +88,44 @@ export default function Header () {
                         </p>
                     </DropDownOption>
                     <div className="sub-menu">
-                            {filters.map(e => {
-                                return(
-                                    <Link to = {`/categories/${e.id}`} key = {e.id}>
-                                        {e.name}
-                                    </Link>
-                                )
-                            })}
-                            <img className = "sub-menu__img" src = "https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2070&q=80" alt = "category img"/>
+                            {
+                                filters.length ? 
+                                    filters[0] === categories[0] ?
+                                        filters.map(e => {
+                                            return(
+                                                <Link to = {`/categories/${e.id}`} key = {e.id}>
+                                                    {e.name}
+                                                </Link>
+                                            )
+                                        }) :
+                                        filters[0] === trends[0] ?
+                                            filters.map(e => {
+                                                return(
+                                                    <div className = "filter-name">
+                                                        <h1>{e.name}</h1>
+                                                        {e.categories.map((cat) => (
+                                                            <Link to = {`/categories/${cat.id}`} key = {cat.id}>
+                                                                {cat.name}
+                                                            </Link>
+                                                        ))}
+                                                    </div>
+                                                )
+                                            }) :
+                                            filters.map(e => {
+                                                return(
+                                                    <div className = "filter-name">
+                                                        <h1>{e.name}</h1>
+                                                        {e.products.map((prod) => (
+                                                            <Link to = {`/products/${prod.id}`} key = {prod.id}>
+                                                                {prod.name}
+                                                            </Link>
+                                                        ))}
+                                                    </div>
+                                                )
+                                            })
+                                    :
+                                <span></span> 
+                            }
                     </div>
                 </Filters>
                 <DropDownOption>
@@ -211,11 +241,10 @@ const Filters = styled.ul`
         width: 100vw;
         height: 350px;
         display: flex;
-        flex-direction: column;
-        align-items: center;
+        justify-content: center;
         flex-wrap: wrap;
         overflow-y: hidden;
-        padding: 0rem 3rem;
+        padding: 1rem 3rem;
         background-color: #fff;
         color: #333;
         transform: scaleY(0);
@@ -223,8 +252,27 @@ const Filters = styled.ul`
         opacity: 0;
         z-index: 3;
 
+        .filter-name{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: calc((100vw - 6rem)/3);
+
+            h1{
+                margin: 15px 0px;
+                font-size: 25px;
+            }
+
+            a{
+                margin: 12px 0px;
+                font-size: 20px;
+                color: #777;
+            }
+        }
+
         a{
-            margin: 20px 0px
+            margin: 0px calc((100vw - 6rem)/8);
+            font-size: 25px;
         }
 
         &__img{
@@ -245,6 +293,15 @@ const Filters = styled.ul`
     @media (max-width: 850px){
         .desktop-view{
             display: none;
+        }
+        .sub-menu{
+            box-sizing: border-box;
+            height: 280px;
+            padding: 2rem 2rem;
+
+            &__img{
+                display: none;
+            }
         }
     }
 
