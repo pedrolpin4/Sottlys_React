@@ -13,6 +13,11 @@ const postSignUp = async (forms) => {
                     success: false,
                     message: "parece que esse email já está cadastrado"
                 }
+
+                if(e.response.status === 401) return{
+                    success: false,
+                    message: "parece que esse cpf já está cadastrado"
+                }
             }
 
             return{

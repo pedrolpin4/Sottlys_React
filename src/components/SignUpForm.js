@@ -97,7 +97,7 @@ export default function SignUpForm ({setContent, email, setEmail, password, setP
                 <input className = "nav-menu__input" placeholder = "Digite seu nome completo" type = "text"
                     value = {name} onChange = {(e) => setName(e.target.value)} pattern=".{3,}" disabled = {isDisabled}
                 />
-                <input className = "nav-menu__input" placeholder = "Digite seu cpf" type = "text" disabled = {isDisabled}
+                <input className = {errorMessage === "parece que esse cpf já está cadastrado" ? "nav-menu__input invalid" : "nav-menu__input"} placeholder = "Digite seu cpf" type = "text" disabled = {isDisabled}
                     onChange = {(e) => setCpf(e.target.value)} value = {cpfMask(cpf)} pattern = ".{14}"
                 />
                 <input className = "nav-menu__input" placeholder = "Digite seu telefone [(xx) xxxxx-xxxx]" type = "text"
