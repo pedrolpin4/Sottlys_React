@@ -90,7 +90,7 @@ export default function SignUpForm ({setContent, email, setEmail, password, setP
                 <input className = "nav-menu__input" placeholder = "senha [6-11] caracteres" type = {showPassword ? "text" : "password"}
                     value = {password} onChange = {(e) => setPassword(e.target.value)} pattern=".{6,11}" disabled = {isDisabled}
                 />
-                <input className = "nav-menu__input" placeholder = "repetir senha" type = {showRepeatPassword ? "text" : "password"}
+                <input className = {password === repeatPassword ? "nav-menu__input" : "nav-menu__input invalid"} placeholder = "repetir senha" type = {showRepeatPassword ? "text" : "password"}
                     value = {repeatPassword} onChange = {(e) => setRepeatPassword(e.target.value)} pattern=".{6,11}" disabled = {isDisabled}
                 />
                 <p className ="nav-menu__input--register">Informações pessoais</p>
@@ -119,7 +119,7 @@ export default function SignUpForm ({setContent, email, setEmail, password, setP
                 <input className = "nav-menu__input" placeholder = "Digite o número da sua residência" type = "text"
                     onChange = {(e) => setNumber(e.target.value)} value = {number} pattern = ".{1,}" disabled = {isDisabled}
                 />
-                <input className = "nav-menu__input" placeholder = "Digite seu Complemento [opicional]" type = "text"
+                <input className = "nav-menu__input" placeholder = "Digite seu Complemento [opcional]" type = "text"
                     onChange = {(e) => setComplement(e.target.value)} value = {complement} disabled = {isDisabled}
                 /> 
                 <button className = "nav-menu__button" type = "submit">
