@@ -20,7 +20,7 @@ export default function SignUpForm ({setContent, email, setEmail, password, setP
         name: name,
         email: email,
         password: password,
-        cpf: cpf.replace('-', '').replace('.', ""),
+        cpf: cpf.replace('-', '').replace('.', "").replace('.', ""),
         address: {
           district: district,
           city: city,
@@ -29,7 +29,7 @@ export default function SignUpForm ({setContent, email, setEmail, password, setP
           number: number,
           complement: complement,
         },
-        phone: phone.replace('(', '').replace(')', '').replace('-', ''),
+        phone: phone.replace('(', '').replace(')', '').replace('-', '').replace(" ", ""),
     }
 
     const cpfMask = (cpf) => {
@@ -52,9 +52,10 @@ export default function SignUpForm ({setContent, email, setEmail, password, setP
     async function handleRegister(e) {
         e.preventDefault();
         const result = await postSignUp(forms);
+        console.log(forms);
         
         if(result.success){
-            setContent('login')
+            setContent('login');
             return;
         }
         console.log(result.message);
@@ -70,10 +71,10 @@ export default function SignUpForm ({setContent, email, setEmail, password, setP
                 <input className = "nav-menu__input" placeholder = "Digite seu email" type = "email" 
                     value = {email} onChange = {(e) => setEmail(e.target.value)}
                 />
-                <input className = "nav-menu__input" placeholder = "senha [6-11] caracteres" type = {showPassword ? "password" : "text"}
+                <input className = "nav-menu__input" placeholder = "senha [6-11] caracteres" type = {showPassword ? "text" : "password"}
                     value = {password} onChange = {(e) => setPassword(e.target.value)}
                 />
-                <input className = "nav-menu__input" placeholder = "repetir senha" type = {showRepeatPassword ? "password" : "text"}
+                <input className = "nav-menu__input" placeholder = "repetir senha" type = {showRepeatPassword ? "text" : "password"}
                     value = {repeatPassword} onChange = {(e) => setRepeatPassword(e.target.value)}
                 />
                 <p className ="nav-menu__input--register">Informações pessoais</p>
