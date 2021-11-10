@@ -1,7 +1,5 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { getMainCategories } from "../service/reqMainPage";
 import { IoLogoFacebook, IoLogoInstagram, IoLogoLinkedin, IoLogoPinterest, IoLogoTwitter, IoLogoWhatsapp} from "react-icons/io"
 
 export default function BottomPage ({categories}){
