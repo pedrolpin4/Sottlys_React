@@ -13,6 +13,7 @@
 }
 
 .nav-menu {
+    font-family: 'Alice';
     background-color: #fff;
     width: 350px;
     height: calc(100vh - 20px);
@@ -78,7 +79,6 @@
 }
 
 .nav-menu__form--title{
-    font-family: 'Open-sans', sans-serif;
     align-self: flex-start;
     letter-spacing: 1px;
     margin-bottom: 40px;
@@ -93,9 +93,21 @@
     margin-bottom: 20px;
 }
 
+.nav-menu__input:disabled{
+    opacity: 0.7;
+}
+
+.nav-menu__input.uf{
+    text-transform: uppercase;
+}
+
+.nav-menu__input:invalid{
+    border-bottom: 1px solid crimson;
+}
+
 .nav-menu__input::placeholder{
-    font-family: 'Open-sans', sans-serif;
     font-style: italic;
+    text-transform: none;
 }
 
 .nav-menu__input--name{
@@ -157,19 +169,49 @@
 }
 
 .show-password{
+    cursor: pointer;
     position: absolute;
     top: 216px;
-    right: 35px
+    right: 35px;
+    z-index: 4;
 }
 
 .show-repeatPassword{
+    cursor: pointer;
     position: absolute;
     top: 280px;
-    right: 35px
+    right: 35px;
+    z-index: 4;
 }
 
 .show-password--login{
+    cursor: pointer;
     position: absolute;
     top: 276px;
-    right: 35px
+    right: 35px;
+    z-index: 4;
+}
+
+.invalid{
+    border-bottom: 1px solid crimson;
+}
+
+.invalid::placeholder{
+    color: crimson;
+    opacity: 0.6;
+}
+
+.error-message{
+    font-size: 14px;
+    margin-top: 10px;
+    color: crimson;
+}
+
+.nav-menu__welcome{
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.nav-menu__suggestions--title{
+    margin-top: 15px;
 }

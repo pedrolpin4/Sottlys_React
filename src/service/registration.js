@@ -6,18 +6,18 @@ const postSignUp = async (forms) => {
             if(e.response){
                 if(e.response.status === 400) return{
                     success: false,
-                    message: e.response.message
+                    message: "preencha os campos vazios ou inválidos"
                 }
 
                 if(e.response.status === 409) return{
                     success: false,
-                    message: e.response.message
+                    message: "parece que esse email já está cadastrado"
                 }
             }
 
             return{
                 success: false,
-                message: e.response.message
+                message: "erro de servidor, já estamos trabalhando para resolver :)"
             }
         })
 
@@ -40,18 +40,18 @@ const postSignIn = async (forms) => {
 
             if(e.response.status === 401) return{
                 success: false,
-                message: e.response.message
+                message: "email e/ou senha inválidos"
             }
 
             if(e.response.status === 404) return{
                 success: false,
-                message: e.response.message
+                message: "email e/ou senha inválidos"
             }
         }
 
         return{
             success: false,
-            message: e.response.message
+            message: "erro de servidor"
         }
     })
 
