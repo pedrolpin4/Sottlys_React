@@ -4,6 +4,7 @@ import {IoPersonOutline, IoCartOutline, IoHeartOutline, IoSearchOutline, IoMenuO
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getFilters } from "../service/filters";
+import Sidebar from "./SideBar";
 
 export default function Header () {
     const [categories, setCategories] = useState([]);
@@ -11,6 +12,8 @@ export default function Header () {
     const [sales, setSales] = useState([]);
     const [filters, setFilters] = useState([]);
     const [errorMessage, setErrorMessage] = useState("");
+    const [sidebar, setSidebar] = useState(false);
+    const [content, setContent] = useState('')
 
     async function listCategories(){
         const result = await getFilters('categories');
@@ -137,9 +140,13 @@ export default function Header () {
                 <IoSearchOutline size = {25} onClick = {() => {}}/>
                 <IoHeartOutline size = {25} onClick = {() => {}}/>
                 <IoCartOutline size = {25} onClick = {() => {}}/>
-                <IoPersonOutline size = {25} onClick = {() => {}}/>
-                <IoMenuOutline size = {25} className = "mobile-view"/>
+                <IoPersonOutline size = {25}  onClick = {() => {
+                    setSidebar(true);
+                    setContent('login')
+                }}/>
+                <IoMenuOutline size = {25} className = "mobile-view" onClick = {() => setSidebar(true)}/>
             </Icons>
+            <Sidebar sidebar = {sidebar} setSidebar = {setSidebar} content = {content} setContent = {setContent}/>
         </HeaderContainer>
     )
 }
@@ -157,18 +164,6 @@ const HeaderContainer = styled.div`
     background-color: #fdddd3;
     box-shadow: 0px 1px 3px rgba(0, 0,0, 0.1);
     z-index: 2;
-
-    svg{
-        cursor: pointer;
-        margin-right: 2vw;
-        transition: all .2s;
-        color: #333;
-
-        &:hover{
-            transform: translateY(-2px) scale(1.2);
-            color: #777;
-        }
-    }
 
     @media (max-width: 1000px){
         height: 6rem;
@@ -216,6 +211,18 @@ const Icons = styled.div`
 
     .mobile-view{
         display: none;
+    }
+
+    svg{
+        cursor: pointer;
+        margin-right: 2vw;
+        transition: all .2s;
+        color: #333;
+
+        &:hover{
+            transform: translateY(-2px) scale(1.2);
+            color: #777;
+        }
     }
 
     @media (max-width: 600px){
