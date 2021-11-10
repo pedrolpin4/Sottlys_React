@@ -1,0 +1,217 @@
+.nav-overlay{
+    position: fixed;
+    top: 0;
+    left: 100vw;
+    right: 0;
+    bottom: 100vh;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.nav-overlay.active{
+    left: 0;
+    bottom: 0;
+}
+
+.nav-menu {
+    font-family: 'Alice';
+    background-color: #fff;
+    width: 350px;
+    height: calc(100vh - 20px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    top: 10px;
+    right: -350px;
+    transition: .3s;
+    overflow-y: scroll;
+}
+
+.nav-menu__header{
+    width: 350px;
+    height: 50px;
+    padding-left: 15px;
+    border-bottom: 1px solid rgba(200, 200, 200, 0.3);
+    display: flex;
+    align-items: center;
+}
+
+.nav-menu__info{
+    display: flex;
+    align-items: center;
+    color: #888;
+    height: 100%;
+}
+
+.nav-menu__info svg{
+    margin-right: 5px;
+}
+
+.nav-menu__info svg:hover{
+    transform: none;
+}
+
+.nav-menu__header p{
+    margin-left: 10px;
+}
+
+
+.nav-menu__close{
+    cursor: pointer;
+    position: absolute;
+    top: 12px;
+    right: 5px;
+    color: black;
+}
+
+.nav-menu.active{
+    top: 10px;
+    right: 10px;
+    transition: .3s;
+}
+
+.nav-menu__form{
+    margin-top: 50px;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.nav-menu__form--title{
+    align-self: flex-start;
+    letter-spacing: 1px;
+    margin-bottom: 40px;
+}
+
+.nav-menu__input{
+    width: 100%;
+    height: 40px;
+    color: #777;
+    border-bottom: 1px solid black;
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+
+.nav-menu__input:disabled{
+    opacity: 0.7;
+}
+
+.nav-menu__input.uf{
+    text-transform: uppercase;
+}
+
+.nav-menu__input:invalid{
+    border-bottom: 1px solid crimson;
+}
+
+.nav-menu__input::placeholder{
+    font-style: italic;
+    text-transform: none;
+}
+
+.nav-menu__input--name{
+    align-self: flex-start;
+    margin-bottom: 5px;
+}
+
+.nav-menu__button{
+    cursor: pointer;
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    background-color: #000;
+    margin-top: 25px;
+    font-size: 15px;
+}
+
+.nav-menu__register{
+    width: 80%;
+    margin-top: 180px;
+    font-size: 16px;
+}
+
+.nav-menu__button--switcher{
+    cursor: pointer;
+    width: 80%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #777;
+    background-color: #fff;
+    border: .7px solid #333;
+    margin-top: 25px;
+    font-size: 13px;
+}
+
+.nav-menu__input--register{
+    width: 80%;
+    align-self: flex-start;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.nav-menu__input--register:first-child{
+    margin-top: 5px;
+}
+
+.nav-menu__p--switcher{
+    cursor: pointer;
+    font-size: 12px;
+    color: #444;
+    text-decoration: underline;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+.show-password{
+    cursor: pointer;
+    position: absolute;
+    top: 216px;
+    right: 35px;
+    z-index: 4;
+}
+
+.show-repeatPassword{
+    cursor: pointer;
+    position: absolute;
+    top: 280px;
+    right: 35px;
+    z-index: 4;
+}
+
+.show-password--login{
+    cursor: pointer;
+    position: absolute;
+    top: 276px;
+    right: 35px;
+    z-index: 4;
+}
+
+.invalid{
+    border-bottom: 1px solid crimson;
+}
+
+.invalid::placeholder{
+    color: crimson;
+    opacity: 0.6;
+}
+
+.error-message{
+    font-size: 14px;
+    margin-top: 10px;
+    color: crimson;
+}
+
+.nav-menu__welcome{
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.nav-menu__suggestions--title{
+    margin-top: 15px;
+}
