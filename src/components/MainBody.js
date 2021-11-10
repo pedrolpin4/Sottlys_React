@@ -31,7 +31,7 @@ export default function MainBody (){
         <ContainerCategories>
             <p>{erro}</p>
             {categories.map((cat)=> <Category key={cat.id} name={cat.name} id={cat.id}/>)}
-            <BottomPage />
+            <BottomPage categories={categories}/>
         </ContainerCategories>
     )
 }

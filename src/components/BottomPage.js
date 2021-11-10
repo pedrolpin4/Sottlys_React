@@ -4,21 +4,7 @@ import { useEffect, useState } from "react";
 import { getMainCategories } from "../service/reqMainPage";
 import { IoLogoFacebook, IoLogoInstagram, IoLogoLinkedin, IoLogoPinterest, IoLogoTwitter, IoLogoWhatsapp} from "react-icons/io"
 
-export default function BottomPage (){
-    const [categories, setCategories] = useState([])
-
-    async function listMainCategories () {
-        const result = await getMainCategories();
-        if(result?.data){
-            setCategories(result?.data);
-            return;
-        }
-    }
-
-    useEffect(() => {
-        listMainCategories();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+export default function BottomPage ({categories}){
 
     return(
         <ContainerBottom>
