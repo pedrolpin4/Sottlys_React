@@ -2,15 +2,27 @@ import styled from "styled-components"
 import React, { forwardRef } from "react"
 
 const Item = forwardRef((props, ref) => {
+    let image = 'https://renonvstakeinfo.org/wp-content/uploads/2019/07/nocontentyet.jpg';
+    const {
+        name,
+        images,
+        installments,
+        price,
+    } = props.prod
+
+    if(images.length !== 0 ){
+        image = images[0].name
+    }
     
+    const installmentsPrice = parseFloat(price/installments).toFixed(2).replace('.', ',')
 
     return(
         <ItemBox ref={ref}>
-            <Image src="https://cdn.awsli.com.br/600x450/31/31885/produto/25840335/5e9c65111b.jpg" />
-            <ProductName>sapato bunitin </ProductName>
+            <Image src={image} />
+            <ProductName>{name}</ProductName>
             <Price>
-                <h3 >R$ 239,90</h3>
-                <p>6x 39,90</p>
+                <h3>{price}</h3>
+                <p>{installments}x {installmentsPrice}</p>
             </Price>
         </ItemBox>
         

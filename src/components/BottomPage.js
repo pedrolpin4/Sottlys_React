@@ -1,31 +1,31 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getMainCategories } from "../service/reqMainPage";
 import { IoLogoFacebook, IoLogoInstagram, IoLogoLinkedin, IoLogoPinterest, IoLogoTwitter, IoLogoWhatsapp} from "react-icons/io"
 
 export default function BottomPage (){
+    const [categories, setCategories] = useState([])
+
+    async function listMainCategories () {
+        const result = await getMainCategories();
+        if(result?.data){
+            setCategories(result?.data);
+            return;
+        }
+    }
+
+    useEffect(() => {
+        listMainCategories();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
     return(
         <ContainerBottom>
             <DiplayFlex>
                 <Info>
                 <h1>Categorias</h1>
-                <Link to="/">
-                    <p>Blusas</p>
-                </Link>
-                <Link to="/">
-                    <p>Shorts</p>
-                </Link>
-                <Link to="/">
-                    <p>Acessorio</p>
-                </Link>
-                <Link to="/">
-                    <p>Vestidos</p>
-                </Link>
-                <Link to="/">
-                    <p>Roupas de Banho</p>
-                </Link>
-                <Link to="/">
-                    <p>Sapatos</p>
-                </Link>
+                {categories.map((c)=><Link to="/" key={c.id}> <p>{c.name}</p> </Link>)}
             </Info>
             <Info>
                 <h1>Tendencias</h1>
