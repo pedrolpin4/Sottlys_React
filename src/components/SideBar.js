@@ -1,10 +1,10 @@
-import { useContext, useRef } from 'react';
+import { useContext, useRef, useState} from 'react';
 import {IoCloseOutline, IoExitOutline, IoPersonOutline} from 'react-icons/io5';
-import { useState } from 'react/cjs/react.development';
-import SignUpForm from './SignUpForm';
+import SignUpForm from './content/SignUpForm';
+import LoginForm from './content/LoginForm';
 import '../styles/sidebar.css'
-import LoginForm from './LoginForm';
 import UserContext from '../context/UserContext';
+import BasketContent from './content/BasketContent';
 
 const Sidebar = ({ sidebar, setSidebar, content, setContent }) => {
     const sidebarRef = useRef();
@@ -38,7 +38,9 @@ const Sidebar = ({ sidebar, setSidebar, content, setContent }) => {
                             <>
                                 <IoPersonOutline size = {20} color = {"#777"}/>
                                 <p>Registro</p>
-                            </> :
+                            </> : content === 'basket' ?
+                                <></>
+                            :
                             <>
                                 <IoPersonOutline size = {20} color = {"#777"}/>
                                 <p className = "nav-menu__welcome">Bem vindx, {userData.user ? userData.user.name.split(" ")[0] : "name"}</p>
@@ -55,7 +57,9 @@ const Sidebar = ({ sidebar, setSidebar, content, setContent }) => {
                     /> : content === 'sign-up' ? 
                     <SignUpForm setContent = {setContent} password = {password} email = {email}
                         setPassword = {setPassword} setEmail = {setEmail}
-                    /> : <h1 className = "nav-menu__suggestions--title">Algumas sugestões para você:</h1>
+                    /> : content === 'basket' ?
+                    <BasketContent />
+                    : <h1 className = "nav-menu__suggestions--title">Algumas sugestões para você:</h1>
                 }
             </div>
         </>

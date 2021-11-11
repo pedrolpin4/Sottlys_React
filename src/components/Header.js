@@ -105,14 +105,9 @@ export default function Header () {
                                         filters[0] === trends[0] ?
                                             filters.map(e => {
                                                 return(
-                                                    <div className = "filter-name">
-                                                        <h1>{e.name}</h1>
-                                                        {e.categories ? e.categories.map((cat) => (
-                                                            <Link to = {`/categories/${cat.id}`} key = {cat.id}>
-                                                                {cat.name}
-                                                            </Link>
-                                                        )) :  ""}
-                                                    </div>
+                                                    <Link to = {`/categories/${e.id}`} key = {e.id}>
+                                                        {e.name}
+                                                    </Link>
                                                 )
                                             }) :
                                             filters.map(e => {
@@ -139,7 +134,10 @@ export default function Header () {
             <Icons>
                 <IoSearchOutline size = {25} onClick = {() => {}}/>
                 <IoHeartOutline size = {25} onClick = {() => {}}/>
-                <IoCartOutline size = {25} onClick = {() => {}}/>
+                <IoCartOutline size = {25} onClick = {() => {
+                    setSidebar(true);
+                    setContent('basket')
+                }}/>
                 <IoPersonOutline size = {25}  onClick = {() => {
                     setSidebar(true);
                     setContent('login')
