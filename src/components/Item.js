@@ -1,5 +1,6 @@
 import styled from "styled-components"
-import React, { forwardRef } from "react"
+import React, { forwardRef, useEffect } from "react"
+import FastBuy from "./FastBuy";
 
 const Item = forwardRef((props, ref) => {
     let image = 'https://renonvstakeinfo.org/wp-content/uploads/2019/07/nocontentyet.jpg';
@@ -8,6 +9,9 @@ const Item = forwardRef((props, ref) => {
         images,
         installments,
         price,
+        colors,
+        sizes,
+        id
     } = props.prod
 
     if(images.length !== 0 ){
@@ -16,9 +20,17 @@ const Item = forwardRef((props, ref) => {
     
     const installmentsPrice = parseFloat(price/installments).toFixed(2).replace('.', ',')
 
+    useEffect(() => {
+        // listProductsByCategory();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
     return(
         <ItemBox ref={ref}>
-            <Image src={image} />
+            <Image>
+                <img src={image} alt=""/>
+                <FastBuy colors ={colors} sizes={sizes} productId={id}/> 
+            </Image>         
             <ProductName>{name}</ProductName>
             <Price>
                 <h3>{Number(price).toFixed(2).replace(".", ",")}</h3>
@@ -31,18 +43,30 @@ const Item = forwardRef((props, ref) => {
 
 export default Item;
 
-const Image = styled.img`
+const Image = styled.div`
     cursor: pointer;
-    width: 200px;
-    height: 240px;
-    margin-right: 20px;
+    width: 230px;
+    height: 280px;
     border-radius: 5px;
     box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.15);
+    position: relative;
+    overflow-y: hidden;
+    transition: all .4s;
 
     @media(max-width: 800px){
         width: 155px;
         height: 190px;
     }
+    img{
+        width: 100%;
+        height: 100%;
+        border-radius: 5px;
+    }
+    &:hover div{
+        transform: translateY(0);
+        opacity: 1;
+    }
+
 `
 const ProductName = styled.h2`
     cursor: pointer;
@@ -54,7 +78,7 @@ const ProductName = styled.h2`
 `
 const ItemBox = styled.div`
     word-break: normal;
-
+    margin-left: 20px;
 `
 const Price = styled.div`
     display: flex;
