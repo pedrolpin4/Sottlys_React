@@ -1,16 +1,22 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
+import { deleteProduct, updateQuantity } from "../service/basket"
+import UserContext from '../context/UserContext'
+import { IoTrashOutline } from 'react-icons/io5'
 
-export default function BasketProduct({prod, setQuantity, setTotal}){  
-    const[prodQty, setProdQty] = useState(prod.quantity)  
+export default function BasketProduct({prod, setQuantity, setTotal, content}){  
+    const[prodQty, setProdQty] = useState(prod.quantity);
+    const { userData } = useContext(UserContext);
+    console.log(prodQty);
 
     useEffect( () => {
-        setTotal(prev => prev + Number(prod.product.price)*prod.quantity)
-        setQuantity(prev => prev + prod.quantity)
-    }, [])
+        setTotal(prev => prev + Number(prod.product.price)*prod.quantity);
+        setQuantity(prev => prev + prod.quantity);
+    }, []);
 
     return (
      <div className = "nav-menu__product" key = {prod.id}>
+         <IoTrashOutline size = {12} onClick = {() => deleteProduct(userData.token, prod.product.id)}/>
          <img className = "nav-menu__product--image" src ={prod.image ? prod.image.name :  "/assets/Girassol.png"} 
              alt ="imagem produto" key = {`i${prod.id}`}/>
          <div className = "nav-menu__product--info" >
@@ -24,6 +30,7 @@ export default function BasketProduct({prod, setQuantity, setTotal}){
                      <div onClick = {() => {
                          setQuantity(prev => prev - 1)
                          setProdQty(prev => prev - 1)
+                         updateQuantity(userData.token, prod.product.id, prodQty - 1)
                          setTotal(prev => prev  - Number(prod.product.price))
                     }}>
                          -
@@ -32,6 +39,7 @@ export default function BasketProduct({prod, setQuantity, setTotal}){
                      <div onClick = {() => {
                          setQuantity(prev => prev + 1)
                          setProdQty(prev => prev + 1)
+                         updateQuantity(userData.token, prod.product.id, prodQty + 1)
                          setTotal(prev => prev  + Number(prod.product.price))
                     }}>
                             +

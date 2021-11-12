@@ -17,10 +17,10 @@ export default function App() {
     return(
         <UserContext.Provider value={{userData,setUserData}}>
         <Router>
-            <GlobalStyles />
-            <Routes>
-                <Route path = "/" exact element = {<Home />} />
-            </Routes>
+                <GlobalStyles />
+                <Routes>
+                    <Route path = "/" exact element = {<Home />} />
+                </Routes>
         </Router>
         </UserContext.Provider>
     )

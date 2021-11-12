@@ -221,10 +221,18 @@
 }
 
 .nav-menu__product{
+    position: relative;
     width: 90%;
     height: 80px;
     display: flex;
     margin-top: 15px;
+}
+
+.nav-menu__product svg{
+    cursor: pointer;
+    position: absolute;
+    top: 3px;
+    right: 5px;
 }
 
 .nav-menu__product--image{
@@ -347,6 +355,7 @@
 
 .error-container{
     display: flex;
+    margin-top: 20px;
     height: calc(100vh - 500px);
     font-size: 30px;
     text-align: center;
@@ -356,6 +365,7 @@
 }
 
 .error-container p {
+    font-size: 24px;
     margin-bottom: 30px;
 }
 

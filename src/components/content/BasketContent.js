@@ -32,7 +32,8 @@ export default function BasketContent({ setQuantity, sidebar, content, setConten
     return(
         products.length ?
         <>
-            {products.map(prod => (<BasketProduct prod= {prod} setQuantity = {setQuantity} setTotal = {setTotal}/>))}
+            {products.map((prod, i) => (<BasketProduct key = {i} prod= {prod} 
+                setQuantity = {setQuantity} setTotal = {setTotal} content = {content}/>))}
             <div className = {sidebar && content === 'basket' ? "footer active": "footer"}> 
                 {sidebar && content === 'basket' ? 
                 <>
