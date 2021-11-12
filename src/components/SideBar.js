@@ -46,7 +46,7 @@ const Sidebar = ({ sidebar, setSidebar, content, setContent }) => {
                             </>:
                             <>
                                 <IoPersonOutline size = {20} color = {"#777"}/>
-                                <p className = "nav-menu__welcome">Bem vindx, {userData.user ? userData.user.name.split(" ")[0] : "name"}</p>
+                                <p className = "nav-menu__welcome">Bem vinde, {userData.user ? userData.user.name.split(" ")[0] : "name"}</p>
                                 <IoExitOutline onClick = {logOut} size = {20} cursor = {"pointer"}/>
                             </>
                         }

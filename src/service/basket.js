@@ -39,11 +39,14 @@ async function getBasket(token){
 async function updateQuantity(token, productId, quantity){
     let status;
     let serverError;
+    let newToken = BearerToken(token);
+    console.log(newToken);
+
 
     const result = await API.put(`/quantity`, {
         productId,
         quantity
-    } ,BearerToken(token))
+    } ,newToken)
 
     .catch(err => {
         if(err.response){
@@ -69,11 +72,42 @@ async function updateQuantity(token, productId, quantity){
     return serverError
 }
 
-async function deleteProduct(token, productId){
-    return;
+async function deleteProduct(token, productId, setPosition){
+    let status;
+    let serverError;
+    let newToken = BearerToken(token);
+    console.log(newToken);
+
+    const result = await API.delete(`/basket`, {data: {productId,},headers:{
+        Authorization: `Bearer ${token}`
+    } })
+
+    .catch(err => {
+        if(err.response){
+            status = err.response.status;
+            return status
+        }
+
+        serverError = {
+            success: false,
+            message: "Nosso servidor não está funcionando, já estamos trabalhando nisso!!"
+        }     
+    })
+
+    if(status === 401)return {
+        success: false,
+        message: `Parece que você não está logado`,
+    }
+
+    if(result.success){
+        setPosition(true)
+        return {
+            success: true
+        }
+    } 
+
+    return serverError
 }
-
-
 
 export {
     getBasket,

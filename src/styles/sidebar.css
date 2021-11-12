@@ -226,6 +226,13 @@
     height: 80px;
     display: flex;
     margin-top: 15px;
+    transform: none;
+    transition: all .3s;
+}
+
+.nav-menu__product.hidden{
+    transform: translateX(-350px);
+    opacity: 0;
 }
 
 .nav-menu__product svg{

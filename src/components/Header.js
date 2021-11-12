@@ -320,6 +320,7 @@ const Filters = styled.ul`
         .sub-menu{
             box-sizing: border-box;
             height: 280px;
+            top: 4.25rem;
             padding: 2rem 2rem;
 
             &__img{

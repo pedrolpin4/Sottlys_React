@@ -4,8 +4,9 @@ import { deleteProduct, updateQuantity } from "../service/basket"
 import UserContext from '../context/UserContext'
 import { IoTrashOutline } from 'react-icons/io5'
 
-export default function BasketProduct({prod, setQuantity, setTotal, content}){  
+export default function BasketProduct({prod, setQuantity, setTotal}){  
     const[prodQty, setProdQty] = useState(prod.quantity);
+    const[position, setPosition] = useState(false)
     const { userData } = useContext(UserContext);
 
     useEffect( () => {
@@ -14,8 +15,10 @@ export default function BasketProduct({prod, setQuantity, setTotal, content}){
     }, []);
 
     return (
-     <div className = "nav-menu__product" key = {prod.id}>
-         <IoTrashOutline size = {12} onClick = {() => deleteProduct(userData.token, prod.product.id)}/>
+     <div className = {position ? "nav-menu__product hidden": "nav-menu__product"} key = {prod.id}>
+         <IoTrashOutline size = {12} onClick = {() => {
+            deleteProduct(userData.token, prod.product.id, setPosition)
+         }}/>
          <img className = "nav-menu__product--image" src ={prod.image ? prod.image.name :  "/assets/Girassol.png"} 
              alt ="imagem produto" key = {`i${prod.id}`}/>
          <div className = "nav-menu__product--info" >
@@ -36,7 +39,7 @@ export default function BasketProduct({prod, setQuantity, setTotal, content}){
                         setTotal(prev => prev  - Number(prod.product.price))   
 
                          if(prodQty === 1){
-                            deleteProduct(userData.token, prod.product.id);
+                            deleteProduct(userData.token, prod.product.id, setPosition);
                             return;
                          }
                          updateQuantity(userData.token, prod.product.id, prodQty - 1)

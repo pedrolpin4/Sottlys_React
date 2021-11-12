@@ -38,7 +38,7 @@ export default function BasketContent({ setQuantity, sidebar, content, setConten
                 {sidebar && content === 'basket' ? 
                 <>
                     <div>Total</div>
-                    <div>R$ {`${total},00`}</div> 
+                    <div>R$ {total.toFixed(2).replace(".", ",")}</div> 
                 </> :
                 <></>
             }
