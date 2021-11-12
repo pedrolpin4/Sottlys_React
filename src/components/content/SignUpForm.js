@@ -1,7 +1,7 @@
 import { IoEyeOutline } from "react-icons/io5";
 import { useState } from "react/cjs/react.development";
-import { postSignUp } from "../service/registration";
-import Loading from "./Loading";
+import { postSignUp } from "../../service/registration";
+import Loading from "../Loading";
 
 export default function SignUpForm ({setContent, email, setEmail, password, setPassword}) {
     const[repeatPassword, setRepeatPassword] = useState('');

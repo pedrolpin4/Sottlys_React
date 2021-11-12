@@ -105,14 +105,9 @@ export default function Header () {
                                         filters[0] === trends[0] ?
                                             filters.map(e => {
                                                 return(
-                                                    <div className = "filter-name">
-                                                        <h1>{e.name}</h1>
-                                                        {e.categories ? e.categories.map((cat) => (
-                                                            <Link to = {`/categories/${cat.id}`} key = {cat.id}>
-                                                                {cat.name}
-                                                            </Link>
-                                                        )) :  ""}
-                                                    </div>
+                                                    <Link to = {`/categories/${e.id}`} key = {e.id}>
+                                                        {e.name}
+                                                    </Link>
                                                 )
                                             }) :
                                             filters.map(e => {
@@ -139,7 +134,10 @@ export default function Header () {
             <Icons>
                 <IoSearchOutline size = {25} onClick = {() => {}}/>
                 <IoHeartOutline size = {25} onClick = {() => {}}/>
-                <IoCartOutline size = {25} onClick = {() => {}}/>
+                <IoCartOutline size = {25} onClick = {() => {
+                    setSidebar(true);
+                    setContent('basket')
+                }}/>
                 <IoPersonOutline size = {25}  onClick = {() => {
                     setSidebar(true);
                     setContent('login')
@@ -161,14 +159,13 @@ const HeaderContainer = styled.div`
     align-items: center;
     justify-content: space-between;
     height: 7rem;
-    background-color: #fdddd3;
+    background-color: #fff;
     box-shadow: 0px 1px 3px rgba(0, 0,0, 0.1);
     z-index: 2;
 
     @media (max-width: 1000px){
         height: 6rem;
-
-
+        
         img{
             margin-right: 3.5vw;
         }
@@ -254,13 +251,13 @@ const Filters = styled.ul`
         flex-direction: column;
         flex-wrap: wrap;
         overflow-y: hidden;
-        padding: 3rem 2rem;
+        padding: 1rem 2rem;
         background-color: #fff;
         color: #333;
         transform: scaleY(0);
         transition: all .3s ease;
         opacity: 0;
-        z-index: 3;
+        z-index: 5;
 
         .filter-name{
             display: flex;
@@ -310,9 +307,9 @@ const Filters = styled.ul`
 
     :hover{
         .sub-menu{
-            transform: scale(1);
+            transform: scaleY(1);
             opacity: 1;
-            box-shadow: 0px 400px 0px 0px rgba(0,0,0,0.3);
+            box-shadow: 0px 4px 4px rgba(0 , 0, 0, 0.3);
         }
     }
 

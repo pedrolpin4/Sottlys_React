@@ -1,9 +1,9 @@
 import { useContext, useEffect } from "react";
 import { IoEyeOutline } from "react-icons/io5";
 import { useState } from "react/cjs/react.development";
-import UserContext from "../context/UserContext";
-import { postSignIn } from "../service/registration";
-import Loading from "./Loading";
+import UserContext from "../../context/UserContext";
+import { postSignIn } from "../../service/registration";
+import Loading from "../Loading";
 
 export default function LoginForm ({setContent, email, setEmail, password, setPassword}){
     const[showPassword, setShowPassword] = useState(false);

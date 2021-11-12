@@ -1,16 +1,17 @@
-import { useContext, useRef } from 'react';
-import {IoCloseOutline, IoExitOutline, IoPersonOutline} from 'react-icons/io5';
-import { useState } from 'react/cjs/react.development';
-import SignUpForm from './SignUpForm';
+import { useContext, useRef, useState} from 'react';
+import {IoCartOutline, IoCloseOutline, IoExitOutline, IoPersonOutline} from 'react-icons/io5';
+import SignUpForm from './content/SignUpForm';
+import LoginForm from './content/LoginForm';
 import '../styles/sidebar.css'
-import LoginForm from './LoginForm';
 import UserContext from '../context/UserContext';
+import BasketContent from './content/BasketContent';
 
 const Sidebar = ({ sidebar, setSidebar, content, setContent }) => {
     const sidebarRef = useRef();
     const[email, setEmail] = useState('');
     const[password, setPassword] = useState('');
     const{userData, setUserData} = useContext(UserContext);
+    const [quantity, setQuantity] = useState(0);
 
     function closeModal (e) {
         if (sidebarRef.current === e.target) {
@@ -38,7 +39,11 @@ const Sidebar = ({ sidebar, setSidebar, content, setContent }) => {
                             <>
                                 <IoPersonOutline size = {20} color = {"#777"}/>
                                 <p>Registro</p>
-                            </> :
+                            </> : content === 'basket' ?
+                            <>
+                                <IoCartOutline size = {20} color = {"#777"}/>
+                                <p>{quantity} items</p>
+                            </>:
                             <>
                                 <IoPersonOutline size = {20} color = {"#777"}/>
                                 <p className = "nav-menu__welcome">Bem vindx, {userData.user ? userData.user.name.split(" ")[0] : "name"}</p>
@@ -55,7 +60,15 @@ const Sidebar = ({ sidebar, setSidebar, content, setContent }) => {
                     /> : content === 'sign-up' ? 
                     <SignUpForm setContent = {setContent} password = {password} email = {email}
                         setPassword = {setPassword} setEmail = {setEmail}
-                    /> : <h1 className = "nav-menu__suggestions--title">Algumas sugestões para você:</h1>
+                    /> : content === 'basket' ?
+                    <BasketContent setQuantity = {setQuantity} sidebar = {sidebar} content = {content} 
+                        setContent = {setContent} setSidebar = {setSidebar}/>
+                    :    <div className = "error-container">
+                            <p>Continue suas compras:</p>
+                            <div className = "nav-menu__button basket" onClick = {() => setSidebar(false)}>
+                                Continuar Comprando
+                            </div>
+                        </div> 
                 }
             </div>
         </>
