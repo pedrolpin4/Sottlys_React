@@ -56,7 +56,7 @@ export default function Category({name, id}){
                  fontSize="34px" 
                  color="lightgray"
                  />
-                </IconBox1>
+            </IconBox1>
             <ItensContainer >
                 <p ref={left}>{erro}</p>
                 {products.map((prod)=>  <Item key={prod.id} prod={prod}/>)}
@@ -72,7 +72,7 @@ export default function Category({name, id}){
                  fontSize="34px" 
                  color="lightgray"
                  />
-                </IconBox>
+            </IconBox>
         </BoxCategory>
     )
 }
@@ -103,6 +103,7 @@ const ItensContainer = styled.div`
     align-items: center;
     overflow-x: hidden;
     height: auto;
+    overflow-y: hidden;
 
     @media(max-width:800px){
         overflow-x: scroll;
@@ -114,6 +115,7 @@ const IconBox1 = styled.div`
     position: absolute;
     left: 4px;
     top: 43%;
+    z-index: 3;
     
     @media(max-width:800px){
         display:none
@@ -123,6 +125,7 @@ const IconBox = styled.div`
     position: absolute;
     right: 4px;
     top: 43%;
+    z-index: 3;
 
     @media(max-width:800px){
         display:none
