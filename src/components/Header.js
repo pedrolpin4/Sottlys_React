@@ -91,7 +91,6 @@ export default function Header () {
                             Tendências
                         </p>
                     </DropDownOption>
-                    <div className = "sub-menu-overlay"></div>
                     <div className="sub-menu">
                             {
                                 filters.length ? 
@@ -240,14 +239,6 @@ const Filters = styled.ul`
     display: flex;
     align-items: center;
 
-    .sub-menu-overlay{
-        position: fixed;
-        top: 5rem;
-        left: 0;
-        width: 100vw;
-        height: 0px;
-    }
-
     .sub-menu{
         position: absolute;
         top: 5rem;
@@ -318,11 +309,7 @@ const Filters = styled.ul`
         .sub-menu{
             transform: scaleY(1);
             opacity: 1;
-        }
-
-        .sub-menu-overlay{
-            height: calc(100vh - 5rem);
-            background-color: rgba(0,0,0,0.3);
+            box-shadow: 0px 4px 4px rgba(0 , 0, 0, 0.3);
         }
     }
 

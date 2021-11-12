@@ -57,10 +57,6 @@ async function updateQuantity(token, productId, quantity){
         }     
     })
 
-    console.log({
-        productId,
-        quantity
-    });
     if(status === 401)return {
         success: false,
         message: `Parece que você não está logado`,
@@ -73,8 +69,8 @@ async function updateQuantity(token, productId, quantity){
     return serverError
 }
 
-async function deleteProduct(token, productId, quantity){
-    console.log('tenho que fazer isso aqui');
+async function deleteProduct(token, productId){
+    return;
 }
 
 

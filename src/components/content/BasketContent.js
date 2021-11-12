@@ -5,7 +5,7 @@ import UserContext from "../../context/UserContext"
 import { getBasket } from "../../service/basket"
 import BasketProduct from "../BasketProduct";
 
-export default function BasketContent({ setQuantity, sidebar, content, setContent}){
+export default function BasketContent({ setQuantity, sidebar, content, setContent, setSidebar}){
     const [products, setProducts] = useState([]);
     const [message, setMessage] = useState('');
     const [total, setTotal] = useState(0);
@@ -53,7 +53,12 @@ export default function BasketContent({ setQuantity, sidebar, content, setConten
             </div>
 
         </>: message === "Seu carrinho está vazio :(" ?
-        <div className = "error-container">{message}</div> :
+            <div className = "error-container">
+                <p>{message}</p>
+                <div className = "nav-menu__button basket" onClick = {() => setSidebar(false)}>
+                    Continuar Comprando
+                </div>
+            </div> :
         <div className = "error-container">
             <p>{message}</p>
             <div className = "nav-menu__button basket" onClick = {() => setContent('login')}>

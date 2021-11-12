@@ -7,7 +7,6 @@ import { IoTrashOutline } from 'react-icons/io5'
 export default function BasketProduct({prod, setQuantity, setTotal, content}){  
     const[prodQty, setProdQty] = useState(prod.quantity);
     const { userData } = useContext(UserContext);
-    console.log(prodQty);
 
     useEffect( () => {
         setTotal(prev => prev + Number(prod.product.price)*prod.quantity);
@@ -28,10 +27,19 @@ export default function BasketProduct({prod, setQuantity, setTotal, content}){
              <div className = "product--numbers">
                  <div className = "product--operators">
                      <div onClick = {() => {
-                         setQuantity(prev => prev - 1)
-                         setProdQty(prev => prev - 1)
+                        if(prodQty < 1){
+                            return;
+                        }
+                        
+                        setQuantity(prev => prev - 1)
+                        setProdQty(prev => prev - 1)
+                        setTotal(prev => prev  - Number(prod.product.price))   
+
+                         if(prodQty === 1){
+                            deleteProduct(userData.token, prod.product.id);
+                            return;
+                         }
                          updateQuantity(userData.token, prod.product.id, prodQty - 1)
-                         setTotal(prev => prev  - Number(prod.product.price))
                     }}>
                          -
                      </div>

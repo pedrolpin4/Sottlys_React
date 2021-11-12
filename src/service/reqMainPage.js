@@ -13,7 +13,7 @@ async function getMainCategories(){
 
         serverError = {
             success: false,
-            message: "Looks like our server is not okay, we'll fix it ASAP"
+            message:  "Nosso servidor não está funcionando, já estamos trabalhando nisso!!"
         }     
     })
 
@@ -43,7 +43,7 @@ async function getProductsByCategory(id){
 
         serverError = {
             success: false,
-            message: "Looks like our server is not okay, we'll fix it ASAP"
+            message:  "Nosso servidor não está funcionando, já estamos trabalhando nisso!!"
         }     
     })
 

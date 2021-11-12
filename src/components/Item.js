@@ -32,6 +32,7 @@ const Item = forwardRef((props, ref) => {
 export default Item;
 
 const Image = styled.img`
+    cursor: pointer;
     width: 200px;
     height: 240px;
     margin-right: 20px;
@@ -44,6 +45,7 @@ const Image = styled.img`
     }
 `
 const ProductName = styled.h2`
+    cursor: pointer;
     font-size: 20px;
     font-weight: 700;
     @media(max-width: 800px){

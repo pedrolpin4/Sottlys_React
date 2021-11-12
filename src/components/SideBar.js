@@ -61,8 +61,14 @@ const Sidebar = ({ sidebar, setSidebar, content, setContent }) => {
                     <SignUpForm setContent = {setContent} password = {password} email = {email}
                         setPassword = {setPassword} setEmail = {setEmail}
                     /> : content === 'basket' ?
-                    <BasketContent setQuantity = {setQuantity} sidebar = {sidebar} content = {content} setContent = {setContent}/>
-                    : <h1 className = "nav-menu__suggestions--title">Algumas sugestões para você:</h1>
+                    <BasketContent setQuantity = {setQuantity} sidebar = {sidebar} content = {content} 
+                        setContent = {setContent} setSidebar = {setSidebar}/>
+                    :    <div className = "error-container">
+                            <p>Continue suas compras:</p>
+                            <div className = "nav-menu__button basket" onClick = {() => setSidebar(false)}>
+                                Continuar Comprando
+                            </div>
+                        </div> 
                 }
             </div>
         </>

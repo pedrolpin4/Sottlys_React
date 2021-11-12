@@ -148,7 +148,7 @@
     color: #777;
     background-color: #fff;
     border: .7px solid #333;
-    margin-top: 25px;
+    margin-top: 2vh;
     font-size: 13px;
 }
 
@@ -386,5 +386,25 @@
     .footer.active{
         bottom: 60px;
         right: 0px;
+    }
+}
+
+@media(max-width: 600px){
+    .nav-menu__product svg{
+        cursor: pointer;
+        position: absolute;
+        top: 6px;
+        right: -20px;
+    }
+}
+
+@media (max-height: 800px) {
+    .nav-menu__register{
+        margin-top: 100px;
+    }
+
+    .nav-menu__button--switcher{
+        height: 50px;
+        margin-bottom: 30px;
     }
 }
