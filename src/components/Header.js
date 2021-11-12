@@ -91,6 +91,7 @@ export default function Header () {
                             Tendências
                         </p>
                     </DropDownOption>
+                    <div className = "sub-menu-overlay"></div>
                     <div className="sub-menu">
                             {
                                 filters.length ? 
@@ -159,14 +160,13 @@ const HeaderContainer = styled.div`
     align-items: center;
     justify-content: space-between;
     height: 7rem;
-    background-color: #fdddd3;
+    background-color: #fff;
     box-shadow: 0px 1px 3px rgba(0, 0,0, 0.1);
     z-index: 2;
 
     @media (max-width: 1000px){
         height: 6rem;
-
-
+        
         img{
             margin-right: 3.5vw;
         }
@@ -240,6 +240,14 @@ const Filters = styled.ul`
     display: flex;
     align-items: center;
 
+    .sub-menu-overlay{
+        position: fixed;
+        top: 5rem;
+        left: 0;
+        width: 100vw;
+        height: 0px;
+    }
+
     .sub-menu{
         position: absolute;
         top: 5rem;
@@ -252,13 +260,13 @@ const Filters = styled.ul`
         flex-direction: column;
         flex-wrap: wrap;
         overflow-y: hidden;
-        padding: 3rem 2rem;
+        padding: 1rem 2rem;
         background-color: #fff;
         color: #333;
         transform: scaleY(0);
         transition: all .3s ease;
         opacity: 0;
-        z-index: 3;
+        z-index: 5;
 
         .filter-name{
             display: flex;
@@ -308,9 +316,13 @@ const Filters = styled.ul`
 
     :hover{
         .sub-menu{
-            transform: scale(1);
+            transform: scaleY(1);
             opacity: 1;
-            box-shadow: 0px 400px 0px 0px rgba(0,0,0,0.3);
+        }
+
+        .sub-menu-overlay{
+            height: calc(100vh - 5rem);
+            background-color: rgba(0,0,0,0.3);
         }
     }
 

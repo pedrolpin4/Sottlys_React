@@ -17,7 +17,6 @@ async function getBasket(token){
             message: "Nosso servidor não está funcionando, já estamos trabalhando nisso!!"
         }     
     })
-    console.log(BearerToken(token));
 
     if(status === 401)return {
         success: false,

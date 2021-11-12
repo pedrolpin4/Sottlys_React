@@ -3,10 +3,13 @@ import { useContext, useEffect } from "react"
 import { useState } from "react/cjs/react.development"
 import UserContext from "../../context/UserContext"
 import { getBasket } from "../../service/basket"
+import BasketProduct from "../BasketProduct";
 
-export default function BasketContent(){
+export default function BasketContent({ setQuantity, sidebar, content, setContent}){
     const [products, setProducts] = useState([]);
-    const [message, setMessage] = useState('')
+    const [message, setMessage] = useState('');
+    const [total, setTotal] = useState(0);
+
     const {userData} = useContext(UserContext);
 
     async function listBasket () {
@@ -21,21 +24,40 @@ export default function BasketContent(){
         return;
     }
 
-    useEffect(() => listBasket(), []);
+    useEffect(() => {
+        listBasket();
+        return () => setQuantity(0)
+    }, []);
 
     return(
         products.length ?
-        products.map(prod => (
-            <>
-                <p>{prod.quantity}</p>
-                <p>{prod.colors.name}</p>
-                <p>{prod.size.name}</p>
-                <p>{prod.product.name}</p>
-                <p>{prod.product.description}</p>
-                <p>{prod.product.price}</p>
-                <p>{prod.product.installments}</p>
-            </>
-        )) :
-        <p>{message}</p>
+        <>
+            {products.map(prod => (<BasketProduct prod= {prod} setQuantity = {setQuantity} setTotal = {setTotal}/>))}
+            <div className = {sidebar && content === 'basket' ? "footer active": "footer"}> 
+                {sidebar && content === 'basket' ? 
+                <>
+                    <div>Total</div>
+                    <div>R$ {`${total},00`}</div> 
+                </> :
+                <></>
+            }
+            </div>
+            <div className = {sidebar && content === 'basket' ? "checkout active": "checkout"}> 
+            {sidebar && content === 'basket' ? 
+                <>
+                    <div>Finalizar compra</div>
+                </> :
+                <></>
+            }
+            </div>
+
+        </>: message === "Seu carrinho está vazio :(" ?
+        <div className = "error-container">{message}</div> :
+        <div className = "error-container">
+            <p>{message}</p>
+            <div className = "nav-menu__button basket" onClick = {() => setContent('login')}>
+                Fazer Login
+            </div>
+        </div>
     )
 }

@@ -21,7 +21,7 @@ const Item = forwardRef((props, ref) => {
             <Image src={image} />
             <ProductName>{name}</ProductName>
             <Price>
-                <h3>{price}</h3>
+                <h3>{Number(price).toFixed(2).replace(".", ",")}</h3>
                 <p>{installments}x {installmentsPrice}</p>
             </Price>
         </ItemBox>

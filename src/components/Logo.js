@@ -3,7 +3,7 @@ import styled from "styled-components"
 export default function Logo () {
     return(
         <>
-            <LogoText src = "../assets/textLogo.jpeg"/>
+            <LogoText src = "../assets/textLogo.png"/>
             <LogoImg src = "../assets/Girassol.png"/>
         </>
 
