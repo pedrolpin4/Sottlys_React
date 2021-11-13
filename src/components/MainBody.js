@@ -4,7 +4,7 @@ import styled from "styled-components"
 import { useEffect, useState } from "react";
 import { getMainCategories } from "../service/reqMainPage";
 
-export default function MainBody (){
+export default function MainBody ({sidebar, setSideBar}){
      const [categories, setCategories] = useState([])
      const [erro, setErro] = useState("");
 
@@ -30,7 +30,7 @@ export default function MainBody (){
     return(
         <ContainerCategories>
             <p>{erro}</p>
-            {categories.map((cat)=> <Category key={cat.id} name={cat.name} id={cat.id}/>)}
+            {categories.map((cat)=> <Category key={cat.id} name={cat.name} id={cat.id} sidebar = {sidebar} setSideBar = {setSideBar}/>)}
             <BottomPage categories={categories}/>
         </ContainerCategories>
     )
@@ -43,5 +43,5 @@ const ContainerCategories = styled.div`
     align-items: center;
     margin-top: 114px;
     width: 100vw;
-    font-family: 'Open Sans';
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 `

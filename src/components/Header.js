@@ -6,13 +6,12 @@ import { useEffect, useState } from "react";
 import { getFilters } from "../service/filters";
 import Sidebar from "./SideBar";
 
-export default function Header () {
+export default function Header ({sidebar, setSidebar}) {
     const [categories, setCategories] = useState([]);
     const [trends, setTrends] = useState([]);
     const [sales, setSales] = useState([]);
     const [filters, setFilters] = useState([]);
     const [errorMessage, setErrorMessage] = useState("");
-    const [sidebar, setSidebar] = useState(false);
     const [content, setContent] = useState('')
 
     async function listCategories(){

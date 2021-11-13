@@ -4,23 +4,31 @@ import { deleteProduct, updateQuantity } from "../service/basket"
 import UserContext from '../context/UserContext'
 import { IoTrashOutline } from 'react-icons/io5'
 
-export default function BasketProduct({prod, setQuantity, setTotal}){  
+export default function BasketProduct({prod, setQuantity, setTotal, products, setProducts}){  
     const[prodQty, setProdQty] = useState(prod.quantity);
-    const[position, setPosition] = useState(false)
     const { userData } = useContext(UserContext);
 
     useEffect( () => {
+        setProdQty(prod.quantity)
+    }, [products.length]);
+
+    useEffect(() => {
         setTotal(prev => prev + Number(prod.product.price)*prod.quantity);
         setQuantity(prev => prev + prod.quantity);
-    }, []);
-
+    }, [])
+    
     return (
-     <div className = {position ? "nav-menu__product hidden": "nav-menu__product"} key = {prod.id}>
+     <div className = "nav-menu__product" key = {prod.id}>
          <IoTrashOutline size = {12} onClick = {() => {
-            deleteProduct(userData.token, prod.product.id, setPosition)
+            deleteProduct(userData.token, prod.product.id);
+            setQuantity(prev => prev - prodQty);
+            setTotal(prev => prev - Number(prod.product.price) * prodQty);
+            const newProd = products.filter(e => e.product.id !== prod.product.id);
+            setProducts(newProd);
          }}/>
+
          <img className = "nav-menu__product--image" src ={prod.image ? prod.image.name :  "/assets/Girassol.png"} 
-             alt ="imagem produto" key = {`i${prod.id}`}/>
+             alt ="imagem produto" key = {`i${prod.product.id}`}/>
          <div className = "nav-menu__product--info" >
              <p className = "product--name">{prod.product.name}</p>
              <div className = "product--specifics">
@@ -33,16 +41,20 @@ export default function BasketProduct({prod, setQuantity, setTotal}){
                         if(prodQty < 1){
                             return;
                         }
-                        
+                    
+                        if(prodQty === 1){
+                            deleteProduct(userData.token, prod.product.id);
+                            setQuantity(prev => prev - prodQty);
+                            setTotal(prev => prev - Number(prod.product.price) * prodQty);
+                            const newProd = products.filter(e => e.product.id !== prod.product.id);
+                            setProducts(newProd);
+                            return;
+                        }
+
                         setQuantity(prev => prev - 1)
                         setProdQty(prev => prev - 1)
-                        setTotal(prev => prev  - Number(prod.product.price))   
-
-                         if(prodQty === 1){
-                            deleteProduct(userData.token, prod.product.id, setPosition);
-                            return;
-                         }
-                         updateQuantity(userData.token, prod.product.id, prodQty - 1)
+                        setTotal(prev => prev  - Number(prod.product.price))    
+                        updateQuantity(userData.token, prod.product.id, prodQty - 1)
                     }}>
                          -
                      </div>
@@ -56,7 +68,7 @@ export default function BasketProduct({prod, setQuantity, setTotal}){
                             +
                     </div>
                  </div>
-                 <p>R$ {prod.product.price.replace(".", ",")}</p>
+                 <p>R$ {Number(prod.product.price).toFixed(2).replace(".", ",")}</p>
              </div>
          </div>
      </div>

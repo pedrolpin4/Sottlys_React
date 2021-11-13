@@ -40,7 +40,6 @@ async function updateQuantity(token, productId, quantity){
     let status;
     let serverError;
     let newToken = BearerToken(token);
-    console.log(newToken);
 
 
     const result = await API.put(`/quantity`, {
@@ -72,11 +71,9 @@ async function updateQuantity(token, productId, quantity){
     return serverError
 }
 
-async function deleteProduct(token, productId, setPosition){
+async function deleteProduct(token, productId){
     let status;
     let serverError;
-    let newToken = BearerToken(token);
-    console.log(newToken);
 
     const result = await API.delete(`/basket`, {data: {productId,},headers:{
         Authorization: `Bearer ${token}`
@@ -100,7 +97,6 @@ async function deleteProduct(token, productId, setPosition){
     }
 
     if(result.success){
-        setPosition(true)
         return {
             success: true
         }
