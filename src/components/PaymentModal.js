@@ -153,10 +153,10 @@ const ModalBackground = styled.div`
 const ModalContainer = styled.div`
     position: fixed;
     width: 700px;
-    height: calc(100vh - 300px);
+    height: 60vh;
     display: flex;
     flex-direction: column;
-    top: 150px;
+    top: 20vh;
     left: calc((100vw - 700px)/2);
     background: #fff;
     opacity: 1;
@@ -170,10 +170,23 @@ const ModalContainer = styled.div`
     }
 
     @media(max-width: 600px){
-        top: 120px;
-        height: calc(100vh - 240px);
         width: 100vw;
         left: 0px;
+    }
+
+    @media(max-height: 700px){
+        top: 15vh;
+        height: 70vh;
+    }
+
+    @media(max-height: 500px){
+        top: 10vh;
+        height: 80vh;
+    }
+
+    @media(max-width: 350px){
+        top: 3vh;
+        height: 94vh;
     }
 `
 

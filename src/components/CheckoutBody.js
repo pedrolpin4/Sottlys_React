@@ -133,6 +133,7 @@ const CheckoutContainer = styled.div`
     display: flex;
     margin-top: 5rem;
     overflow-y: hidden;
+    
     @media (max-width: 1000px){
         margin-top: 4rem;
         flex-direction: column;

@@ -32,6 +32,10 @@ export default function BasketContent({ setQuantity, sidebar, content, setConten
 
     useEffect(() => {
         listBasket();
+        return () => {
+            setQuantity(0);
+            setTotal(0);
+        };
     }, [products.length]);
 
     return(

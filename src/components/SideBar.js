@@ -1,4 +1,4 @@
-import { useContext, useRef, useState} from 'react';
+import { useContext, useRef, useState } from 'react';
 import {IoCartOutline, IoCloseOutline, IoExitOutline, IoPersonOutline} from 'react-icons/io5';
 import SignUpForm from './content/SignUpForm';
 import LoginForm from './content/LoginForm';
