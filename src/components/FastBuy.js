@@ -4,14 +4,13 @@ import UserContext from '../context/UserContext';
 import { postBasket } from "../service/postBasket";
 
 export default function FasdtBuy({colors, sizes, productId}) {
-    console.log(sizes)
     // const [color, setColor] = useState();
     const [sizeId, setSizeId] = useState(0);
     const { userData } = useContext(UserContext)
 
-    function addToBasket(){
+    async function addToBasket(){
         let body = {
-            colorId: 1,
+            colorId: 7,
             sizeId,
             userId: userData.user.id, 
             productId,
