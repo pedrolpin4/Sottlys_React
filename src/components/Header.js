@@ -5,6 +5,10 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getFilters } from "../service/filters";
 import Sidebar from "./SideBar";
+import { getBasket } from "../service/basket";
+import { useContext } from "react/cjs/react.development";
+import UserContext from "../context/UserContext";
+import BasketContext from "../context/BasketContext";
 
 export default function Header ({sidebar, setSidebar}) {
     const [categories, setCategories] = useState([]);
@@ -12,7 +16,9 @@ export default function Header ({sidebar, setSidebar}) {
     const [sales, setSales] = useState([]);
     const [filters, setFilters] = useState([]);
     const [errorMessage, setErrorMessage] = useState("");
-    const [content, setContent] = useState('')
+    const [content, setContent] = useState('');
+    const { userData } = useContext(UserContext);
+    const {setProducts} = useContext(BasketContext);
 
     async function listCategories(){
         const result = await getFilters('categories');
@@ -53,6 +59,15 @@ export default function Header ({sidebar, setSidebar}) {
             return result.message;
         }
     }
+
+    async function listBasket () {
+        const result = await getBasket(userData.token)
+        if(result.data) {
+            setProducts(result.data);
+            return;
+        }
+    }
+
 
     useEffect(() => {
         listCategories();
@@ -135,7 +150,8 @@ export default function Header ({sidebar, setSidebar}) {
                 <IoHeartOutline size = {25} onClick = {() => {}}/>
                 <IoCartOutline size = {25} onClick = {() => {
                     setSidebar(true);
-                    setContent('basket')
+                    setContent('basket');
+                    listBasket();
                 }}/>
                 <IoPersonOutline size = {25}  onClick = {() => {
                     setSidebar(true);

@@ -1,11 +1,8 @@
-import { IoTrashOutline } from "react-icons/io5";
 import styled from "styled-components";
 
 export default function CheckoutProduct ({prod, products}) {
     return (
         <ProductContainer key = {prod.id}>
-            <IoTrashOutline size = {20} onClick = {() => {
-            }}/>
             <CheckoutImg src ={prod.image ? prod.image.name :  "/assets/Girassol.png"} 
                 alt ="imagem produto" key = {`i${prod.product.id}`}/>
             <ProductInfo>
@@ -13,15 +10,7 @@ export default function CheckoutProduct ({prod, products}) {
                 <p>Cor: <span className = "black">{prod.colors.name}</span></p>
                 <p>Tamanho: <span className = "black">{prod.size.name}</span></p>
             </ProductInfo>
-            <Operators>
-                <div>
-                    -
-                </div>
-                <p>{prod.quantity}</p>
-                <div>
-                        +
-                </div>
-            </Operators>
+            <p>{prod.quantity} {prod.quantity === 1 ? "unidade" : "unidades"}</p>
             <p>R$ {Number(prod.product.price).toFixed(2).replace(".", ",")}</p>
             <p>R$ {(Number(prod.product.price)*prod.quantity).toFixed(2).replace(".", ",")}</p>
         </ProductContainer>
@@ -36,14 +25,6 @@ const ProductContainer = styled.div`
     margin-top: 20px;
     position: relative;
     align-items: center;
-
-    svg{
-        cursor: pointer;
-        position: absolute;
-        top: 50%;
-        right: 0;
-        transform: translateY(-50%);
-    }
 
     p{
         width: 100px;
@@ -97,36 +78,5 @@ const ProductInfo = styled.div`
         p:last-child{
             display: initial;
         }
-    }
-`
-
-const Operators = styled.div`
-    width: 15%;
-    margin-right: 30px;
-    display: flex;
-    justify-content: space-between;
-    color: #aaa;
-
-    p{
-        width: auto;
-        color: #333;
-        padding: 4px 0px;
-        margin: 0px 7px;
-    }
-
-    div:last-child{
-        cursor: pointer;
-        padding: 4px 6px;
-        transition: .2s;
-    }
-
-    div:hover{
-        background-color: #111;
-        color: #fff;
-    }
-
-    div:first-child{
-        cursor: pointer;
-        padding: 4px 6px;
     }
 `

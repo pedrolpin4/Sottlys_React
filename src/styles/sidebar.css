@@ -147,7 +147,7 @@
     justify-content: center;
     align-items: center;
     color: #777;
-    background-color: #fff;
+    background-color: rgba(255, 255, 255);
     border: .7px solid #333;
     margin-top: 2vh;
     font-size: 13px;

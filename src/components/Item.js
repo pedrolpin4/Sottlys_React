@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import React, { forwardRef, useEffect } from "react"
+import React, { forwardRef } from "react"
 import FastBuy from "./FastBuy";
 
 const Item = forwardRef((props, ref) => {
@@ -24,11 +24,6 @@ const Item = forwardRef((props, ref) => {
     }
     
     const installmentsPrice = parseFloat(price/installments).toFixed(2).replace('.', ',')
-
-    useEffect(() => {
-        // listProductsByCategory();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
 
     return(
         <ItemBox ref={ref}>

@@ -1,18 +1,23 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import { useNavigate } from "react-router";
 import { useContext, useEffect, useState } from "react/cjs/react.development"
 import styled from "styled-components"
 import BasketContext from "../context/BasketContext"
 import UserContext from "../context/UserContext";
 import { getBasket } from "../service/basket";
 import CheckoutProduct from "./CheckoutProduct";
+import PaymentModal from "./PaymentModal";
 
 export default function CheckoutBody () {
+    const navigate = useNavigate();
     const {products, setProducts} = useContext(BasketContext);
     const {userData} = useContext(UserContext);
     const [total, setTotal] = useState(0);
-    let valorEntrega = Math.round(Math.random() * (50 - 30) + 30)
+    const [delivery, setDelivery] = useState(false)
+    const valorEntrega = 32;
     const [entrega, setEntrega] = useState(0);
-
+    const [showModal, setShowModal] = useState(false)
+    
     async function listBasket () {
         const result = await getBasket(userData.token)
         
@@ -39,36 +44,86 @@ export default function CheckoutBody () {
     }, [products.length]);
 
     return(
+        <>
         <CheckoutContainer>
             <ProductsHolder>
                 <h1>Sacola</h1>
+                <Columns>
+                    <p>Quantidade</p>
+                    <p>Preço</p>
+                    <p>Total</p>
+                </Columns>
                 {products.map( (prod, i) => <CheckoutProduct key = {i} prod= {prod} products = {products} />)}
             </ProductsHolder>
             <SummaryContainer>
                 <h1>Resumo</h1>
-                <p>
-                    Número de peças {products.length}
-                </p>
-                <p>
+                <DeliveryFee>
                     As opções de entrega para {userData.user.name} são:
-                </p>
-                <p onclick = {() => setEntrega(0)}>
-                    Entrega regular: 6 dias úteis - Grátis
-                </p>
-                <p onClick = {() => setEntrega(valorEntrega)}>
-                    Entrega rápida: 2 dias úteis - {valorEntrega}
-                </p>
-                <p>
-                    Subtotal: {total}
-                </p>
-                <p>
-                    Entrega: {entrega}
-                </p>
-                <p>
-                    Total: {total + entrega}
-                </p>
+                </DeliveryFee>
+                <DeliveryOptions onClick = {() =>{
+                    setDelivery(false)
+                    setEntrega(0)
+                }} delivery = {delivery}>
+                    <p>
+                        Entrega regular: 6 dias úteis
+                    </p>
+                    <p>
+                        Grátis
+                    </p>
+                </DeliveryOptions>
+                <DeliveryOptions1 onClick = {() =>{
+                    setDelivery(true)
+                    setEntrega(valorEntrega)
+                }} delivery = {delivery}>
+                    <p>
+                        Entrega rápida: 2 dias úteis
+                    </p>
+                    <p>
+                        R$ {valorEntrega.toFixed(2).replace(".", ",")}
+                    </p>
+                </DeliveryOptions1>
+                <CheckoutNumbers>
+                    <p>
+                        Número de peças:
+                    </p>
+                    <p>
+                        {products.length}
+                    </p>
+                </CheckoutNumbers>
+                <CheckoutNumbers>
+                    <p>
+                        Subtotal:
+                    </p>
+                    <p>
+                        R$ {total.toFixed(2).replace(".", ",")}
+                    </p>
+                </CheckoutNumbers>
+                <CheckoutNumbers>
+                    <p>
+                        Entrega:
+                    </p>
+                    <p>
+                        {entrega ? `R$ ${entrega.toFixed(2).replace(".", ",")}` : "Grátis"}
+                    </p>
+                </CheckoutNumbers>
+                <CheckoutNumbers>
+                    <p>
+                        Total:
+                    </p>
+                    <p>
+                        R$ {(total + entrega).toFixed(2).replace(".", ",")}
+                    </p>
+                </CheckoutNumbers>
+                <ButtonGreen onClick = {() => setShowModal(true)}>
+                    Finalizar Compra
+                </ButtonGreen>
+                <ButtonWhite onClick = {() => navigate('/')}>
+                    Continuar Comprando
+                </ButtonWhite>
             </SummaryContainer>
         </CheckoutContainer>
+        <PaymentModal showModal = {showModal} setShowModal = {setShowModal} total = {total + entrega}/>
+        </>
     )
 }
 
@@ -117,6 +172,35 @@ const ProductsHolder = styled.div`
         margin-left: 0;
     }
 `
+const DeliveryFee = styled.p`
+    margin-top: 15px;
+    font-size: 18px;
+`
+
+const DeliveryOptions = styled.div`
+    cursor: pointer;
+    padding: 10px 5px;
+    height: 40px;
+    border-radius: 5px;
+    margin-top: 7px;
+    display: flex;
+    border: ${props => props.delivery ? "solid 1px #ddd" : "1.5px solid rgb(76, 155, 61)"};
+    align-items: center;
+    justify-content: space-between;
+`
+
+const DeliveryOptions1 = styled.div`
+    cursor: pointer;
+    padding: 10px 5px;
+    height: 40px;
+    border-radius: 5px;
+    margin-top: 7px;
+    display: flex;
+    border: ${props => props.delivery ? "1px solid rgb(76, 155, 61)" : "solid 1px #ddd"};
+    align-items: center;
+    justify-content: space-between;
+`
+
 
 const SummaryContainer = styled.div`
     width: 25vw;
@@ -138,6 +222,10 @@ const SummaryContainer = styled.div`
         font-weight: 500;
     }
 
+    @media (max-width: 1200px){
+        width: 30vw;
+    }
+
     @media (max-width: 1000px){
         width: 80vw;
         position: relative;
@@ -150,5 +238,71 @@ const SummaryContainer = styled.div`
         margin-left: 0;
         left: 0;
     }
+`
 
+const CheckoutNumbers = styled.div`
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+    padding: 10px 0px;
+    border-bottom: .5px solid #eee;
+
+    p{
+        font-size: 17px;
+    }
+`
+
+const ButtonGreen = styled.div`
+    cursor: pointer;
+    text-transform: uppercase;
+    width: 100%;
+    height: 50px;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    background-color: rgb(76, 155, 61);
+    margin-top: 1vh;
+    font-size: 14px;
+    letter-spacing: 1.2px;
+`
+
+const ButtonWhite = styled.div`
+    cursor: pointer;
+    text-transform: uppercase;
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    background-color: #fff;
+    border: 1px solid #333;
+    margin-top: 1vh;
+    font-size: 14px;
+    letter-spacing: 1.2px;
+    font-weight: 600;
+`
+
+const Columns = styled.div`
+    display: flex;
+
+    p{
+        width: 100px;
+        text-align: center;
+        margin-right: 30px;
+        font-size: 22px;
+        color: #777;
+    }
+
+    p:first-child{
+        margin-left: 44%;
+    }
+
+    @media(max-width: 1200px){
+        p:last-child{
+            display: none;
+        }
+    }
 `
