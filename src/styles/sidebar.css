@@ -398,7 +398,7 @@
     }
 }
 .products-container{
-  min-height: calc(100vh - 180px);
+  min-height: calc(100vh - 210px);
   margin: 0px 0px 130px 30px;
   overflow-y: scroll;  
 }

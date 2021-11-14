@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect } from "react"
+import { useNavigate } from "react-router";
 import { useState } from "react/cjs/react.development"
 import BasketContext from "../../context/BasketContext";
 import UserContext from "../../context/UserContext"
@@ -9,6 +10,7 @@ import BasketProduct from "../BasketProduct";
 export default function BasketContent({ setQuantity, sidebar, content, setContent, setSidebar}){
     const [message, setMessage] = useState('');
     const [total, setTotal] = useState(0);
+    const navigate = useNavigate();
 
     const {
         products, 
@@ -46,7 +48,7 @@ export default function BasketContent({ setQuantity, sidebar, content, setConten
                 <></>
             }
             </div>
-            <div className = {sidebar && content === 'basket' ? "checkout active": "checkout"}> 
+            <div className = {sidebar && content === 'basket' ? "checkout active": "checkout"}  onClick = {() => navigate("/checkout")}> 
             {sidebar && content === 'basket' ? 
                 <>
                     <div>Finalizar compra</div>
