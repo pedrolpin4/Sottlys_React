@@ -23,7 +23,6 @@ export default function BasketContent({ setQuantity, sidebar, content, setConten
         
         if(result.data) {
             setProducts(result.data);
-            console.log(result.data);
             return;
         }
 

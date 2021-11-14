@@ -61,6 +61,7 @@ export default function Header ({sidebar, setSidebar}) {
     }
 
     async function listBasket () {
+        setProducts([])
         const result = await getBasket(userData.token)
         if(result.data) {
             setProducts(result.data);

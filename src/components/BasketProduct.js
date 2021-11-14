@@ -8,14 +8,16 @@ export default function BasketProduct({prod, setQuantity, setTotal, products, se
     const[prodQty, setProdQty] = useState(prod.quantity);
     const { userData } = useContext(UserContext);
 
-    useEffect( () => {
-        setProdQty(prod.quantity)
-    }, [products.length]);
+    useEffect(() => {
+        setTotal(prev => prev + 2*Number(prod.product.price)*prod.quantity);
+        setQuantity(prev => prev + 2*prod.quantity);
+    }, [])
 
     useEffect(() => {
-        setTotal(prev => prev + Number(prod.product.price)*prod.quantity);
-        setQuantity(prev => prev + prod.quantity);
-    }, [])
+        setProdQty(prod.quantity)
+        setQuantity(prev => prev - prod.quantity);
+        setTotal(prev => prev - prod.quantity * prod.product.price)
+    }, [products.length]);
     
     return (
      <div className = "nav-menu__product" key = {prod.id}>
