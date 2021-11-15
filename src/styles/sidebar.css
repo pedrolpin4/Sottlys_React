@@ -67,6 +67,7 @@
 .nav-menu.active{
     top: 10px;
     right: 10px;
+    z-index: 5;
     transition: .3s;
 }
 
@@ -146,7 +147,7 @@
     justify-content: center;
     align-items: center;
     color: #777;
-    background-color: #fff;
+    background-color: rgba(255, 255, 255);
     border: .7px solid #333;
     margin-top: 2vh;
     font-size: 13px;
@@ -177,7 +178,7 @@
     position: absolute;
     top: 216px;
     right: 35px;
-    z-index: 4;
+    z-index: 5;
 }
 
 .show-repeatPassword{
@@ -185,7 +186,7 @@
     position: absolute;
     top: 280px;
     right: 35px;
-    z-index: 4;
+    z-index: 5;
 }
 
 .show-password--login{
@@ -193,7 +194,7 @@
     position: absolute;
     top: 276px;
     right: 35px;
-    z-index: 4;
+    z-index: 5;
 }
 
 .invalid{
@@ -226,6 +227,13 @@
     height: 80px;
     display: flex;
     margin-top: 15px;
+    transform: none;
+    transition: all .3s;
+}
+
+.nav-menu__product.hidden{
+    transform: translateX(-350px);
+    opacity: 0;
 }
 
 .nav-menu__product svg{
@@ -299,31 +307,44 @@
     padding: 4px 6px;
 }
 
-.footer.active{
-    position: fixed;
+.footer{
+    position: absolute;
     display: flex;
     align-items: center;
     justify-content: space-between;
     border-top: .5px solid rgba(0, 0, 0, 0.1);
-    bottom: 70px;
-    right: 10px;
+    background-color: white;
+    bottom: -30px;
+    right: -350px;
     width: 350px;
     height: 40px;
     padding: 30px 20px;
     transition: .3s;
 }
 
-.checkout.active{
-    position: fixed;
+.footer.active{
+    bottom: 60px;
+    right: 0px;
+    transition: .3s;
+}
+
+.checkout{
+    position: absolute;
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: #000;
     color: #fff;
-    bottom: 10px;
-    right: 10px;
     width: 350px;
     height: 60px;
+    bottom: -40px;
+    right: -350px;
+    transition: .3s;
+}
+
+.checkout.active{
+    bottom: 0px;
+    right: 0px;
     transition: .3s;
 }
 
@@ -340,17 +361,6 @@
     height: 60px;
     transform: translateY(0);
     text-shadow: 0px 2px 4px #fff;
-}
-
-
-.checkout{
-    bottom: -40px;
-    right: -350px;
-}
-
-.footer{
-    bottom: -40px;
-    right: -350px;
 }
 
 .error-container{
@@ -387,6 +397,12 @@
         bottom: 60px;
         right: 0px;
     }
+}
+
+.products-container{
+  height: calc(100vh - 210px);
+  margin: 0px 0px 130px 30px;
+  overflow-y: scroll;  
 }
 
 @media(max-width: 600px){

@@ -5,15 +5,20 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getFilters } from "../service/filters";
 import Sidebar from "./SideBar";
+import { getBasket } from "../service/basket";
+import { useContext } from "react/cjs/react.development";
+import UserContext from "../context/UserContext";
+import BasketContext from "../context/BasketContext";
 
-export default function Header () {
+export default function Header ({sidebar, setSidebar}) {
     const [categories, setCategories] = useState([]);
     const [trends, setTrends] = useState([]);
     const [sales, setSales] = useState([]);
     const [filters, setFilters] = useState([]);
     const [errorMessage, setErrorMessage] = useState("");
-    const [sidebar, setSidebar] = useState(false);
-    const [content, setContent] = useState('')
+    const [content, setContent] = useState('');
+    const { userData } = useContext(UserContext);
+    const {setProducts} = useContext(BasketContext);
 
     async function listCategories(){
         const result = await getFilters('categories');
@@ -54,6 +59,16 @@ export default function Header () {
             return result.message;
         }
     }
+
+    async function listBasket () {
+        setProducts([])
+        const result = await getBasket(userData.token)
+        if(result.data) {
+            setProducts(result.data);
+            return;
+        }
+    }
+
 
     useEffect(() => {
         listCategories();
@@ -97,7 +112,7 @@ export default function Header () {
                                     filters[0] === categories[0] ?
                                         filters.map(e => {
                                             return(
-                                                <Link to = {`/categories/${e.id}`} key = {e.id}>
+                                                <Link to = {`/categories/${e.id}`} key = {'c' + e.id}>
                                                     {e.name}
                                                 </Link>
                                             )
@@ -105,7 +120,7 @@ export default function Header () {
                                         filters[0] === trends[0] ?
                                             filters.map(e => {
                                                 return(
-                                                    <Link to = {`/categories/${e.id}`} key = {e.id}>
+                                                    <Link to = {`/categories/${e.id}`} key = {'t' + e.id}>
                                                         {e.name}
                                                     </Link>
                                                 )
@@ -136,7 +151,8 @@ export default function Header () {
                 <IoHeartOutline size = {25} onClick = {() => {}}/>
                 <IoCartOutline size = {25} onClick = {() => {
                     setSidebar(true);
-                    setContent('basket')
+                    setContent('basket');
+                    listBasket();
                 }}/>
                 <IoPersonOutline size = {25}  onClick = {() => {
                     setSidebar(true);
@@ -320,6 +336,7 @@ const Filters = styled.ul`
         .sub-menu{
             box-sizing: border-box;
             height: 280px;
+            top: 4.25rem;
             padding: 2rem 2rem;
 
             &__img{

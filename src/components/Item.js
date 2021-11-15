@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import React, { forwardRef, useEffect } from "react"
+import React, { forwardRef } from "react"
 import FastBuy from "./FastBuy";
 
 const Item = forwardRef((props, ref) => {
@@ -14,22 +14,22 @@ const Item = forwardRef((props, ref) => {
         id
     } = props.prod
 
+    const {
+        sidebar,
+        setSidebar, 
+    } = props
+
     if(images.length !== 0 ){
         image = images[0].name
     }
     
     const installmentsPrice = parseFloat(price/installments).toFixed(2).replace('.', ',')
 
-    useEffect(() => {
-        // listProductsByCategory();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
-
     return(
         <ItemBox ref={ref}>
             <Image>
                 <img src={image} alt=""/>
-                <FastBuy colors ={colors} sizes={sizes} productId={id}/> 
+                <FastBuy colors ={colors} sizes={sizes} productId={id} sidebar = {sidebar} setSidebar = {setSidebar}/> 
             </Image>         
             <ProductName>{name}</ProductName>
             <Price>
@@ -50,7 +50,7 @@ const Image = styled.div`
     border-radius: 5px;
     box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.15);
     position: relative;
-    overflow-y: hidden;
+    overflow: hidden;
     transition: all .4s;
 
     @media(max-width: 800px){
@@ -70,10 +70,11 @@ const Image = styled.div`
 `
 const ProductName = styled.h2`
     cursor: pointer;
-    font-size: 20px;
-    font-weight: 700;
+    font-size: 18px;
+    font-weight: 400;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     @media(max-width: 800px){
-        font-size: 18px;
+        font-size: 16px;
     }
 `
 const ItemBox = styled.div`
@@ -93,10 +94,10 @@ const Price = styled.div`
 
     @media(max-width: 800px){
         h3{
-            font-size: 15px;
+            font-size: 14px;
         }
         p{
-            font-size: 13px;
+            font-size: 12px;
         }
     }
 `

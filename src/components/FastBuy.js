@@ -3,26 +3,34 @@ import styled from "styled-components";
 import UserContext from '../context/UserContext';
 import { postBasket } from "../service/postBasket";
 
-export default function FasdtBuy({colors, sizes, productId}) {
-    console.log(sizes)
-    // const [color, setColor] = useState();
+export default function FastBuy({colors, sizes, productId, setSidebar}) {
+    const [colorId, setColorId] = useState();
     const [sizeId, setSizeId] = useState(0);
-    const { userData } = useContext(UserContext)
+    const { userData } = useContext(UserContext);
 
-    function addToBasket(){
+    async function addToBasket(){
+        if(!userData.user){
+            setSidebar(true)
+            setColorId(1)
+            return;
+        }
+
         let body = {
-            colorId: 1,
-            sizeId,
+            colorId: colorId || 1,
+            sizeId: sizeId || 1,
             userId: userData.user.id, 
             productId,
         }
-        postBasket(userData.token, body);
+       const result = await postBasket(userData.token, body); 
+       console.log(result);
     }
 
     return(
-        <ContainerFasdtBuy>
+        <ContainerFastBuy>
             <ContainerSizes>
-                {sizes.map((s)=> <Size key={s.id} onClick={()=>setSizeId(s.id)}>{s.name}</Size>)}
+                {sizes.map((s)=> <Size key={s.id} onClick={()=>setSizeId(s.id)}>
+                    {s.name}
+                </Size>)}
             </ContainerSizes>
             <ContainerColor>
                 <Color></Color>
@@ -33,14 +41,14 @@ export default function FasdtBuy({colors, sizes, productId}) {
             <BuyButton onClick={addToBasket}>
                <p>Comprar</p>
             </BuyButton>
-        </ContainerFasdtBuy>
+        </ContainerFastBuy>
     )
 }
 
-const ContainerFasdtBuy = styled.div`
+const ContainerFastBuy = styled.div`
     display: flex;
     flex-direction: column;
-    z-index: 2;
+    z-index: 1;
     background-color: rgba(255, 255, 255, 0.5);
     height: 50%;
     border-radius: 5px;
@@ -74,6 +82,7 @@ const Size = styled.div`
     text-transform: uppercase;
     font-weight: 700;
     transition: all .2s;
+
     &:hover{
         background-color:#fff;
         color: black;

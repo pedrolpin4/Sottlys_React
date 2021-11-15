@@ -3,9 +3,12 @@ import GlobalStyles from "./styles/GlobalStyles"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import UserContext from "./context/UserContext"
 import { useEffect, useState } from "react";
+import BasketContext from "./context/BasketContext";
+import Checkout from "./pages/Checkout";
 
 export default function App() {
     const [userData, setUserData] = useState({});
+    const [products, setProducts] = useState([]);
     
     useEffect(() => {
         const sottlysLogin = JSON.parse(localStorage.getItem("sottlysLogin"));
@@ -17,10 +20,13 @@ export default function App() {
     return(
         <UserContext.Provider value={{userData,setUserData}}>
         <Router>
-                <GlobalStyles />
-                <Routes>
-                    <Route path = "/" exact element = {<Home />} />
-                </Routes>
+                <BasketContext.Provider value = {{products, setProducts}}>
+                    <GlobalStyles />
+                    <Routes>
+                        <Route path = "/" exact element = {<Home />} />
+                        <Route path = "/checkout" exact element = {<Checkout />} />
+                    </Routes>
+                </BasketContext.Provider>
         </Router>
         </UserContext.Provider>
     )

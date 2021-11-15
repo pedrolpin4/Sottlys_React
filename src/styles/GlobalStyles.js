@@ -6,9 +6,10 @@ const GlobalStyles = createGlobalStyle`
     }
 
     body{
-        font-family: 'Open Sans';
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
         height: 100%;
         width: 100%;
+        overflow-x: hidden;
     }
 
     input, button{
