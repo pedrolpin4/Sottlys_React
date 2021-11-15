@@ -122,7 +122,7 @@ export default function CheckoutBody () {
                 </ButtonWhite>
             </SummaryContainer>
         </CheckoutContainer>
-        <PaymentModal showModal = {showModal} setShowModal = {setShowModal} total = {total + entrega}/>
+        <PaymentModal showModal = {showModal} setShowModal = {setShowModal} total = {total + entrega} entrega = {entrega}/>
         </>
     )
 }

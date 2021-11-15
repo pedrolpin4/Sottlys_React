@@ -1,9 +1,11 @@
 import styled from "styled-components";
 import {useCallback, useEffect, useRef} from 'react';
-import { useState } from "react/cjs/react.development";
+import { useContext, useState } from "react/cjs/react.development";
 import { useNavigate } from "react-router";
+import { postPayment } from "../service/postPayment";
+import UserContext from '../context/UserContext'
 
-function PaymentModal ({showModal, setShowModal, total}){
+function PaymentModal ({showModal, setShowModal, total, entrega}){
     const modalRef = useRef();
     const characters = ['A' ,'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'M', 'N', 'O', 'P', 'Q', 'R', 'S',
      'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
@@ -12,6 +14,8 @@ function PaymentModal ({showModal, setShowModal, total}){
     const siteRef = useRef();
     const [payment, setPayment] = useState(false);
     const navigate = useNavigate();
+    const [message, setMessage] = useState('')
+    const { userData } = useContext(UserContext)
     
     function closeModal(e){
         if(modalRef.current === e.target){
@@ -19,8 +23,19 @@ function PaymentModal ({showModal, setShowModal, total}){
         }
     }
 
-    function handlePayment(){
-        setPayed(true)
+    async function handlePayment(){
+        const result = await postPayment(userData.token, {
+            installments: installment,
+            paymentMethod: payment ? 'CARTÃO DE CRÉDITO' : 'PIX',
+            deliveryFee: entrega,
+        })
+
+        if(result.success){
+            setPayed(true)
+            return;
+        }
+
+        setMessage(result.message)
     }
 
     const modalKeyEvents = useCallback(e => {
@@ -59,6 +74,15 @@ function PaymentModal ({showModal, setShowModal, total}){
                                         </h1> 
                                         <ButtonWhite onClick = {() => navigate("/")}>
                                             Continuar Comprando
+                                        </ButtonWhite>
+                                    </>
+                                    : message ? 
+                                    <>
+                                        <h1 className = "red">
+                                            {message}
+                                        </h1> 
+                                        <ButtonWhite onClick = {() => navigate("/")}>
+                                            Voltar para Home
                                         </ButtonWhite>
                                     </>
                                     :
@@ -217,6 +241,11 @@ const PaymentContent = styled.div`
 
     .green{
         color: rgb(76, 155, 61);
+        margin-top: 70px;
+    }
+
+    .red{
+        color: rgb(155, 42, 61);
         margin-top: 70px;
     }
 
