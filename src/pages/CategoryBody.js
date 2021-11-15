@@ -37,10 +37,11 @@ export default function CategoryBody() {
     }
 
     useEffect(() => {
+        setErro('');
         listProductsByCategory();
         infoCategory();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [id])
 
     return(
         <>
