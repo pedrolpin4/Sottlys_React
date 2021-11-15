@@ -6,7 +6,7 @@ import React, { useRef } from "react";
 import { getProductsByCategory } from "../service/reqMainPage";
 import { Link } from "react-router-dom";
 
-export default function Category({name, id}){
+export default function Category({name, id, sidebar, setSidebar}){
     const [products, setProducts] = useState([]);
     const [erro, setErro] = useState("");
     const right = useRef()
@@ -60,7 +60,7 @@ export default function Category({name, id}){
             </IconBox1>
             <ItensContainer >
                 <p ref={left}>{erro}</p>
-                {products.map((prod)=>  <Item key={prod.id} prod={prod}/>)}
+                {products.map((prod)=>  <Item key={prod.id} prod={prod} sidebar = {sidebar} setSidebar = {setSidebar}/>)}
                 <Link to={`/category/${id}`}>
                     <More ref={right}>
                             <p>Veja Mais</p>
@@ -87,14 +87,17 @@ const BoxCategory = styled.div`
     position: relative;
 
     h1{
+        font-family: 'Alice';
         font-weight: 700;
-        font-size: 24px;
+        font-size: 30px;
         color: 000000;
-        margin-bottom: 10px;
+        margin-bottom: 15px;
+        text-transform: capitalize;
     }
     @media(max-width: 800px){
         h1{
-            font-size: 22px;
+            font-family: 'Alice';
+            font-size: 28px;
         }
     }
 `
@@ -115,7 +118,7 @@ const IconBox1 = styled.div`
     position: absolute;
     left: 4px;
     top: 43%;
-    z-index: 3;
+    z-index: 1;
     
     @media(max-width:800px){
         display:none
@@ -125,7 +128,7 @@ const IconBox = styled.div`
     position: absolute;
     right: 4px;
     top: 43%;
-    z-index: 3;
+    z-index: 1;
 
     @media(max-width:800px){
         display:none
@@ -134,11 +137,13 @@ const IconBox = styled.div`
 const More = styled.div`
     width: 100px;
     height: 240px;
+    margin-left: 15px;
     display: flex;
-    align-items: end;
+    text-align: center;
+    align-items: flex-start;
     
     p{
-        font-size: 20px;
+        font-size: 18px;
         word-break: normal;
         font-weight: bold;
     }
