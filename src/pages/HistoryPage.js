@@ -256,7 +256,6 @@ const ProductsInfo = styled.div`
     }
     @media(max-width: 600px){
         width: 35%;
-        font-size: 18px;
 
         p:last-child{
             display: none;
