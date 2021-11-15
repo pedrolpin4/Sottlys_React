@@ -2,18 +2,19 @@ import styled from "styled-components";
 import Logo from './Logo';
 import {IoPersonOutline, IoCartOutline, IoHeartOutline, IoSearchOutline, IoMenuOutline} from 'react-icons/io5';
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getFilters } from "../service/filters";
 import Sidebar from "./SideBar";
+import UserContext from "../context/UserContext";
 
 export default function Header () {
-    const [categories, setCategories] = useState([]);
     const [trends, setTrends] = useState([]);
     const [sales, setSales] = useState([]);
     const [filters, setFilters] = useState([]);
     const [errorMessage, setErrorMessage] = useState("");
     const [sidebar, setSidebar] = useState(false);
-    const [content, setContent] = useState('')
+    const [content, setContent] = useState('');
+    const { setCategories, categories} = useContext(UserContext);
 
     async function listCategories(){
         const result = await getFilters('categories');

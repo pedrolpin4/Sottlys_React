@@ -33,7 +33,8 @@ export default function Category({name, id}){
         const result = await getProductsByCategory(id);
 
         if(result?.data){
-            setProducts(result?.data);
+            const justSomeProducts = result.data.filter((r,i)=> i<16);
+            setProducts(justSomeProducts);
             return;
         }
 
@@ -60,12 +61,11 @@ export default function Category({name, id}){
             <ItensContainer >
                 <p ref={left}>{erro}</p>
                 {products.map((prod)=>  <Item key={prod.id} prod={prod}/>)}
-                <Link to="/">
+                <Link to={`/category/${id}`}>
                     <More ref={right}>
                             <p>Veja Mais</p>
                     </More> 
-                </Link>
-                       
+                </Link>        
             </ItensContainer>
             <IconBox onClick={()=>seeMore("right")}>
                 <IoIosArrowDroprightCircle 
