@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import Categories from "./pages/Categories"
 import BasketContext from "./context/BasketContext";
 import Checkout from "./pages/Checkout";
+import Sales from "./pages/Sales";
 
 export default function App() {
     const [userData, setUserData] = useState({});
@@ -29,6 +30,7 @@ export default function App() {
                         <Route path = "/" exact element = {<Home />} />
                         <Route path = "/checkout" exact element = {<Checkout />} />
                         <Route path = "/category/:id" exact element = {<Categories />} />
+                        <Route path = "/sales/:id" exact element = {<Sales />} />
                     </Routes>
                 </BasketContext.Provider>
         </Router>
