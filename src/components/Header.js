@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Logo from './Logo';
 import {IoPersonOutline, IoCartOutline, IoHeartOutline, IoSearchOutline, IoMenuOutline} from 'react-icons/io5';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { getFilters } from "../service/filters";
 import Sidebar from "./SideBar";
@@ -18,6 +18,7 @@ export default function Header ({sidebar, setSidebar}) {
     const { setCategories, categories} = useContext(UserContext);
     const { userData } = useContext(UserContext);
     const {setProducts} = useContext(BasketContext);
+    const navigate = useNavigate();
 
 
     async function listCategories(){
@@ -139,7 +140,7 @@ export default function Header ({sidebar, setSidebar}) {
                             }
                     </div>
                 </Filters>
-                <DropDownOption>
+                <DropDownOption onClick = {()=>{navigate("/history")}}>
                         <p>Histórico</p>
                 </DropDownOption>
             </ Unifier>

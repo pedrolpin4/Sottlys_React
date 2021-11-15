@@ -8,7 +8,7 @@ export default function FastBuy({colors, sizes, productId, setSidebar}) {
     const [sizeId, setSizeId] = useState(0);
     const { userData } = useContext(UserContext);
 
-    async function addToBasket(){
+    function addToBasket(){
         if(!userData.user){
             setSidebar(true)
             setColorId(1)
@@ -17,12 +17,11 @@ export default function FastBuy({colors, sizes, productId, setSidebar}) {
 
         let body = {
             colorId: colorId || 7,
-            sizeId: sizeId || 8,
+            sizeId: sizeId,
             userId: userData.user.id, 
             productId,
         }
-       const result = await postBasket(userData.token, body); 
-       console.log(result);
+        postBasket(userData.token, body); 
     }
 
     return(

@@ -4,12 +4,12 @@ import UserContext from "../context/UserContext"
 import BottomPage from "../components/BottomPage"
 import SalesBody from "./SalesBody"
 
-export default function Categories () {
+export default function Sales ({sidebar, setSidebar}) {
     const { categories } = useContext(UserContext)
 
     return(
         <>
-            <Header />
+            <Header sidebar={sidebar} setSidebar={setSidebar}/>
             <SalesBody />
             <BottomPage categories={categories}/>
         </>
