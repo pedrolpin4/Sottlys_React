@@ -2,23 +2,23 @@ import styled from "styled-components";
 import Logo from './Logo';
 import {IoPersonOutline, IoCartOutline, IoHeartOutline, IoSearchOutline, IoMenuOutline} from 'react-icons/io5';
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getFilters } from "../service/filters";
 import Sidebar from "./SideBar";
 import { getBasket } from "../service/basket";
-import { useContext } from "react/cjs/react.development";
 import UserContext from "../context/UserContext";
 import BasketContext from "../context/BasketContext";
 
 export default function Header ({sidebar, setSidebar}) {
-    const [categories, setCategories] = useState([]);
     const [trends, setTrends] = useState([]);
     const [sales, setSales] = useState([]);
     const [filters, setFilters] = useState([]);
     const [errorMessage, setErrorMessage] = useState("");
     const [content, setContent] = useState('');
+    const { setCategories, categories} = useContext(UserContext);
     const { userData } = useContext(UserContext);
     const {setProducts} = useContext(BasketContext);
+
 
     async function listCategories(){
         const result = await getFilters('categories');
@@ -112,7 +112,7 @@ export default function Header ({sidebar, setSidebar}) {
                                     filters[0] === categories[0] ?
                                         filters.map(e => {
                                             return(
-                                                <Link to = {`/categories/${e.id}`} key = {'c' + e.id}>
+                                                <Link to = {`/category/${e.id}`} key = {'c' + e.id}>
                                                     {e.name}
                                                 </Link>
                                             )
@@ -120,7 +120,7 @@ export default function Header ({sidebar, setSidebar}) {
                                         filters[0] === trends[0] ?
                                             filters.map(e => {
                                                 return(
-                                                    <Link to = {`/categories/${e.id}`} key = {'t' + e.id}>
+                                                    <Link to = {`/category/${e.id}`} key = {'t' + e.id}>
                                                         {e.name}
                                                     </Link>
                                                 )

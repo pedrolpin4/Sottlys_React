@@ -25,7 +25,13 @@
     right: -350px;
     transition: .3s;
     overflow-y: scroll;
+    overflow-x: hidden;
 }
+
+.nav-menu::-webkit-scrollbar { 
+    /* This is the magic bit for WebKit */
+    display: none;
+  }
 
 .nav-menu__header{
     width: 350px;
@@ -383,6 +389,7 @@
     .nav-menu{
         top: 0;
         height: 100vh;
+        bottom: 0;
     }
     .nav-menu.active{
         height: 100vh;
@@ -401,9 +408,16 @@
 
 .products-container{
   height: calc(100vh - 210px);
-  margin: 0px 0px 130px 30px;
+  margin: 0px 0px 130px 35px;
   overflow-y: scroll;  
+  width: 100%;
+  overflow-x: hidden;
 }
+
+.products-container::-webkit-scrollbar { 
+    /* This is the magic bit for WebKit */
+    display: none;
+  }
 
 @media(max-width: 600px){
     .nav-menu__product svg{

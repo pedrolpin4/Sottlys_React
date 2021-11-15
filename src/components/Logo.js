@@ -1,10 +1,12 @@
 import styled from "styled-components"
+import { useNavigate } from "react-router";
 
 export default function Logo () {
+    const navigate = useNavigate();
     return(
         <>
-            <LogoText src = "../assets/textLogo.png"/>
-            <LogoImg src = "../assets/Girassol.png"/>
+            <LogoText src = "../assets/textLogo.png" onClick={()=> navigate("/")}/>
+            <LogoImg src = "../assets/Girassol.png" onClick={()=> navigate("/")}/>
         </>
 
     )
