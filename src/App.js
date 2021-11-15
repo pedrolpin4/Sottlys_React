@@ -22,7 +22,6 @@ export default function App() {
     }, []);
 
     return(
-
         <UserContext.Provider value={{userData,setUserData, categories, setCategories}}>
         <Router>
                 <BasketContext.Provider value = {{products, setProducts}}>

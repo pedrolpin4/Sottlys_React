@@ -137,7 +137,7 @@ function PaymentModal ({showModal, setShowModal, total, entrega}){
                                                     <p>PIX Copia e Cola:</p>
                                                     <PixCode>
                                                         <div>
-                                                            {characters.map( c => <span>{characters[Math.round(Math.random()*36)]}</span>)}
+                                                            {characters.map( (c, i) => <span key = {i}>{characters[Math.round(Math.random()*36)]}</span>)}
                                                             <span>SOTTLYS.INC-CNPJ0303600101265</span>
                                                         </div>
                                                     </PixCode>
