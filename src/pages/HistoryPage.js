@@ -167,12 +167,14 @@ const HistoryContainer = styled.div`
 
         @media(max-width: 850px){
             font-size: 26px;
-            width: 95%
+            width: 95%;
+            margin-bottom: 1rem;
         }
 
         @media(max-width: 600px){
             font-size: 24px;
-            width: 97%
+            width: 97%;
+            margin-bottom: 1rem;
         }
     }
     @media(max-width: 1000px){
@@ -254,6 +256,11 @@ const ProductsInfo = styled.div`
     }
     @media(max-width: 600px){
         width: 35%;
+        font-size: 18px;
+
+        p:last-child{
+            display: none;
+        }
     }
 `
 
