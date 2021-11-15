@@ -13,6 +13,7 @@ export default function App() {
     const [products, setProducts] = useState([]);
     const [categories, setCategories] = useState([]);
     const [sidebar, setSidebar] = useState(false);
+    const [currentProduct, setCurrentProduct] = useState([]);
     
     useEffect(() => {
         const sottlysLogin = JSON.parse(localStorage.getItem("sottlysLogin"));
@@ -23,17 +24,17 @@ export default function App() {
 
     return(
         <UserContext.Provider value={{userData,setUserData, categories, setCategories}}>
-        <Router>
-                <BasketContext.Provider value = {{products, setProducts}}>
-                    <GlobalStyles />
-                    <Routes>
-                        <Route path = "/" exact element = {<Home sidebar = {sidebar} setSidebar = {setSidebar}/>} />
-                        <Route path = "/checkout" exact element = {<Checkout />} />
-                        <Route path = "/category/:id" exact element = {<Categories sidebar = {sidebar} setSidebar = {setSidebar}/>} />
-                        <Route path = "/history" exact element = {<HistoryPage sidebar = {sidebar} setSidebar = {setSidebar}/>} />
-                    </Routes>
-                </BasketContext.Provider>
-        </Router>
+            <Router>
+                    <BasketContext.Provider value = {{products, setProducts, currentProduct, setCurrentProduct}}>
+                        <GlobalStyles />
+                            <Routes>
+                                    <Route path = "/" exact element = {<Home sidebar = {sidebar} setSidebar = {setSidebar}/>} />
+                                    <Route path = "/checkout" exact element = {<Checkout />} />
+                                    <Route path = "/category/:id" exact element = {<Categories sidebar = {sidebar} setSidebar = {setSidebar}/>} />
+                                    <Route path = "/history" exact element = {<HistoryPage sidebar = {sidebar} setSidebar = {setSidebar}/>} />
+                            </Routes>
+                    </BasketContext.Provider>
+            </Router>
         </UserContext.Provider>
     )
 }

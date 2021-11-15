@@ -1,6 +1,7 @@
 import styled from "styled-components"
-import React, { forwardRef } from "react"
+import React, { forwardRef, useContext } from "react"
 import FastBuy from "./FastBuy";
+import BasketContext from "../context/BasketContext";
 
 const Item = forwardRef((props, ref) => {
     let image = 'https://renonvstakeinfo.org/wp-content/uploads/2019/07/nocontentyet.jpg';
@@ -13,11 +14,17 @@ const Item = forwardRef((props, ref) => {
         sizes,
         id
     } = props.prod
+    console.log(props.prod);
 
     const {
         sidebar,
-        setSidebar, 
+        setSidebar,
+        setShowModal,
     } = props
+
+    const {
+        setCurrentProduct
+    } = useContext(BasketContext)
 
     if(images.length !== 0 ){
         image = images[0].name
@@ -28,10 +35,13 @@ const Item = forwardRef((props, ref) => {
     return(
         <ItemBox ref={ref} page ={props.page}>
             <Image  page ={props.page}>
-                <img src={image} alt=""/>
+                <img src={image} alt="" onClick = {() => {
+                    setShowModal(true)
+                    setCurrentProduct({...props.prod})
+                }}/>
                 <FastBuy colors ={colors} sizes={sizes} productId={id} sidebar = {sidebar} setSidebar = {setSidebar}/> 
             </Image>         
-            <ProductName page ={props.page}>{name}</ProductName>
+            <ProductName page ={props.page} onClick = {() => setShowModal(true)}>{name}</ProductName >
             <Price page ={props.page}>
                 <h3>{Number(price).toFixed(2).replace(".", ",")}</h3>
                 <p>{installments}x {installmentsPrice}</p>
