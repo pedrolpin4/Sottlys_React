@@ -112,7 +112,7 @@ export default function Header ({sidebar, setSidebar}) {
                                     filters[0] === categories[0] ?
                                         filters.map(e => {
                                             return(
-                                                <Link to = {`/categories/${e.id}`} key = {e.id}>
+                                                <Link to = {`/categories/${e.id}`} key = {'c' + e.id}>
                                                     {e.name}
                                                 </Link>
                                             )
@@ -120,7 +120,7 @@ export default function Header ({sidebar, setSidebar}) {
                                         filters[0] === trends[0] ?
                                             filters.map(e => {
                                                 return(
-                                                    <Link to = {`/categories/${e.id}`} key = {e.id}>
+                                                    <Link to = {`/categories/${e.id}`} key = {'t' + e.id}>
                                                         {e.name}
                                                     </Link>
                                                 )

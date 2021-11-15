@@ -3,7 +3,6 @@ import { useNavigate } from "react-router";
 import { useContext, useEffect, useState } from "react/cjs/react.development"
 import styled from "styled-components"
 import BasketContext from "../context/BasketContext"
-import UserContext from "../context/UserContext";
 import { getBasket } from "../service/basket";
 import CheckoutProduct from "./CheckoutProduct";
 import PaymentModal from "./PaymentModal";
@@ -11,7 +10,6 @@ import PaymentModal from "./PaymentModal";
 export default function CheckoutBody () {
     const navigate = useNavigate();
     const {products, setProducts} = useContext(BasketContext);
-    const {userData} = useContext(UserContext);
     const [total, setTotal] = useState(0);
     const [delivery, setDelivery] = useState(false)
     const valorEntrega = 32;
@@ -19,11 +17,13 @@ export default function CheckoutBody () {
     const [showModal, setShowModal] = useState(false)
     
     async function listBasket () {
-        const result = await getBasket(userData.token)
+        if(!localStorage.getItem('sottlysLogin')){
+            return;
+        }
+        const result = await getBasket(JSON.parse(localStorage.getItem("sottlysLogin")).token)
         
         if(result.data) {
             setProducts(result.data);
-            console.log(userData);
             calcTotal(result.data)
             return;
         }
@@ -40,6 +40,9 @@ export default function CheckoutBody () {
     }
 
     useEffect(() => {
+        if(!localStorage.getItem('sottlysLogin')){
+            navigate("/")
+        }
         listBasket();
     }, [products.length]);
 
@@ -58,7 +61,7 @@ export default function CheckoutBody () {
             <SummaryContainer>
                 <h1>Resumo</h1>
                 <DeliveryFee>
-                    As opções de entrega para {userData.user.name} são:
+                    As opções de entrega para {localStorage.getItem('sottlysLogin') ? JSON.parse(localStorage.getItem("sottlysLogin")).user.name : ""} são:
                 </DeliveryFee>
                 <DeliveryOptions onClick = {() =>{
                     setDelivery(false)
