@@ -1,10 +1,7 @@
-import { useState } from "react";
 import Header from "../components/Header"
 import MainBody from "../components/MainBody"
 
-export default function Home () {
-    const [sidebar, setSidebar] = useState(false);
-
+export default function Home ({sidebar, setSidebar}) {
     return(
         <>
             <Header sidebar = {sidebar} setSidebar = {setSidebar}/>

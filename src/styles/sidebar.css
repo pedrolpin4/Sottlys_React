@@ -14,7 +14,7 @@
 
 .nav-menu {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    background-color: rgb(108, 188, 253);
+    background-color: #fff;
     width: 350px;
     height: calc(100vh - 20px);
     display: flex;

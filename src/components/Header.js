@@ -3,6 +3,7 @@ import Logo from './Logo';
 import {IoPersonOutline, IoCartOutline, IoHeartOutline, IoSearchOutline, IoMenuOutline} from 'react-icons/io5';
 import { Link } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import { getFilters } from "../service/filters";
 import Sidebar from "./SideBar";
 import { getBasket } from "../service/basket";
@@ -10,6 +11,7 @@ import UserContext from "../context/UserContext";
 import BasketContext from "../context/BasketContext";
 
 export default function Header ({sidebar, setSidebar}) {
+    const navigate = useNavigate();
     const [trends, setTrends] = useState([]);
     const [sales, setSales] = useState([]);
     const [filters, setFilters] = useState([]);
@@ -142,7 +144,7 @@ export default function Header ({sidebar, setSidebar}) {
                             }
                     </div>
                 </Filters>
-                <DropDownOption>
+                <DropDownOption onClick = {() => navigate("/history")}>
                         <p>Histórico</p>
                 </DropDownOption>
             </ Unifier>
