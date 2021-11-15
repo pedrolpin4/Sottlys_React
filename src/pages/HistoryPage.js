@@ -57,7 +57,7 @@ export default function HistoryPage({sidebar, setSidebar}){
                         </ButtonBlack>
                     </>
                 :
-                    shoppings.map(shop => {
+                    shoppings.map((shop, i) => {
                         let total = 0;
                         let quantity = 0;
 
@@ -67,13 +67,13 @@ export default function HistoryPage({sidebar, setSidebar}){
                         })
 
                         return(
-                            <ShoppingContainer>
+                            <ShoppingContainer key = {'s'+ i}>
                                 <TopSection>
                                     {dayjs(shop.date).format('DD/MM/YYYY')}
                                 </TopSection>
                                 <ShoppingBody>
-                                    { shop.products.map(prod => (
-                                        <ProductContainer>
+                                    { shop.products.map((prod, j) => (
+                                        <ProductContainer key = {'p' + j}>
                                             <img src = {`${prod.image}`} alt = "imagem do produto"/>
                                             <ProductsInfo>
                                                 <p><span>Nome:</span> {prod.name}</p>
