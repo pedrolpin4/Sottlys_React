@@ -32,9 +32,10 @@ const Item = forwardRef((props, ref) => {
                 <FastBuy colors ={colors} sizes={sizes} productId={id} sidebar = {sidebar} setSidebar = {setSidebar}/> 
             </Image>         
             <ProductName page ={props.page}>{name}</ProductName>
-            <Price page ={props.page}>
+            <Price page ={props.page} sales={props.sales}>
                 <h3>{Number(price).toFixed(2).replace(".", ",")}</h3>
                 <p>{installments}x {installmentsPrice}</p>
+                <h2>{'R$' + props.newPrice || ""}</h2>
             </Price>
         </ItemBox>
         
@@ -93,11 +94,16 @@ const Price = styled.div`
     display: flex;
     h3{
         font-size: ${(props) =>  props.page? '19px' : '16px'};
+        text-decoration: ${(props) =>  props.sales? 'line-through' : 'none'};
+    }
+    h2{
+        font-size: 19px;
     }
     p{
         font-size: ${(props) =>  props.page? '17px' : '14px'};
         color: gray;
         margin-left: 15px;
+        visibility: ${(props) =>  props.sales? 'hidden' : 'visible'};
     }
 
     @media(max-width: 800px){

@@ -128,7 +128,7 @@ export default function Header ({sidebar, setSidebar}) {
                                             filters.map(e => {
                                                 return(
                                                     <div className = "filter-name">
-                                                            <Link to = {`/sales/${e.id}`} key = {e.id}>
+                                                            <Link to = {`/sales/${e.id}`} key = {'s' + e.id}>
                                                                  <h1>{e.name}</h1>
                                                             </Link>
                                                     </div>

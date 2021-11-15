@@ -52,7 +52,7 @@ export default function SalesBody() {
             {name}
         </Title>
         <ContainerItens>
-            {products.map((prod)=>  <Item key={prod.id + 's'} prod={prod} page={true}/>)}
+            {products.map((prod)=>  <Item key={prod.id + 's'} prod={prod} page={true} sales={true} newPrice={prod.new_price}/>)}
         </ContainerItens>
         </>
 
