@@ -204,7 +204,7 @@ const ShoppingBody = styled.div`
     }
     @media(max-width: 600px){
         img{
-            display: none;
+            width: 30%;
         }
     }
     @media(max-width: 850px){
@@ -297,7 +297,7 @@ const ProductsNumbers = styled.div`
         width: 27%;
     }
     @media(max-width: 600px){
-        width: 35%;
+       display: none;
     }
 `
 
