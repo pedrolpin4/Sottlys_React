@@ -63,7 +63,7 @@ export default function LoginForm ({setContent, email, setEmail, password, setPa
                     type = {showPassword ? "text" : "password"} value = {password} onChange = {(e) => setPassword(e.target.value)} disabled = {isDisabled}
                 />
                 <button className = "nav-menu__button" type = "submit">
-                    {isLoading ? <Loading spinnerSize = {30} color = {"#fff"}/> :"ENTRAR"}
+                    {isLoading ? <Loading spinnerSize = {35} /> :"ENTRAR"}
                 </button>
                 <p className = "error-message">{errorMessage}</p>
             </form>

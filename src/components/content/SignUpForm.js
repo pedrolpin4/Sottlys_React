@@ -123,7 +123,7 @@ export default function SignUpForm ({setContent, email, setEmail, password, setP
                     onChange = {(e) => setComplement(e.target.value)} value = {complement} disabled = {isDisabled}
                 /> 
                 <button className = "nav-menu__button" type = "submit">
-                    {isLoading ?  <Loading spinnerSize = {30} color = {"#fff"} /> : "Registrar"}
+                    {isLoading ?  <Loading spinnerSize = {35} /> : "Registrar"}
                 </button>
                 <p className = "error-message">{errorMessage}</p>
                 <p className = "nav-menu__p--switcher" onClick = {() => setContent('login')}>Já está cadastrado? Faça login!</p>
