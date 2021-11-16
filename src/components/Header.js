@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Logo from './Logo';
-import {IoPersonOutline, IoCartOutline, IoHeartOutline, IoSearchOutline, IoMenuOutline} from 'react-icons/io5';
+import {IoPersonOutline, IoCartOutline, IoSearchOutline, IoBookOutline} from 'react-icons/io5';
 import { Link, useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { getFilters } from "../service/filters";
@@ -144,8 +144,8 @@ export default function Header ({sidebar, setSidebar, content, setContent}) {
                 </DropDownOption>
             </ Unifier>
             <Icons>
+                <IoBookOutline size = {25} className = "mobile-view" onClick = {() => navigate("/history")}/>
                 <IoSearchOutline size = {25} onClick = {() => {}}/>
-                <IoHeartOutline size = {25} onClick = {() => {}}/>
                 <IoCartOutline size = {25} onClick = {() => {
                     setSidebar(true);
                     setContent('basket');
@@ -155,7 +155,6 @@ export default function Header ({sidebar, setSidebar, content, setContent}) {
                     setSidebar(true);
                     setContent('login')
                 }}/>
-                <IoMenuOutline size = {25} className = "mobile-view" onClick = {() => setSidebar(true)}/>
             </Icons>
             <Sidebar sidebar = {sidebar} setSidebar = {setSidebar} content = {content} setContent = {setContent}/>
         </HeaderContainer>
