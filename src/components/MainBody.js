@@ -32,7 +32,7 @@ export default function MainBody ({sidebar, setSideBar, setShowModal}){
             <p>{erro}</p>
             {categories.map((cat)=> <Category key={cat.id} name={cat.name} id={cat.id} 
                 sidebar = {sidebar} setSideBar = {setSideBar} setShowModal = {setShowModal}/>)}
-            <BottomPage categories={categories}/>
+            <BottomPage />
         </ContainerCategories>
     )
 }
@@ -44,5 +44,6 @@ const ContainerCategories = styled.div`
     align-items: center;
     margin-top: 114px;
     width: 100vw;
+    min-height: 100vw;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 `

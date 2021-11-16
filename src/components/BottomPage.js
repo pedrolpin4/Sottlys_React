@@ -1,57 +1,51 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { IoLogoFacebook, IoLogoInstagram, IoLogoLinkedin, IoLogoPinterest, IoLogoTwitter, IoLogoWhatsapp} from "react-icons/io"
+import { useEffect, useState } from "react/cjs/react.development";
+import { getFilters } from "../service/filters";
 
-export default function BottomPage ({categories}){
+export default function BottomPage (){
+    const [sales, setSales] = useState([]);
+    const [trends, setTrends] = useState([]);
+    const [categories, setCategories] = useState([]);
+
+    async function info(){
+        const resultSales = await getFilters('sales');;
+        if(resultSales?.data){
+            const justSomeProducts = resultSales.data.filter((r,i)=> i<6);
+            setSales(justSomeProducts);
+        }
+        const resultTrends = await getFilters('trends');;
+        if(resultTrends?.data){
+            const justSomeProducts = resultTrends.data.filter((r,i)=> i<6);
+            setTrends(justSomeProducts);
+        }
+        const resultCategories = await getFilters('categories');;
+        if(resultCategories?.data){
+            const justSomeProducts = resultCategories.data.filter((r,i)=> i<6);
+            setCategories(justSomeProducts);
+        }
+    }
+
+    useEffect(()=>{
+        info();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[])
 
     return(
         <ContainerBottom>
             <DiplayFlex>
                 <Info>
                 <h1>Categorias</h1>
-                {categories.map((c)=><Link to="/" key={c.id}> <p>{c.name}</p> </Link>)}
+                {categories.map((c)=><Link to={`/category/${c.id}`} key={c.id}> <p>{c.name}</p> </Link>)}
             </Info>
             <Info>
                 <h1>Tendencias</h1>
-                <Link to="/">
-                    <p>Tops</p>
-                </Link>
-                <Link to="/">
-                    <p>Saia midi</p>
-                </Link>
-                <Link to="/">
-                    <p>Chapeu bucket</p>
-                </Link>
-                <Link to="/">
-                    <p>Vestido A-line</p>
-                </Link>
-                <Link to="/">
-                    <p>Biquini cropped</p>
-                </Link>
-                <Link to="/">
-                    <p>Sandalia Anabela</p>
-                </Link>
+                {trends.map((t)=><Link to={`/category/${t.id}`} key={t.name}><p>{t.name}</p></Link>)}
             </Info>
             <Info>
-                <h1>Promocao</h1>
-                <Link to="/">
-                    <p>Blusas</p>
-                </Link>
-                <Link to="/">
-                    <p>Shorts</p>
-                </Link>
-                <Link to="/">
-                    <p>Acessorio</p>
-                </Link>
-                <Link to="/">
-                    <p>Vestidos</p>
-                </Link>
-                <Link to="/">
-                    <p>Roupas de Banho</p>
-                </Link>
-                <Link to="/">
-                    <p>Sapatos</p>
-                </Link>
+                <h1>Promoções</h1>
+                {sales.map((s)=> <Link to={`/sales/${s.id}`} key={s.name}><p>{s.name}</p></Link> )}
             </Info>
             </DiplayFlex>
             <Logos>
@@ -76,6 +70,9 @@ const ContainerBottom = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    @media(max-width: 800px){
+        height: 250px;
+    }
 `
 const Info = styled.div`
     display: flex;
@@ -92,6 +89,18 @@ const Info = styled.div`
     p{
         margin-top: 10px;
     }
+
+    @media(max-width: 800px){
+        max-height: 190px;
+        width: auto;
+        h1{
+            font-size: 14px;
+        }
+        p{
+            font-size: 13px;
+            margin-top: 6px;
+        }
+    }
 `
 
 const DiplayFlex = styled.div`
@@ -106,5 +115,11 @@ const Logos = styled.div`
     width: 25%;
     justify-content: space-between;
     margin-top: 30px;
-    
+    &:hover{
+        cursor: pointer;
+    }
+    @media(max-width: 800px){
+        margin-top: 10px;
+        width: 35%;
+    }
 `

@@ -132,5 +132,8 @@ const Price = styled.div`
         p{
             font-size: 12px;
         }
+        h2{
+            font-size: 14px;
+        }
     }
 `
