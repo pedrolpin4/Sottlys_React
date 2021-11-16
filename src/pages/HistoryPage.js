@@ -11,7 +11,8 @@ export default function HistoryPage({sidebar, setSidebar}){
     const navigate = useNavigate()
     const [shoppings, setShoppings] = useState([]);
     const [message, setMessage] = useState('');
-    const [showModal, setShowModal] = useState(false)
+    const [showModal, setShowModal] = useState(false);
+    const [content, setContent] = useState('login')
 
     async function listHistory(token){
         const result = await getHistory(token)
@@ -36,7 +37,7 @@ export default function HistoryPage({sidebar, setSidebar}){
 
     return(
         <>
-            <Header sidebar = {sidebar} setSidebar = {setSidebar} setShowModal = {setShowModal}/>
+            <Header sidebar = {sidebar} setSidebar = {setSidebar} setShowModal = {setShowModal} content = {content} setContent = {setContent}/>
             <HistoryContainer>
                 <h1>Compras</h1>
                 {

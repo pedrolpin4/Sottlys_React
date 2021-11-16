@@ -9,7 +9,7 @@ import styled from "styled-components"
 export default function Categories ({sidebar, setSidebar}) {
     const { categories } = useContext(UserContext);
     const[showModal, setShowModal] = useState(false);
-    const [content, setContent] = useState('');
+    const [content, setContent] = useState('login');
 
 
     return(
