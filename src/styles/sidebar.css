@@ -61,6 +61,13 @@
     margin-left: 10px;
 }
 
+.nav-menu__search{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    width: 270px;
+    height: 50px;
+    padding: 5px;
+    font-size: 16px;
+}
 
 .nav-menu__close{
     cursor: pointer;

@@ -145,7 +145,10 @@ export default function Header ({sidebar, setSidebar, content, setContent}) {
             </ Unifier>
             <Icons>
                 <IoBookOutline size = {25} className = "mobile-view" onClick = {() => navigate("/history")}/>
-                <IoSearchOutline size = {25} onClick = {() => {}}/>
+                <IoSearchOutline size = {25} onClick = {() => {
+                    setSidebar(true);
+                    setContent('search')
+                }}/>
                 <IoCartOutline size = {25} onClick = {() => {
                     setSidebar(true);
                     setContent('basket');
