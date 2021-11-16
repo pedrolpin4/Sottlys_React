@@ -70,7 +70,7 @@ const Sidebar = ({ sidebar, setSidebar, content, setContent }) => {
                     /> : content === 'basket' ?
                     <BasketContent setQuantity = {setQuantity} sidebar = {sidebar} content = {content} 
                         setContent = {setContent} setSidebar = {setSidebar}/>
-                    : content = 'search' ?
+                    : content === 'search' ?
                     <SearchContainer setSidebar = {setSidebar} searchContent = {searchContent}/> :
                     <div className = "error-container">
                         <p>Continue suas compras:</p>

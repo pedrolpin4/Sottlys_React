@@ -424,7 +424,50 @@
 .products-container::-webkit-scrollbar { 
     /* This is the magic bit for WebKit */
     display: none;
-  }
+}
+
+.search-container{
+    width: 350px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.search-title{
+    font-size: 18px;
+    font-weight: 500;
+    margin-top: 20px;
+}
+
+.search-types{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    padding: 10px;
+}
+
+.search-type{
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    font-size: 14px;
+    align-items: center;
+    width: 100px;
+    height: 40px;
+    border-radius: 20px;
+    background-color: white;
+    color: black;
+}
+
+.search-type.selected{
+    cursor: pointer;
+    background-color: black;
+    color: white;
+}
+
 
 @media(max-width: 600px){
     .nav-menu__product svg{
