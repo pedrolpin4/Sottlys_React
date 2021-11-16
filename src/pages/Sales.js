@@ -12,7 +12,7 @@ export default function Sales ({sidebar, setSidebar}) {
 
     return(
         <Body>
-            <Header sidebar={sidebar} setSidebar={setSidebar} content = {content} setContent = {setContent}/>
+            <Header sidebar={sidebar} setSidebar={setSidebar} content = {content} setContent = {setContent} setShowModal = {setShowModal}/>
             <SalesBody sidebar = {sidebar} setSidebar = {setSidebar} setShowModal = {setShowModal}/>
             <BottomPage />
             <ProductModal showModal = {showModal} setShowModal = {setShowModal} setSidebar = {setSidebar} setContent = {setContent} />

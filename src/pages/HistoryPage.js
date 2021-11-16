@@ -5,11 +5,13 @@ import dayjs from "dayjs";
 import styled from "styled-components";
 import Header from "../components/Header";
 import getHistory from "../service/history";
+import ProductModal from "../components/ProductModal";
 
 export default function HistoryPage({sidebar, setSidebar}){
     const navigate = useNavigate()
     const [shoppings, setShoppings] = useState([]);
     const [message, setMessage] = useState('');
+    const [showModal, setShowModal] = useState(false)
 
     async function listHistory(token){
         const result = await getHistory(token)
@@ -34,7 +36,7 @@ export default function HistoryPage({sidebar, setSidebar}){
 
     return(
         <>
-            <Header sidebar = {sidebar} setSidebar = {setSidebar} />
+            <Header sidebar = {sidebar} setSidebar = {setSidebar} setShowModal = {setShowModal}/>
             <HistoryContainer>
                 <h1>Compras</h1>
                 {
@@ -101,6 +103,7 @@ export default function HistoryPage({sidebar, setSidebar}){
                         )}
                     )}
             </HistoryContainer>
+            <ProductModal sidebar = {sidebar} setSidebar = {setSidebar} showModal = {showModal} setShowModal = {setShowModal}/>
         </>
     )
 }

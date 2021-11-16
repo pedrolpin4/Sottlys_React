@@ -10,7 +10,7 @@ export default function Home ({sidebar, setSidebar}) {
 
     return(
         <Body>
-            <Header sidebar = {sidebar} setSidebar = {setSidebar} content = {content} setContent = {setContent}/>
+            <Header sidebar = {sidebar} setSidebar = {setSidebar} content = {content} setContent = {setContent} setShowModal = {setShowModal}/>
             <MainBody sidebar = {sidebar} setSidebar = {setSidebar} setShowModal = {setShowModal}/>
             <ProductModal showModal = {showModal} setShowModal = {setShowModal} setSidebar = {setSidebar} setContent = {setContent}/>
         </Body>
