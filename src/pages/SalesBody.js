@@ -44,7 +44,7 @@ export default function SalesBody({sidebar, setSidebar, setShowModal}) {
     }, [id])
 
     return(
-        <>
+        <ContainerBody>
         <Erro>
             {erro}
         </Erro>
@@ -54,7 +54,7 @@ export default function SalesBody({sidebar, setSidebar, setShowModal}) {
         <ContainerItens>
             {products.map((prod)=>  <Item key={prod.id + 's'} prod={prod} page={true} sidebar = {sidebar} setSidebar = {setSidebar} setShowModal = {setShowModal}/>)}
         </ContainerItens>
-        </>
+        </ContainerBody>
 
     );
 }
@@ -89,6 +89,17 @@ const Title = styled.div`
     @media(max-width: 800px){
         margin-left: 20px;
         font-size: 28px;
+    }
+
+`
+
+const ContainerBody = styled.div`
+    min-height: calc(100vh - 7rem - 520px);
+    @media(max-width: 1000px){
+        min-height: calc(100vh - 6rem - 520px);
+    }
+    @media(max-width: 600px){
+        min-height: calc(100vh - 5.5rem - 500px);
     }
 
 `
