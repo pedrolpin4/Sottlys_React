@@ -24,8 +24,6 @@ export default async function getSearchs(content, type){
         }     
     })
 
-    console.log(result.data);
-
     if(result.status === 204) return {
         success: true,
         message: "Não há resultados para essa pesquisa :(",
