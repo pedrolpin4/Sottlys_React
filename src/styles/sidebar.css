@@ -61,6 +61,13 @@
     margin-left: 10px;
 }
 
+.nav-menu__search{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    width: 270px;
+    height: 50px;
+    padding: 5px;
+    font-size: 16px;
+}
 
 .nav-menu__close{
     cursor: pointer;
@@ -136,7 +143,7 @@
 }
 
 .nav-menu__button.basket{
-    width: 80%
+    width: 80%;
 }
 
 .nav-menu__register{
@@ -371,8 +378,8 @@
 
 .error-container{
     display: flex;
-    margin-top: 20px;
-    height: calc(100vh - 500px);
+    margin-top: 30px;
+    height: auto;
     font-size: 30px;
     text-align: center;
     flex-direction: column;
@@ -417,9 +424,74 @@
 .products-container::-webkit-scrollbar { 
     /* This is the magic bit for WebKit */
     display: none;
-  }
+}
 
-@media(max-width: 600px){
+.search-container{
+    width: 350px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.search-container h2{
+    text-align: center;
+    font-size: 20px;
+    margin-top: 40px;
+    color: #777;
+}
+
+.search-title{
+    font-size: 18px;
+    font-weight: 500;
+    margin-top: 20px;
+}
+
+.search-types{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+}
+
+.search-type{
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    font-size: 14px;
+    align-items: center;
+    width: 100px;
+    height: 40px;
+    border-radius: 20px;
+    background-color: white;
+    color: black;
+}
+
+.search-type.selected{
+    cursor: pointer;
+    background-color: black;
+    color: white;
+}
+
+.links-container{
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.search-link{
+    cursor: pointer;
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #777;
+}
+
+@media(max-width: 400px){
+    .nav-menu{
+        width: 90vw;
+        right: -90vw;
+    }
     .nav-menu__product svg{
         cursor: pointer;
         position: absolute;

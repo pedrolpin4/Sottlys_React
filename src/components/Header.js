@@ -9,7 +9,7 @@ import { getBasket } from "../service/basket";
 import UserContext from "../context/UserContext";
 import BasketContext from "../context/BasketContext";
 
-export default function Header ({sidebar, setSidebar, content, setContent}) {
+export default function Header ({sidebar, setSidebar, content, setContent, setShowModal}) {
     const [trends, setTrends] = useState([]);
     const [sales, setSales] = useState([]);
     const [filters, setFilters] = useState([]);
@@ -145,7 +145,10 @@ export default function Header ({sidebar, setSidebar, content, setContent}) {
             </ Unifier>
             <Icons>
                 <IoBookOutline size = {25} className = "mobile-view" onClick = {() => navigate("/history")}/>
-                <IoSearchOutline size = {25} onClick = {() => {}}/>
+                <IoSearchOutline size = {25} onClick = {() => {
+                    setSidebar(true);
+                    setContent('search')
+                }}/>
                 <IoCartOutline size = {25} onClick = {() => {
                     setSidebar(true);
                     setContent('basket');
@@ -156,7 +159,7 @@ export default function Header ({sidebar, setSidebar, content, setContent}) {
                     setContent('login')
                 }}/>
             </Icons>
-            <Sidebar sidebar = {sidebar} setSidebar = {setSidebar} content = {content} setContent = {setContent}/>
+            <Sidebar sidebar = {sidebar} setSidebar = {setSidebar} content = {content} setContent = {setContent} setShowModal = {setShowModal}/>
         </HeaderContainer>
     )
 }
@@ -165,7 +168,7 @@ const HeaderContainer = styled.div`
     font-family: 'Alice', serif;
     position: fixed;
     top: 0;
-    left: 0;
+    left: 0px;
     right: 0;
     display: flex;
     align-items: center;
@@ -204,13 +207,15 @@ const HeaderContainer = styled.div`
         svg:hover{
             transform: translateY(-1px) scale(1.1);
         }
+        width: 100vw;
+        overflow-x: hidden;
     }
 `
 
 const Unifier = styled.div`
     display: flex;
     height: 100%;
-    width: 100%;
+    width: 100%;;
 `
 
 const Icons = styled.div`
