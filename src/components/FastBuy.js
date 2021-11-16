@@ -12,7 +12,6 @@ export default function FastBuy({colors, sizes, productId, setSidebar}) {
     function addToBasket(){
         const chosenColor = colors.filter(col => col.name === color);
         const chosenSize = sizes.filter(s => s.name === size);
-        console.log(colors, color, chosenColor, sizes, size, chosenSize);
 
         if(!userData.user){
             setSidebar(true)
