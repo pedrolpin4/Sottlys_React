@@ -38,17 +38,18 @@ export default function App() {
 
     return(
         <UserContext.Provider value={{userData,setUserData, categories, setCategories, productsSales}}>
-            <Router>
-                    <BasketContext.Provider value = {{products, setProducts, currentProduct, setCurrentProduct}}>
-                        <GlobalStyles />
-                            <Routes>
-                                    <Route path = "/" exact element = {<Home sidebar = {sidebar} setSidebar = {setSidebar}/>} />
-                                    <Route path = "/checkout" exact element = {<Checkout />} />
-                                    <Route path = "/category/:id" exact element = {<Categories sidebar = {sidebar} setSidebar = {setSidebar}/>} />
-                                    <Route path = "/history" exact element = {<HistoryPage sidebar = {sidebar} setSidebar = {setSidebar}/>} />
-                            </Routes>
-                    </BasketContext.Provider>
-            </Router>
+        <Router>
+                <BasketContext.Provider value = {{products, setProducts, currentProduct, setCurrentProduct}}>
+                    <GlobalStyles />
+                    <Routes>
+                        <Route path = "/" exact element = {<Home sidebar = {sidebar} setSidebar = {setSidebar}/>} />
+                        <Route path = "/checkout" exact element = {<Checkout />} />
+                        <Route path = "/sales/:id" exact element = {<Sales sidebar = {sidebar} setSidebar = {setSidebar}/>} />
+                        <Route path = "/category/:id" exact element = {<Categories sidebar = {sidebar} setSidebar = {setSidebar}/>} />
+                        <Route path = "/history" exact element = {<HistoryPage sidebar = {sidebar} setSidebar = {setSidebar}/>} />
+                    </Routes>
+                </BasketContext.Provider>
+        </Router>
         </UserContext.Provider>
     )
 }
