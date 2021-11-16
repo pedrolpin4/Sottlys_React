@@ -7,7 +7,7 @@ import UserContext from '../context/UserContext';
 import BasketContent from './content/BasketContent';
 import SearchContainer from './SearchContainer';
 
-const Sidebar = ({ sidebar, setSidebar, content, setContent }) => {
+const Sidebar = ({ sidebar, setSidebar, content, setContent, setShowModal }) => {
     const sidebarRef = useRef();
     const[email, setEmail] = useState('');
     const[password, setPassword] = useState('');
@@ -71,13 +71,13 @@ const Sidebar = ({ sidebar, setSidebar, content, setContent }) => {
                     <BasketContent setQuantity = {setQuantity} sidebar = {sidebar} content = {content} 
                         setContent = {setContent} setSidebar = {setSidebar}/>
                     : content === 'search' ?
-                    <SearchContainer setSidebar = {setSidebar} searchContent = {searchContent}/> :
+                    <SearchContainer setSidebar = {setSidebar} searchContent = {searchContent} setShowModal = {setShowModal}/> :
                     <div className = "error-container">
                         <p>Continue suas compras:</p>
                         <div className = "nav-menu__button basket" onClick = {() => setSidebar(false)}>
                             Continuar Comprando
                         </div>
-                    </div> 
+                    </div>
                 }
             </div>
         </>

@@ -9,7 +9,7 @@ import { getBasket } from "../service/basket";
 import UserContext from "../context/UserContext";
 import BasketContext from "../context/BasketContext";
 
-export default function Header ({sidebar, setSidebar, content, setContent}) {
+export default function Header ({sidebar, setSidebar, content, setContent, setShowModal}) {
     const [trends, setTrends] = useState([]);
     const [sales, setSales] = useState([]);
     const [filters, setFilters] = useState([]);
@@ -159,7 +159,7 @@ export default function Header ({sidebar, setSidebar, content, setContent}) {
                     setContent('login')
                 }}/>
             </Icons>
-            <Sidebar sidebar = {sidebar} setSidebar = {setSidebar} content = {content} setContent = {setContent}/>
+            <Sidebar sidebar = {sidebar} setSidebar = {setSidebar} content = {content} setContent = {setContent} setShowModal = {setShowModal}/>
         </HeaderContainer>
     )
 }

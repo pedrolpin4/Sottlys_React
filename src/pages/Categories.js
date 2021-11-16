@@ -13,7 +13,7 @@ export default function Categories ({sidebar, setSidebar}) {
 
     return(
         <>
-            <Header sidebar = {sidebar} setSidebar = {setSidebar} content = {content} setContent = {setContent} />
+            <Header sidebar = {sidebar} setSidebar = {setSidebar} content = {content} setContent = {setContent} setShowModal = {setShowModal}/>
             <CategoryBody sidebar = {sidebar} setSidebar = {setSidebar} setShowModal = {setShowModal}/>
             <BottomPage categories={categories}/>
             <ProductModal showModal = {showModal} setShowModal = {setShowModal} setSidebar = {setSidebar} setContent = {setContent} />
