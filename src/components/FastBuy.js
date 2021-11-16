@@ -79,6 +79,9 @@ const ContainerFastBuy = styled.div`
     transition: all .4s;
     justify-content: space-between;
     align-items: center;
+    @media(max-width: 800px){
+        height: 70%;
+    }
 `
 const ContainerSizes = styled.div`
     display: flex;
