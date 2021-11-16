@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useState, useEffect } from "react/cjs/react.development";
+import { useState, useEffect } from "react";
 import { getProductsBySales } from "../service/reqMainPage";
 import styled from "styled-components";
 import Item from "../components/Item";

@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useContext, useEffect } from "react"
+import { useContext, useEffect, useState  } from "react"
 import { useNavigate } from "react-router";
-import { useState } from "react/cjs/react.development"
 import BasketContext from "../../context/BasketContext";
 import UserContext from "../../context/UserContext"
 import { getBasket } from "../../service/basket"

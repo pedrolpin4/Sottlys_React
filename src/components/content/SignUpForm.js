@@ -1,5 +1,5 @@
 import { IoEyeOutline } from "react-icons/io5";
-import { useState } from "react/cjs/react.development";
+import { useState } from "react";
 import { postSignUp } from "../../service/registration";
 import Loading from "../Loading";
 

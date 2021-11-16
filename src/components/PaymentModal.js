@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import {useCallback, useEffect, useRef} from 'react';
-import { useContext, useState } from "react/cjs/react.development";
+import {useCallback, useEffect, useRef, useContext, useState} from 'react';
 import { useNavigate } from "react-router";
 import { postPayment } from "../service/postPayment";
 import UserContext from '../context/UserContext'

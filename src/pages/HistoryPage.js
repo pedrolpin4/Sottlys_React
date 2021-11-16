@@ -1,6 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
-import { useEffect } from "react/cjs/react.development";
 import dayjs from "dayjs";
 import styled from "styled-components";
 import Header from "../components/Header";
