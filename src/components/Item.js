@@ -117,23 +117,29 @@ const Price = styled.div`
     }
     h2{
         font-size: ${(props) =>  props.page? '19px' : '16px'};
+        margin-left: 23px;
     }
     p{
         font-size: ${(props) =>  props.page? '17px' : '14px'};
         color: gray;
         margin-left: 15px;
-        visibility: ${(props) =>  props.sales? 'hidden' : 'visible'};
+        display: ${(props) =>  props.sales? 'none' : 'inline'};
     }
 
     @media(max-width: 800px){
+        height: 20px;
+        word-break: normal;
+        word-wrap:normal;
         h3{
             font-size: 14px;
         }
         p{
             font-size: 12px;
+
         }
         h2{
-            font-size: 14px;
+            font-size: 13px;
+            margin-left: 17px;
         }
     }
 `
