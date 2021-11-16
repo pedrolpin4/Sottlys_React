@@ -6,7 +6,9 @@ import { useEffect, useState } from "react";
 import Categories from "./pages/Categories"
 import BasketContext from "./context/BasketContext";
 import Checkout from "./pages/Checkout";
+import Sales from "./pages/Sales";
 import HistoryPage from "./pages/HistoryPage";
+import { getProductsInSales } from "./service/reqMainPage";
 
 export default function App() {
     const [userData, setUserData] = useState({});
@@ -14,16 +16,28 @@ export default function App() {
     const [categories, setCategories] = useState([]);
     const [sidebar, setSidebar] = useState(false);
     const [currentProduct, setCurrentProduct] = useState([]);
+    const [productsSales, setProductsSales] = useState()
+
+    async function isProductInSale(){
+        const result = await getProductsInSales();
+        
+        if(result?.data){
+            setProductsSales(result.data);
+        }
+
+    }
     
     useEffect(() => {
         const sottlysLogin = JSON.parse(localStorage.getItem("sottlysLogin"));
         if(sottlysLogin){
             setUserData(sottlysLogin);
         }
+
+        isProductInSale()
     }, []);
 
     return(
-        <UserContext.Provider value={{userData,setUserData, categories, setCategories}}>
+        <UserContext.Provider value={{userData,setUserData, categories, setCategories, productsSales}}>
             <Router>
                     <BasketContext.Provider value = {{products, setProducts, currentProduct, setCurrentProduct}}>
                         <GlobalStyles />

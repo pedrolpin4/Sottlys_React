@@ -1,9 +1,8 @@
 import styled from "styled-components";
 import Logo from './Logo';
 import {IoPersonOutline, IoCartOutline, IoHeartOutline, IoSearchOutline, IoMenuOutline} from 'react-icons/io5';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router";
 import { getFilters } from "../service/filters";
 import Sidebar from "./SideBar";
 import { getBasket } from "../service/basket";
@@ -11,7 +10,6 @@ import UserContext from "../context/UserContext";
 import BasketContext from "../context/BasketContext";
 
 export default function Header ({sidebar, setSidebar}) {
-    const navigate = useNavigate();
     const [trends, setTrends] = useState([]);
     const [sales, setSales] = useState([]);
     const [filters, setFilters] = useState([]);
@@ -20,6 +18,7 @@ export default function Header ({sidebar, setSidebar}) {
     const { setCategories, categories} = useContext(UserContext);
     const { userData } = useContext(UserContext);
     const {setProducts} = useContext(BasketContext);
+    const navigate = useNavigate();
 
 
     async function listCategories(){
@@ -130,12 +129,9 @@ export default function Header ({sidebar, setSidebar}) {
                                             filters.map(e => {
                                                 return(
                                                     <div className = "filter-name">
-                                                        <h1>{e.name}</h1>
-                                                        {e.products ? e.products.map((prod) => (
-                                                            <Link to = {`/products/${prod.id}`} key = {prod.id}>
-                                                                {prod.name}
+                                                            <Link to = {`/sales/${e.id}`} key = {'s' + e.id}>
+                                                                 <h1>{e.name}</h1>
                                                             </Link>
-                                                        )) : ""}
                                                     </div>
                                                 )
                                             })
@@ -144,7 +140,7 @@ export default function Header ({sidebar, setSidebar}) {
                             }
                     </div>
                 </Filters>
-                <DropDownOption onClick = {() => navigate("/history")}>
+                <DropDownOption onClick = {()=>{navigate("/history")}}>
                         <p>Histórico</p>
                 </DropDownOption>
             </ Unifier>

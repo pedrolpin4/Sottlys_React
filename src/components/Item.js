@@ -2,8 +2,11 @@ import styled from "styled-components"
 import React, { forwardRef, useContext } from "react"
 import FastBuy from "./FastBuy";
 import BasketContext from "../context/BasketContext";
+import UserContext from "../context/UserContext";
 
 const Item = forwardRef((props, ref) => {
+    const { productsSales } = useContext(UserContext)
+    let newPrice =false;
     let image = 'https://renonvstakeinfo.org/wp-content/uploads/2019/07/nocontentyet.jpg';
     const {
         name,
@@ -29,6 +32,12 @@ const Item = forwardRef((props, ref) => {
     if(images.length !== 0 ){
         image = images[0].name
     }
+
+    const newArray = productsSales.filter((e)=> id === e.product_id);
+    if(newArray.length !== 0){
+        newPrice = newArray[0].new_price;
+    }
+
     
     const installmentsPrice = parseFloat(price/installments).toFixed(2).replace('.', ',')
 
@@ -41,10 +50,11 @@ const Item = forwardRef((props, ref) => {
                 }}/>
                 <FastBuy colors ={colors} sizes={sizes} productId={id} sidebar = {sidebar} setSidebar = {setSidebar}/> 
             </Image>         
-            <ProductName page ={props.page} onClick = {() => setShowModal(true)}>{name}</ProductName >
-            <Price page ={props.page}>
+            <ProductName page ={props.page} onClick = {() => setShowModal(true)}>{name}</ProductName>
+            <Price page ={props.page} sales={newPrice}>
                 <h3>{Number(price).toFixed(2).replace(".", ",")}</h3>
                 <p>{installments}x {installmentsPrice}</p>
+                <h2>{newPrice?'R$' + newPrice : ""}</h2>
             </Price>
         </ItemBox>
         
@@ -103,11 +113,16 @@ const Price = styled.div`
     display: flex;
     h3{
         font-size: ${(props) =>  props.page? '19px' : '16px'};
+        text-decoration: ${(props) =>  props.sales? 'line-through' : 'none'};
+    }
+    h2{
+        font-size: ${(props) =>  props.page? '19px' : '16px'};
     }
     p{
         font-size: ${(props) =>  props.page? '17px' : '14px'};
         color: gray;
         margin-left: 15px;
+        visibility: ${(props) =>  props.sales? 'hidden' : 'visible'};
     }
 
     @media(max-width: 800px){
