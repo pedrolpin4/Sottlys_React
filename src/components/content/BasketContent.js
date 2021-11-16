@@ -6,10 +6,12 @@ import BasketContext from "../../context/BasketContext";
 import UserContext from "../../context/UserContext"
 import { getBasket } from "../../service/basket"
 import BasketProduct from "../BasketProduct";
+import Loading from "../Loading";
 
 export default function BasketContent({ setQuantity, sidebar, content, setContent, setSidebar}){
     const [message, setMessage] = useState('');
     const [total, setTotal] = useState(0);
+    const [isLoading, setIsLoading] = useState(false)
     const navigate = useNavigate();
 
     const {
@@ -19,13 +21,16 @@ export default function BasketContent({ setQuantity, sidebar, content, setConten
     const {userData} = useContext(UserContext);
 
     async function listBasket () {
+        setIsLoading(true)
         const result = await getBasket(userData.token)
         
         if(result.data) {
+            setIsLoading(false)
             setProducts(result.data);
             return;
         }
 
+        setIsLoading(false)
         setMessage(result.message);
         return;
     }
@@ -61,7 +66,10 @@ export default function BasketContent({ setQuantity, sidebar, content, setConten
             }
             </div>
 
-        </div>: message === "Seu carrinho está vazio :(" ?
+        </div>: 
+        isLoading ?
+        <Loading spinnerSize = {120} margin = {120}/> : 
+        message === "Seu carrinho está vazio :(" ?
             <div className = "error-container">
                 <p>{message}</p>
                 <div className = "nav-menu__button basket" onClick = {() => setSidebar(false)}>

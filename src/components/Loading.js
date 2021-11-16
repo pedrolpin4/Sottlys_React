@@ -1,13 +1,12 @@
 import styled from 'styled-components';
-import { CgSpinner } from 'react-icons/cg';
 
-export default function Loading({ spinnerSize,
-                                  color     }) {
+export default function Loading({ spinnerSize, margin }) {
     return (
-        <LoadingContainer>
-            <CgSpinner color={color} 
-                       size={spinnerSize} 
-                       className="spinner"/>
+        <LoadingContainer margin = {margin}>
+            <img    src = "../assets/Girassol.png"
+                    alt = ""
+                    width= {spinnerSize}
+                    className="spinner"/>
         </LoadingContainer>
     )
 }
@@ -18,9 +17,11 @@ const LoadingContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-top: ${props => props.margin}px;
 
     .spinner {
-        animation: rotate 1s linear infinite;
+        animation: rotate 5s linear infinite;
+        width:  ${props => props.width}px;
     }
 
     @keyframes rotate {
