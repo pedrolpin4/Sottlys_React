@@ -1,41 +1,61 @@
-import { useContext, useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import UserContext from '../context/UserContext';
 import { postBasket } from "../service/postBasket";
 
 export default function FastBuy({colors, sizes, productId, setSidebar}) {
-    const [colorId, setColorId] = useState();
-    const [sizeId, setSizeId] = useState(0);
+    const [color, setColor] = useState('');
+    const [size, setSize] = useState('');
     const { userData } = useContext(UserContext);
 
     function addToBasket(){
+        const chosenColor = colors.filter(col => col.name === color);
+        const chosenSize = sizes.filter(s => s.name === size);
+        console.log(colors, color, chosenColor, sizes, size, chosenSize);
+
         if(!userData.user){
             setSidebar(true)
-            setColorId(1)
             return;
         }
 
         let body = {
-            colorId: colorId || 1,
-            sizeId: sizeId,
+            colorId: chosenColor[0].id,
+            sizeId: chosenSize[0].id,
             userId: userData.user.id, 
             productId,
         }
         postBasket(userData.token, body); 
     }
 
+    useEffect(() => {
+        if(colors){
+            setColor(colors[0].name)
+        }
+        if(sizes){
+            setSize(sizes[0].name)
+        }
+    }, [])
+
     return(
         <ContainerFastBuy>
             <ContainerSizes>
-                {sizes.map((s)=> <Size key={s.id} onClick={()=>setSizeId(s.id)}>
-                    {s.name}
-                </Size>)}
+                {
+                    sizes.map(s => (
+                            size === s.name ?
+                            <Size key = {s.id} onClick = {() => setSize(s.name)} selected = {true}>{s.name}</Size> : 
+                            <Size key = {s.id} onClick = {() => setSize(s.name)} selected = {false}>{s.name}</Size>
+                    ))
+                }
             </ContainerSizes>
             <ContainerColor>
-                <Color></Color>
-                <Color></Color>
-                <Color></Color>
-                <Color></Color>
+            {
+                colors.map(c => (
+                    color === c.name ? 
+                    <Color hex = {c.hexadecimal} key = {c.id} onClick = {() => setColor(c.name)} selected = {true}></Color> : 
+                    <Color hex = {c.hexadecimal} key = {c.id} onClick = {() => setColor(c.name)} selected = {false}></Color>
+                ))
+            }
             </ContainerColor>
             <BuyButton onClick={addToBasket}>
                <p>Comprar</p>
@@ -75,18 +95,13 @@ const Size = styled.div`
     height: 27px;
     width: 27px;
     border-radius: 50%;
-    color: white;
-    background-color: black;
+    color: ${props => props.selected ? "black": "white"};
+    background-color: ${props => props.selected ? "white": "black"};
+    border: ${props => props.selected ? "solid 1px black": "none"};
     font-size: 14px;
     text-transform: uppercase;
     font-weight: 700;
     transition: all .2s;
-
-    &:hover{
-        background-color:#fff;
-        color: black;
-        border: solid 1px black;
-    }
 `
 const ContainerColor = styled.div`
     display: flex;
@@ -103,14 +118,11 @@ const Color  = styled.div`
     height: 25px;
     width: 25px;
     border-radius: 50%;
-    border: solid 1px gray;
-    background-color: white;
+    border: ${props => props.selected ? "2px solid black": "solid 1px gray"};
+    background-color: ${props => props.hex};
     font-size: 14px;
-    &:hover{
-        border: solid 1px black;
-    }
-
 `
+
 const BuyButton = styled.div`
     width: 100%;
     height: 40px;
