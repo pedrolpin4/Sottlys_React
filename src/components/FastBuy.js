@@ -14,7 +14,6 @@ export default function FastBuy({colors, sizes, productId, setSidebar}) {
         const chosenSize = sizes.filter(s => s.name === size);
 
         if(!userData.user){
-            setSidebar(true)
             return;
         }
 

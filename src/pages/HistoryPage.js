@@ -112,6 +112,7 @@ const MessageContainer = styled.div`
     margin-top: 12rem;
     margin-bottom: 50px;
     align-self: center;
+    text-align: center;
     font-size: 32px;
     color: rgba(180, 20, 20);
 `
