@@ -121,7 +121,7 @@ export default function ProductModal ({showModal, setShowModal, setSidebar, setC
                                         </ProductDescription>
                                         <ProductNumbers>
                                             <div>
-                                                <p>R$ {Number(price).toFixed(2).replace(".", ",")}</p>
+                                                <p className = {newPrice ? 'slashed' : ''}>R$ {Number(price).toFixed(2).replace(".", ",")}</p>
                                                 <h2>{newPrice ? 'R$ ' + Number(newPrice).toFixed(2).replace(".", ",") : ""}</h2>
                                             </div>
                                             <p>{installments}x R$ {newPrice ? 'R$ ' + (Number(newPrice)/installments).toFixed(2).replace(".", ",") : (Number(price)/(installments)).toFixed(2).replace(".", ",")}</p>
@@ -305,10 +305,8 @@ const ProductNumbers = styled.div`
         margin: 10px 7px;
     }
 
-    div{
-        p{
-            text-decoration: line-through;
-        }
+    .slashed{
+        text-decoration: line-through;
     }
 
     margin-bottom: 30px;
