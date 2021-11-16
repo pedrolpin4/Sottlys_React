@@ -165,7 +165,7 @@ const HeaderContainer = styled.div`
     font-family: 'Alice', serif;
     position: fixed;
     top: 0;
-    left: 0;
+    left: 0px;
     right: 0;
     display: flex;
     align-items: center;
@@ -204,13 +204,15 @@ const HeaderContainer = styled.div`
         svg:hover{
             transform: translateY(-1px) scale(1.1);
         }
+        width: 100vw;
+        overflow-x: hidden;
     }
 `
 
 const Unifier = styled.div`
     display: flex;
     height: 100%;
-    width: 100%;
+    width: 100%;;
 `
 
 const Icons = styled.div`
