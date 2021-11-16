@@ -15,6 +15,7 @@ export default function App() {
     const [products, setProducts] = useState([]);
     const [categories, setCategories] = useState([]);
     const [sidebar, setSidebar] = useState(false);
+    const [currentProduct, setCurrentProduct] = useState([]);
     const [productsSales, setProductsSales] = useState()
 
     async function isProductInSale(){
@@ -38,7 +39,7 @@ export default function App() {
     return(
         <UserContext.Provider value={{userData,setUserData, categories, setCategories, productsSales }}>
         <Router>
-                <BasketContext.Provider value = {{products, setProducts}}>
+                <BasketContext.Provider value = {{products, setProducts, currentProduct, setCurrentProduct}}>
                     <GlobalStyles />
                     <Routes>
                         <Route path = "/" exact element = {<Home sidebar = {sidebar} setSidebar = {setSidebar}/>} />

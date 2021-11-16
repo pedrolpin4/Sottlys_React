@@ -6,7 +6,7 @@ import React, { useRef } from "react";
 import { getProductsByCategory } from "../service/reqMainPage";
 import { Link } from "react-router-dom";
 
-export default function Category({name, id, sidebar, setSidebar}){
+export default function Category({name, id, sidebar, setSidebar, setShowModal}){
     const [products, setProducts] = useState([]);
     const [erro, setErro] = useState("");
     const right = useRef()
@@ -60,7 +60,8 @@ export default function Category({name, id, sidebar, setSidebar}){
             </IconBox1>
             <ItensContainer >
                 <p ref={left}>{erro}</p>
-                {products.map((prod)=>  <Item key={prod.id} prod={prod} sidebar = {sidebar} setSidebar = {setSidebar}/>)}
+                {products.map((prod)=>  <Item key={prod.id} prod={prod} sidebar = {sidebar} 
+                    setSidebar = {setSidebar} setShowModal = {setShowModal}/>)}
                 <Link to={`/category/${id}`}>
                     <More ref={right}>
                             <p>Veja Mais</p>
