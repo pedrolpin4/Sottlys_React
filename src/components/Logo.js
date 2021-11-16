@@ -29,12 +29,13 @@ const LogoText = styled.img`
 const LogoImg = styled.img`
     opacity: 0;
     cursor: pointer;
-    height: 100%;
+    height: 65%;
     margin-right: 10vw;
 
     @media (max-width: 1000px){
         opacity: 1;
         margin-right: 7vw;
+        margin-left: 5px;
     }
 
     @media (max-width: 600px){
