@@ -57,7 +57,7 @@ export default function HistoryPage({sidebar, setSidebar}){
                         </ButtonBlack>
                     </>
                 :
-                    shoppings.map(shop => {
+                    shoppings.map((shop, i) => {
                         let total = 0;
                         let quantity = 0;
 
@@ -67,13 +67,13 @@ export default function HistoryPage({sidebar, setSidebar}){
                         })
 
                         return(
-                            <ShoppingContainer>
+                            <ShoppingContainer key = {'s'+ i}>
                                 <TopSection>
                                     {dayjs(shop.date).format('DD/MM/YYYY')}
                                 </TopSection>
                                 <ShoppingBody>
-                                    { shop.products.map(prod => (
-                                        <ProductContainer>
+                                    { shop.products.map((prod, j) => (
+                                        <ProductContainer key = {'p' + j}>
                                             <img src = {`${prod.image}`} alt = "imagem do produto"/>
                                             <ProductsInfo>
                                                 <p><span>Nome:</span> {prod.name}</p>
@@ -93,7 +93,7 @@ export default function HistoryPage({sidebar, setSidebar}){
                                 <ShoppingInfo>
                                     <p>Forma de pagamento: <span>{shop.payment_method === 'PIX' ? 'Pix' : 'Cartão'}</span></p>
                                     <p>Número de Parcelas: <span>{shop.installments}x</span></p>
-                                    <p>Taxa de Entrega: <span>RS {Number(shop.delivery_fee).toFixed(2).replace(".", ",")}</span></p>
+                                    <p>Entrega: <span>{Number(shop.delivery_fee) ? 'R$ ' + Number(shop.delivery_fee).toFixed(2).replace(".", ",") : 'Grátis'}</span></p>
                                     <p>Número de Peças: <span>{quantity}</span></p>
                                     <p>Valor Total: <span>R$ {Number(total).toFixed(2).replace(".", ",")}</span></p>
                                 </ShoppingInfo>

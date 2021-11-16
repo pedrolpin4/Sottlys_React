@@ -5,7 +5,7 @@ import styled from "styled-components";
 import Item from "../components/Item";
 import { getInfoSales } from "../service/pages";
 
-export default function SalesBody() {
+export default function SalesBody({sidebar, setSidebar, setShowModal}) {
   const [products, setProducts] = useState([]);
   const [name, setName] = useState("")
   const [erro, setErro] = useState("");
@@ -52,7 +52,7 @@ export default function SalesBody() {
             {name}
         </Title>
         <ContainerItens>
-            {products.map((prod)=>  <Item key={prod.id + 's'} prod={prod} page={true} />)}
+            {products.map((prod)=>  <Item key={prod.id + 's'} prod={prod} page={true} sidebar = {sidebar} setSidebar = {setSidebar} setShowModal = {setShowModal}/>)}
         </ContainerItens>
         </>
 

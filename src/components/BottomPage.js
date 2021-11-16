@@ -44,7 +44,7 @@ export default function BottomPage (){
                 {trends.map((t)=><Link to={`/category/${t.id}`} key={t.name}><p>{t.name}</p></Link>)}
             </Info>
             <Info>
-                <h1>Promocao</h1>
+                <h1>Promoções</h1>
                 {sales.map((s)=> <Link to={`/sales/${s.id}`} key={s.name}><p>{s.name}</p></Link> )}
             </Info>
             </DiplayFlex>

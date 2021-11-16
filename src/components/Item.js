@@ -1,6 +1,7 @@
 import styled from "styled-components"
 import React, { forwardRef, useContext } from "react"
 import FastBuy from "./FastBuy";
+import BasketContext from "../context/BasketContext";
 import UserContext from "../context/UserContext";
 
 const Item = forwardRef((props, ref) => {
@@ -19,8 +20,13 @@ const Item = forwardRef((props, ref) => {
 
     const {
         sidebar,
-        setSidebar, 
+        setSidebar,
+        setShowModal,
     } = props
+
+    const {
+        setCurrentProduct
+    } = useContext(BasketContext)
 
     if(images.length !== 0 ){
         image = images[0].name
@@ -37,14 +43,17 @@ const Item = forwardRef((props, ref) => {
     return(
         <ItemBox ref={ref} page ={props.page}>
             <Image  page ={props.page}>
-                <img src={image} alt=""/>
+                <img src={image} alt="" onClick = {() => {
+                    setShowModal(true)
+                    setCurrentProduct({...props.prod})
+                }}/>
                 <FastBuy colors ={colors} sizes={sizes} productId={id} sidebar = {sidebar} setSidebar = {setSidebar}/> 
             </Image>         
-            <ProductName page ={props.page}>{name}</ProductName>
+            <ProductName page ={props.page} onClick = {() => setShowModal(true)}>{name}</ProductName>
             <Price page ={props.page} sales={newPrice}>
                 <h3>{Number(price).toFixed(2).replace(".", ",")}</h3>
                 <p>{installments}x {installmentsPrice}</p>
-                <h2>{newPrice?'R$' + newPrice : ""}</h2>
+                <h2>{newPrice?'R$ ' + Number(newPrice).toFixed(2).replace(".", ",") : ""}</h2>
             </Price>
         </ItemBox>
         
@@ -103,6 +112,7 @@ const Price = styled.div`
     display: flex;
     h3{
         font-size: ${(props) =>  props.page? '19px' : '16px'};
+        color: ${(props) =>  props.sales? '#666' : '#000'};
         text-decoration: ${(props) =>  props.sales? 'line-through' : 'none'};
     }
     h2{
