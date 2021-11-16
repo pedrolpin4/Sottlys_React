@@ -92,12 +92,13 @@ const Info = styled.div`
 
     @media(max-width: 800px){
         max-height: 190px;
-        overflow-y: hidden;
+        width: auto;
         h1{
-            font-size: 16px;
+            font-size: 14px;
         }
         p{
-            font-size: 15px;
+            font-size: 13px;
+            margin-top: 6px;
         }
     }
 `
@@ -118,7 +119,7 @@ const Logos = styled.div`
         cursor: pointer;
     }
     @media(max-width: 800px){
-        margin-top: 0px;
-        width: 40%;
+        margin-top: 10px;
+        width: 35%;
     }
 `
