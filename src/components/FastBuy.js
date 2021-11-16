@@ -16,7 +16,7 @@ export default function FastBuy({colors, sizes, productId, setSidebar}) {
         }
 
         let body = {
-            colorId: colorId || 7,
+            colorId: colorId || 1,
             sizeId: sizeId,
             userId: userData.user.id, 
             productId,

@@ -18,7 +18,6 @@ async function postPayment(token, body){
         }     
     })
 
-    console.log(status);
     if(status === 400) return {
         success: false,
         message: result.message,
