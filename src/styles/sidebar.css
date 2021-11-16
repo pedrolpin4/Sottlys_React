@@ -487,9 +487,10 @@
     color: #777;
 }
 
-@media(max-width: 600px){
+@media(max-width: 400px){
     .nav-menu{
         width: 90vw;
+        right: -90vw;
     }
     .nav-menu__product svg{
         cursor: pointer;
