@@ -136,7 +136,7 @@
 }
 
 .nav-menu__button.basket{
-    width: 80%
+    width: 80%;
 }
 
 .nav-menu__register{
@@ -371,8 +371,8 @@
 
 .error-container{
     display: flex;
-    margin-top: 20px;
-    height: calc(100vh - 500px);
+    margin-top: 30px;
+    height: auto;
     font-size: 30px;
     text-align: center;
     flex-direction: column;
@@ -420,6 +420,9 @@
   }
 
 @media(max-width: 600px){
+    .nav-menu{
+        width: 90vw;
+    }
     .nav-menu__product svg{
         cursor: pointer;
         position: absolute;
