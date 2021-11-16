@@ -33,7 +33,7 @@ export default function ProductModal ({showModal, setShowModal, setSidebar, setC
     const [color, setColor] = useState('');
     const [size, setSize] = useState('');
 
-    const newArray = productsSales.filter((e)=> id === e.product_id);
+    const newArray = productsSales ? productsSales.filter((e)=> id === e.product_id) : [];
     
     if(newArray.length !== 0){
         newPrice = newArray[0].new_price;
