@@ -16,7 +16,7 @@ export default function BasketProduct({prod, setQuantity, setTotal, products, se
     return (
         <div className = "nav-menu__product" key = {prod.id}>
             <IoTrashOutline size = {12} onClick = {() => {
-                deleteProduct(userData.token, prod.product.id);
+                deleteProduct(userData.token, prod.product.id, prod.colors.id, prod.size.id);
                 setQuantity(prev => prev - prodQty);
                 setTotal(prev => prev - Number(prod.product.price) * prodQty);
                 const newProd = products.filter(e => e.product.id !== prod.product.id);
@@ -39,7 +39,7 @@ export default function BasketProduct({prod, setQuantity, setTotal, products, se
                             }
                         
                             if(prodQty === 1){
-                                deleteProduct(userData.token, prod.product.id);
+                                deleteProduct(userData.token, prod.product.id, prod.colors.id, prod.size.id);
                                 setQuantity(prev => prev - prodQty);
                                 setTotal(prev => prev - Number(prod.product.price) * prodQty);
                                 const newProd = products.filter(e => e.product.id !== prod.product.id);
@@ -50,7 +50,7 @@ export default function BasketProduct({prod, setQuantity, setTotal, products, se
                             setQuantity(prev => prev - 1)
                             setProdQty(prev => prev - 1)
                             setTotal(prev => prev  - Number(prod.product.price))    
-                            updateQuantity(userData.token, prod.product.id, prodQty - 1)
+                            updateQuantity(userData.token, prod.product.id, prodQty - 1, prod.colors.id, prod.size.id)
                         }}>
                             -
                         </div>
@@ -58,7 +58,7 @@ export default function BasketProduct({prod, setQuantity, setTotal, products, se
                         <div onClick = {() => {
                             setQuantity(prev => prev + 1)
                             setProdQty(prev => prev + 1)
-                            updateQuantity(userData.token, prod.product.id, prodQty + 1)
+                            updateQuantity(userData.token, prod.product.id, prodQty + 1, prod.colors.id, prod.size.id)
                             setTotal(prev => prev  + Number(prod.product.price))
                         }}>
                                 +
