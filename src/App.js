@@ -36,7 +36,7 @@ export default function App() {
     }, []);
 
     return(
-        <UserContext.Provider value={{userData,setUserData, categories, setCategories, productsSales}}>
+        <UserContext.Provider value={{userData,setUserData, categories, setCategories, productsSales }}>
         <Router>
                 <BasketContext.Provider value = {{products, setProducts}}>
                     <GlobalStyles />

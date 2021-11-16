@@ -31,7 +31,7 @@ export default function MainBody ({sidebar, setSideBar}){
         <ContainerCategories>
             <p>{erro}</p>
             {categories.map((cat)=> <Category key={cat.id} name={cat.name} id={cat.id} sidebar = {sidebar} setSideBar = {setSideBar}/>)}
-            <BottomPage categories={categories}/>
+            <BottomPage />
         </ContainerCategories>
     )
 }
