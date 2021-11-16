@@ -99,7 +99,7 @@ const ContainerBody = styled.div`
         min-height: calc(100vh - 6rem - 520px);
     }
     @media(max-width: 600px){
-        min-height: calc(100vh - 5.5rem - 500px);
+        min-height: calc(100vh - 5.5rem - 350px);
     }
 
 `

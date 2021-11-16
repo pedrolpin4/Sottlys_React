@@ -34,6 +34,7 @@ export default function BottomPage (){
 
     return(
         <ContainerBottom>
+            <Mobile>Nossos Contatos:</Mobile>
             <DiplayFlex>
                 <Info>
                 <h1>Categorias</h1>
@@ -71,7 +72,8 @@ const ContainerBottom = styled.div`
     flex-direction: column;
     align-items: center;
     @media(max-width: 800px){
-        height: 250px;
+        justify-content: center;
+        height: 170px;
     }
 `
 const Info = styled.div`
@@ -79,7 +81,7 @@ const Info = styled.div`
     flex-direction: column;
     align-items: center;
     padding: 10px;
-    margin-right: 5%;
+    margin: 0px 5%;
 
     h1{
         font-size: 20px;
@@ -105,9 +107,12 @@ const Info = styled.div`
 
 const DiplayFlex = styled.div`
     display: flex;
-    width: 100%;
+    width: 80%;
     justify-content: center;
-    margin-left: 5%;
+    margin: 0px 5%;
+    @media(max-width: 800px){
+        display: none;
+    }
 
 `
 const Logos = styled.div`
@@ -120,6 +125,15 @@ const Logos = styled.div`
     }
     @media(max-width: 800px){
         margin-top: 10px;
-        width: 35%;
+        width: 55%;
+    }
+`
+
+const Mobile = styled.div`
+    display: none;
+    font-size: 20px;
+    @media(max-width: 800px){
+        display: inline;
+        margin-bottom: 23px;
     }
 `
