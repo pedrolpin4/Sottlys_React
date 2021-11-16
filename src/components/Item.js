@@ -17,7 +17,6 @@ const Item = forwardRef((props, ref) => {
         sizes,
         id
     } = props.prod
-    console.log(props.prod);
 
     const {
         sidebar,
@@ -54,7 +53,7 @@ const Item = forwardRef((props, ref) => {
             <Price page ={props.page} sales={newPrice}>
                 <h3>{Number(price).toFixed(2).replace(".", ",")}</h3>
                 <p>{installments}x {installmentsPrice}</p>
-                <h2>{newPrice?'R$' + newPrice : ""}</h2>
+                <h2>{newPrice?'R$ ' + Number(newPrice).toFixed(2).replace(".", ",") : ""}</h2>
             </Price>
         </ItemBox>
         
@@ -113,6 +112,7 @@ const Price = styled.div`
     display: flex;
     h3{
         font-size: ${(props) =>  props.page? '19px' : '16px'};
+        color: ${(props) =>  props.sales? '#666' : '#000'};
         text-decoration: ${(props) =>  props.sales? 'line-through' : 'none'};
     }
     h2{

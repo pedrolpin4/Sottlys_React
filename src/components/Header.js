@@ -9,12 +9,11 @@ import { getBasket } from "../service/basket";
 import UserContext from "../context/UserContext";
 import BasketContext from "../context/BasketContext";
 
-export default function Header ({sidebar, setSidebar}) {
+export default function Header ({sidebar, setSidebar, content, setContent}) {
     const [trends, setTrends] = useState([]);
     const [sales, setSales] = useState([]);
     const [filters, setFilters] = useState([]);
     const [errorMessage, setErrorMessage] = useState("");
-    const [content, setContent] = useState('');
     const { setCategories, categories} = useContext(UserContext);
     const { userData } = useContext(UserContext);
     const {setProducts} = useContext(BasketContext);

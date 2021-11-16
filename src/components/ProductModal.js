@@ -1,15 +1,22 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import styled from "styled-components";
-import {useCallback, useContext, useEffect, useRef} from 'react';
+import {useCallback, useContext, useEffect, useRef, useState} from 'react';
 import BasketContext from "../context/BasketContext";
-import { useState } from "react/cjs/react.development";
+import UserContext from "../context/UserContext";
+import { postBasket } from "../service/postBasket";
 
-export default function ProductModal ({showModal, setShowModal }){
+export default function ProductModal ({showModal, setShowModal, setSidebar, setContent }){
     const modalRef = useRef();
     const siteRef = useRef();
+    let newPrice = false;
     const {
         currentProduct,
     } = useContext(BasketContext);
+
+    const {
+        userData,
+        productsSales,
+    } = useContext(UserContext)
 
     const {
         name,
@@ -19,15 +26,46 @@ export default function ProductModal ({showModal, setShowModal }){
         price,
         colors,
         sizes,
-    } = currentProduct
+        id
+    } = currentProduct;
+
     const [imgSrc, setImgSrc] = useState('');
     const [color, setColor] = useState('');
     const [size, setSize] = useState('');
+
+    const newArray = productsSales.filter((e)=> id === e.product_id);
+    
+    if(newArray.length !== 0){
+        newPrice = newArray[0].new_price;
+    }
+
     
     function closeModal(e){
         if(modalRef.current === e.target){
             setShowModal(false)
         }
+    }
+
+    async function addToBasket(){
+        const chosenColor = colors.filter(col => col.name === color);
+        const chosenSize = sizes.filter(s => s.name === size);
+
+        if(!JSON.parse(localStorage.getItem('sottlysLogin')).user){
+            setShowModal(false);
+            setContent('login')
+            setSidebar(true);
+            return;
+        }
+
+        let body = {
+            colorId: chosenColor[0].id,
+            sizeId: chosenSize[0].id,
+            userId: userData.user.id, 
+            productId: id,
+        }
+
+        await postBasket(userData.token, body); 
+        setShowModal(false);
     }
 
     const modalKeyEvents = useCallback(e => {
@@ -37,9 +75,13 @@ export default function ProductModal ({showModal, setShowModal }){
     }, [setShowModal, showModal])
 
     useEffect(()=> {
-        if(currentProduct){
+        if(colors){
             setColor(colors[0].name)
+        }
+        if(sizes){
             setSize(sizes[0].name)
+        }
+        if(images){
             setImgSrc(images[0].name)
         }
 
@@ -67,7 +109,7 @@ export default function ProductModal ({showModal, setShowModal }){
                                     <LittleImgContainer>
                                         {
                                             images.map((img,i) => (
-                                                <LittleImg src = {img.name} alt = "" key = {i} onMouseOver = {() => setImgSrc(img.name)}/>
+                                                <LittleImg src = {img.name} alt = "" key = {i} onMouseOver = {() => setImgSrc(img.name)} onClick = {() => setImgSrc(img.name)}/>
                                             ))
                                         }
                                     </LittleImgContainer>
@@ -78,8 +120,11 @@ export default function ProductModal ({showModal, setShowModal }){
                                             {description}
                                         </ProductDescription>
                                         <ProductNumbers>
-                                            <p>R$ {Number(price).toFixed(2).replace(".", ",")}</p>
-                                            <p>{installments}x R$ {(Number(price)/(installments)).toFixed(2).replace(".", ",")}</p>
+                                            <div>
+                                                <p>R$ {Number(price).toFixed(2).replace(".", ",")}</p>
+                                                <h2>{newPrice ? 'R$ ' + Number(newPrice).toFixed(2).replace(".", ",") : ""}</h2>
+                                            </div>
+                                            <p>{installments}x R$ {newPrice ? 'R$ ' + (Number(newPrice)/installments).toFixed(2).replace(".", ",") : (Number(price)/(installments)).toFixed(2).replace(".", ",")}</p>
                                         </ProductNumbers>                                    
                                         <ColorName>Cor: {color || colors[0].name}</ColorName>
                                         <ColorContainer>
@@ -101,7 +146,9 @@ export default function ProductModal ({showModal, setShowModal }){
                                                 ))
                                             }
                                         </ColorContainer>
-                                        <ButtonBlack onClick = {() => setShowModal(true)}>
+                                        <ButtonBlack onClick = {() => {
+                                            addToBasket();
+                                        }}>
                                             Adicionar ao carrinho
                                         </ButtonBlack>                                       
                                     </ProductsInfoContainer>
@@ -136,12 +183,20 @@ const ModalContainer = styled.div`
     height: 90vh;
     display: flex;
     flex-direction: column;
+    overflow-x: hidden;
     top: 5vh;
     left: 5vw;
     background: #fff;
     opacity: 1;
     z-index: 130;
     padding: 15px 20px 21px 20px;
+
+    @media(max-width: 1000px){
+        width: 95vw;
+        height: 95vh;
+        top: 2.5vh;
+        left: 2.5vw;
+    }
 `
 
 const LittleImgContainer = styled.div`
@@ -150,24 +205,67 @@ const LittleImgContainer = styled.div`
     flex-direction: column;
     align-items: center;
     margin-right: 5px;
+
+    @media(max-width: 850px){
+        width: 60%;
+        height: 10vh;
+        justify-content: flex-start;
+        align-self: center;
+        flex-direction: row;
+        margin-right: 0px;
+    }
+
+    @media(max-width: 600px){
+        width: 70%;
+        height: 10vh;
+        justify-content: flex-start;
+        align-self: center;
+        flex-direction: row;
+        margin-right: 0px;
+    }
+
 `
 
 const LittleImg = styled.img`
     width: 50%;
+    margin-bottom: 15px;
+
+    @media(max-width: 850px){
+        width: 12%;
+        height: 100%;
+        flex-direction: row;
+        margin-right: 15px;
+    }
 `
 
 const BigImg = styled.img`
     width: 40%;
     margin-right: 5%;
+    @media(max-width: 850px){
+        width: 60%;
+        align-self: center;
+        margin-right: 0px;
+        margin-bottom: 40px;
+    }
+
+    @media(max-width: 600px){
+        width: 70%;
+    }
+
 `
 
 const ProductsInfoContainer = styled.div`
     width: 50%;
     height: 100%;
     display: flex;
+    align-self: center;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
+    @media(max-width: 850px){
+        width: 70%;
+    }
 `
 
 const TopSection = styled.div`
@@ -185,6 +283,11 @@ const ProductName = styled.h1`
 const ModalBody = styled.div`
     display: flex;
     height: calc(90vh - 80px);
+
+    @media(max-width: 850px){
+        overflow-y: scroll;
+        flex-direction: column;
+    }
 `
 
 const Xbutton = styled.p`
@@ -200,6 +303,12 @@ const ProductNumbers = styled.div`
         font-size: 15px;
         color: #777;
         margin: 10px 7px;
+    }
+
+    div{
+        p{
+            text-decoration: line-through;
+        }
     }
 
     margin-bottom: 30px;

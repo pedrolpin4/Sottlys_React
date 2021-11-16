@@ -93,7 +93,7 @@ export default function HistoryPage({sidebar, setSidebar}){
                                 <ShoppingInfo>
                                     <p>Forma de pagamento: <span>{shop.payment_method === 'PIX' ? 'Pix' : 'Cartão'}</span></p>
                                     <p>Número de Parcelas: <span>{shop.installments}x</span></p>
-                                    <p>Taxa de Entrega: <span>RS {Number(shop.delivery_fee).toFixed(2).replace(".", ",")}</span></p>
+                                    <p>Entrega: <span>{Number(shop.delivery_fee) ? 'R$ ' + Number(shop.delivery_fee).toFixed(2).replace(".", ",") : 'Grátis'}</span></p>
                                     <p>Número de Peças: <span>{quantity}</span></p>
                                     <p>Valor Total: <span>R$ {Number(total).toFixed(2).replace(".", ",")}</span></p>
                                 </ShoppingInfo>
