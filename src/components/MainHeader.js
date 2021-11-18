@@ -24,6 +24,7 @@ export default function MainHeader ({sidebar, setSidebar, content, setContent, s
         const result = await getFilters('categories');
 
         if(result?.data){
+            setLoad(prev => prev + 1)
             setCategories(result?.data);
             return;
         }
@@ -38,6 +39,7 @@ export default function MainHeader ({sidebar, setSidebar, content, setContent, s
         const result = await getFilters('trends');
 
         if(result?.data){
+            setIsVisible(true)
             setTrends(result.data);
             return;
         }
@@ -51,6 +53,7 @@ export default function MainHeader ({sidebar, setSidebar, content, setContent, s
         const result = await getFilters('sales');
 
         if(result?.data){
+            setIsVisible(false)
             setSales(result.data);
             return;
         }
@@ -71,6 +74,7 @@ export default function MainHeader ({sidebar, setSidebar, content, setContent, s
 
 
     useEffect(() => {
+        setIsVisible(true)
         listCategories();
         listTrends();
         listSales();
@@ -178,7 +182,7 @@ const HeaderContainer = styled.div`
     background-color: ${props => props.isVisible ? "#fff" : "transparent"};
     box-shadow: ${props => props.isVisible ? "0px 1px 3px rgba(0, 0,0, 0.1)" : "none"};
     z-index: 2;
-    transition: all .5s ease;
+    transition: all .1s;
 
     @media (max-width: 1000px){
         height: 6rem;

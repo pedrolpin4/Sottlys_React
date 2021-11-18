@@ -15,7 +15,7 @@ export default function Home ({sidebar, setSidebar}) {
             <MainHeader sidebar = {sidebar} setSidebar = {setSidebar} content = {content} isVisible = {isVisible}
                 setContent = {setContent} setShowModal = {setShowModal} setIsVisible = {setIsVisible} setLoad = {setLoad}/>
             <MainBody sidebar = {sidebar} setSidebar = {setSidebar} setShowModal = {setShowModal} 
-                isVisible = {isVisible} setIsVisible = {setIsVisible} load = {load}/>
+                isVisible = {isVisible} setIsVisible = {setIsVisible} load = {load} setLoad = {setLoad}/>
             <ProductModal showModal = {showModal} setShowModal = {setShowModal} setSidebar = {setSidebar} setContent = {setContent}/>
         </Body>
     )

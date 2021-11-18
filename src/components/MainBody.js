@@ -4,11 +4,11 @@ import BottomPage from "./BottomPage"
 import styled from "styled-components"
 import { useEffect, useRef, useState } from "react";
 import { getMainCategories } from "../service/reqMainPage";
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import '../styles/caroussel.min.css';
 import HomeCarousel from "./Carousel";
 import Loading from "./Loading";
 
-export default function MainBody ({sidebar, setSideBar, setShowModal, setIsVisible, load}){
+export default function MainBody ({sidebar, setSideBar, setShowModal, setIsVisible, setLoad, load}){
     const carouselRef = useRef();
     const [categories, setCategories] = useState([]);
     const [isLoading, setIsLoading] = useState(true)
@@ -20,7 +20,12 @@ export default function MainBody ({sidebar, setSideBar, setShowModal, setIsVisib
 
     useEffect(() => {
         const carouselObserver = new IntersectionObserver(([entry]) => {
-            setIsVisible(!entry.isIntersecting)
+            if(!entry.isIntersecting){
+                setIsVisible(true)
+            } else{
+                setIsVisible(false)
+            }
+
         }, carouselOptions)
 
         if(carouselRef.current){
@@ -29,6 +34,7 @@ export default function MainBody ({sidebar, setSideBar, setShowModal, setIsVisib
     }, [carouselRef, load])
 
     async function listMainCategories(){
+        setLoad(prev => prev + 1);
         setIsLoading(true)
         const result = await getMainCategories();
 
