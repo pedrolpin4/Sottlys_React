@@ -80,8 +80,8 @@ export default function MainHeader ({sidebar, setSidebar, content, setContent, s
     return(
         <HeaderContainer isVisible = {isVisible} onMouseOver = {() => setIsVisible(true)} onMouseLeave = {() => setLoad(prev => prev+ 1)}>
             <Logo isVisible = {isVisible}/>
-            <Unifier>
-                <Filters categories = {categories} isVisible = {isVisible}>
+            <Unifier isVisible = {isVisible}>
+                <Filters categories = {categories}>
                     <DropDownOption onMouseOver = {() => {
                             setFilters([...categories]);
                         }
@@ -140,7 +140,7 @@ export default function MainHeader ({sidebar, setSidebar, content, setContent, s
                     </div>
                 </Filters>
                 <DropDownOption onClick = {()=>{navigate("/history")}}>
-                        <p>Histórico</p>
+                    <p>Histórico</p>
                 </DropDownOption>
             </ Unifier>
             <Icons isVisible = {isVisible}>
@@ -178,6 +178,7 @@ const HeaderContainer = styled.div`
     background-color: ${props => props.isVisible ? "#fff" : "transparent"};
     box-shadow: ${props => props.isVisible ? "0px 1px 3px rgba(0, 0,0, 0.1)" : "none"};
     z-index: 2;
+    transition: all .5s ease;
 
     @media (max-width: 1000px){
         height: 6rem;
@@ -216,7 +217,8 @@ const HeaderContainer = styled.div`
 const Unifier = styled.div`
     display: flex;
     height: 100%;
-    width: 100%;;
+    width: 100%;
+    color: ${props => props.isVisible ? "#333" : "#fff"};
 `
 
 const Icons = styled.div`
@@ -256,7 +258,6 @@ const Filters = styled.ul`
     height: 100%;
     display: flex;
     align-items: center;
-    color: ${props => props.isVisible ? "#333" : "#fff"};
 
     .sub-menu{
         position: absolute;
@@ -365,7 +366,6 @@ const DropDownOption = styled.li`
     font-size: 1.2rem;
     margin-right: 2vw;
     border-bottom: 0px;
-    transition: all .3s;
 
     &:after{
         content: '';
