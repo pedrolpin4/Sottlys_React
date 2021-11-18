@@ -25,7 +25,7 @@ export default function SalesBody({sidebar, setSidebar, setShowModal}) {
 
         if(result?.data.length === 0){
             setIsLoading(false)
-            setErro("Sem itens desta Categoria :(");
+            setErro("Sem itens desta Promoção :(");
             return;
         }
     }
@@ -37,7 +37,7 @@ export default function SalesBody({sidebar, setSidebar, setShowModal}) {
         }
 
         if(result?.data.length === 0){
-            setErro("Esta categoria não existe");
+            setErro("Esta promoção não existe");
             return;
         }
     }
@@ -59,15 +59,15 @@ export default function SalesBody({sidebar, setSidebar, setShowModal}) {
             :
             <>
                 <ContainerBody>
-                <Erro>
-                    {erro}
-                </Erro>
                 <Title>
                     {name}
                 </Title>
                 <ContainerItens>
                     {products.map((prod)=>  <Item key={prod.id + 's'} prod={prod} page={true} sidebar = {sidebar} setSidebar = {setSidebar} setShowModal = {setShowModal}/>)}
                 </ContainerItens>
+                <Erro>
+                    <p>{erro}</p>
+                </Erro>
                 </ContainerBody>
                 <BottomPage />
             </>
@@ -95,7 +95,8 @@ const Erro = styled.div`
     font-size: 28px;
     font-weight: 700;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 
 `
 const ContainerItens = styled.div`
@@ -104,7 +105,6 @@ const ContainerItens = styled.div`
   width: 100%;
   justify-content: center;
   padding: 0 7px;
-  margin-top: 20px;
   @media(max-width: 800px){
         padding: 0;
         margin-left: 0;
@@ -125,11 +125,12 @@ const Title = styled.div`
 `
 
 const ContainerBody = styled.div`
-    min-height: calc(100vh - 7rem - 520px);
+    min-height: calc(100vh - 8rem);
+    margin-top: 8rem;
     @media(max-width: 1000px){
         min-height: calc(100vh - 6rem - 520px);
     }
-    @media(max-width: 600px){
+    @media(max-width: 800px){
         min-height: calc(100vh - 5.5rem - 350px);
     }
 

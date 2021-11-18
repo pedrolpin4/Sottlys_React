@@ -21,7 +21,7 @@ export default function Categories ({sidebar, setSidebar}) {
 }
 
 const Body = styled.div`
-  height: auto;
+  min-height: auto;
   overflow-x: hidden;
 
 `

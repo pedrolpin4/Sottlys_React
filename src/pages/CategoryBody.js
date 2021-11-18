@@ -59,16 +59,15 @@ export default function CategoryBody({sidebar, setSidebar, setShowModal, categor
                 :
                 <>
                 <ContainerBody>
-                <Erro>
-                    {erro}
-                </Erro>
                 <Title>
                     {name}
                 </Title>
                 <ContainerItens>
                     {products.map((prod)=>  <Item key={prod.id} prod={prod} page={true} sidebar = {sidebar} setSidebar = {setSidebar} setShowModal = {setShowModal}/>)}
                 </ContainerItens>
-            
+                <Erro>
+                    {erro}
+                </Erro>
                 </ContainerBody>
                 <BottomPage categories={categories}/>
                 </>
@@ -97,7 +96,6 @@ const Erro = styled.div`
     font-weight: 700;
     display: flex;
     justify-content: center;
-
 `
 const ContainerItens = styled.div`
   display: flex;
@@ -105,7 +103,6 @@ const ContainerItens = styled.div`
   width: 100%;
   justify-content: center;
   padding: 0 7px;
-  margin-top: 20px;
   @media(max-width: 800px){
         padding: 0;
         margin-left: 0;
@@ -125,7 +122,8 @@ const Title = styled.div`
 
 `
 const ContainerBody = styled.div`
-min-height: calc(100vh - 7rem - 520px);
+  min-height: calc(100vh - 8rem);
+  margin-top: 8rem;
 @media(max-width: 1000px){
         min-height: calc(100vh - 6rem - 520px);
     }
