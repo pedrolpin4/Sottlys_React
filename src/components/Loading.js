@@ -18,6 +18,7 @@ const LoadingContainer = styled.div`
     justify-content: center;
     align-items: center;
     margin-top: ${props => props.margin}px;
+    z-index: 130;
 
     .spinner {
         animation: rotate 5s linear infinite;

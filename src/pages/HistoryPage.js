@@ -109,7 +109,7 @@ export default function HistoryPage({sidebar, setSidebar}){
 }
 
 const MessageContainer = styled.div`
-    margin-top: 12rem;
+    margin-top: 9rem;
     margin-bottom: 50px;
     align-self: center;
     text-align: center;
@@ -151,8 +151,8 @@ const TopSection = styled.div`
 `
 
 const HistoryContainer = styled.div`
-    margin-top: 7rem;
-    min-height: calc(100vh - 7rem);
+    margin-top: 6rem;
+    min-height: calc(100vh - 6rem);
     width: 100%;
     background-color: #efefef;
     display: flex;

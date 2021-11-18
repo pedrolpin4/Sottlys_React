@@ -9,7 +9,7 @@ import { getBasket } from "../service/basket";
 import UserContext from "../context/UserContext";
 import BasketContext from "../context/BasketContext";
 
-export default function MainHeader ({sidebar, setSidebar, content, setContent, setShowModal}) {
+export default function MainHeader ({sidebar, setSidebar, content, setContent, setShowModal, isVisible, setIsVisible, setLoad}) {
     const [trends, setTrends] = useState([]);
     const [sales, setSales] = useState([]);
     const [filters, setFilters] = useState([]);
@@ -78,10 +78,10 @@ export default function MainHeader ({sidebar, setSidebar, content, setContent, s
     }, [])
 
     return(
-        <HeaderContainer>
-            <Logo/>
+        <HeaderContainer isVisible = {isVisible} onMouseOver = {() => setIsVisible(true)} onMouseLeave = {() => setLoad(prev => prev+ 1)}>
+            <Logo isVisible = {isVisible}/>
             <Unifier>
-                <Filters categories = {categories}>
+                <Filters categories = {categories} isVisible = {isVisible}>
                     <DropDownOption onMouseOver = {() => {
                             setFilters([...categories]);
                         }
@@ -143,7 +143,7 @@ export default function MainHeader ({sidebar, setSidebar, content, setContent, s
                         <p>Histórico</p>
                 </DropDownOption>
             </ Unifier>
-            <Icons>
+            <Icons isVisible = {isVisible}>
                 <IoBookOutline size = {25} className = "mobile-view" onClick = {() => navigate("/history")}/>
                 <IoSearchOutline size = {25} onClick = {() => {
                     setSidebar(true);
@@ -173,10 +173,10 @@ const HeaderContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    color: #000;
+    color: ${props => props.isVisible ? "#000" : "#fff"};
     height: 6rem;
-    background-color: #fff;
-    box-shadow: 0px 1px 3px rgba(0, 0,0, 0.1);
+    background-color: ${props => props.isVisible ? "#fff" : "transparent"};
+    box-shadow: ${props => props.isVisible ? "0px 1px 3px rgba(0, 0,0, 0.1)" : "none"};
     z-index: 2;
 
     @media (max-width: 1000px){
@@ -220,7 +220,7 @@ const Unifier = styled.div`
 `
 
 const Icons = styled.div`
-    color: #000;
+    color: ${props => props.isVisible ? "#000" : "#fff"};
     display: flex;
     align-items: center;
     backface-visibility: hidden;
@@ -256,7 +256,7 @@ const Filters = styled.ul`
     height: 100%;
     display: flex;
     align-items: center;
-    color: #333;
+    color: ${props => props.isVisible ? "#333" : "#fff"};
 
     .sub-menu{
         position: absolute;

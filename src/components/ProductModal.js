@@ -355,7 +355,7 @@ const SizeDiv = styled.div`
 const ButtonBlack = styled.div`
     cursor: pointer;
     width: 80%;
-    height: 50px;
+    height: 60px;
     display: flex;
     justify-content: center;
     align-items: center;

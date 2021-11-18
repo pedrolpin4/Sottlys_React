@@ -32,7 +32,7 @@ const Item = forwardRef((props, ref) => {
         image = images[0].name
     }
 
-    const newArray = productsSales.filter((e)=> id === e.product_id);
+    const newArray = productsSales ? productsSales.filter((e)=> id === e.product_id) : [];
     if(newArray.length !== 0){
         newPrice = newArray[0].new_price;
     }
