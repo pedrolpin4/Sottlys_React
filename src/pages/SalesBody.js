@@ -4,21 +4,27 @@ import { getProductsBySales } from "../service/reqMainPage";
 import styled from "styled-components";
 import Item from "../components/Item";
 import { getInfoSales } from "../service/pages";
+import BottomPage from "../components/BottomPage";
+import Loading from "../components/Loading";
 
 export default function SalesBody({sidebar, setSidebar, setShowModal}) {
   const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true)
   const [name, setName] = useState("")
   const [erro, setErro] = useState("");
   const { id } = useParams();
 
     async function listProductsBySales(){
+        setIsLoading(true)
         const result = await getProductsBySales(id);
         
         if(result?.data){
+            setIsLoading(false)
             setProducts(result.data);
         }
 
         if(result?.data.length === 0){
+            setIsLoading(false)
             setErro("Sem itens desta Categoria :(");
             return;
         }
@@ -44,20 +50,45 @@ export default function SalesBody({sidebar, setSidebar, setShowModal}) {
     }, [id])
 
     return(
-        <ContainerBody>
-        <Erro>
-            {erro}
-        </Erro>
-        <Title>
-            {name}
-        </Title>
-        <ContainerItens>
-            {products.map((prod)=>  <Item key={prod.id + 's'} prod={prod} page={true} sidebar = {sidebar} setSidebar = {setSidebar} setShowModal = {setShowModal}/>)}
-        </ContainerItens>
-        </ContainerBody>
+        <>
+        {
+            isLoading ? 
+            <ModalBackground>
+                <Loading spinnerSize = {200}/>
+            </ModalBackground>
+            :
+            <>
+                <ContainerBody>
+                <Erro>
+                    {erro}
+                </Erro>
+                <Title>
+                    {name}
+                </Title>
+                <ContainerItens>
+                    {products.map((prod)=>  <Item key={prod.id + 's'} prod={prod} page={true} sidebar = {sidebar} setSidebar = {setSidebar} setShowModal = {setShowModal}/>)}
+                </ContainerItens>
+                </ContainerBody>
+                <BottomPage />
+            </>
+        }
+        </>
 
     );
 }
+
+const ModalBackground = styled.div`
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0,0,0, 0.7);
+    z-index: 120;
+`
 
 const Erro = styled.div`
     margin-top: 7rem;

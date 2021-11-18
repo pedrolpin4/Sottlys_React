@@ -5,8 +5,9 @@ import styled from "styled-components";
 import Item from "../components/Item";
 import Loading from "../components/Loading"
 import { getInfoCategory } from "../service/pages";
+import BottomPage from "../components/BottomPage";
 
-export default function CategoryBody({sidebar, setSidebar, setShowModal}) {
+export default function CategoryBody({sidebar, setSidebar, setShowModal, categories}) {
   const [products, setProducts] = useState([]);
   const [name, setName] = useState("");
   const [erro, setErro] = useState("");
@@ -56,6 +57,7 @@ export default function CategoryBody({sidebar, setSidebar, setShowModal}) {
                     <Loading spinnerSize = {200}/>
                 </ModalBackground>
                 :
+                <>
                 <ContainerBody>
                 <Erro>
                     {erro}
@@ -68,7 +70,8 @@ export default function CategoryBody({sidebar, setSidebar, setShowModal}) {
                 </ContainerItens>
             
                 </ContainerBody>
-                
+                <BottomPage categories={categories}/>
+                </>
             }
         </>
 
