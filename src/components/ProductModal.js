@@ -4,13 +4,16 @@ import {useCallback, useContext, useEffect, useRef, useState} from 'react';
 import BasketContext from "../context/BasketContext";
 import UserContext from "../context/UserContext";
 import { postBasket } from "../service/postBasket";
+import Loading from "./Loading";
 
 export default function ProductModal ({showModal, setShowModal, setSidebar, setContent }){
+    const [isLoading, setIsLoading] = useState(false)
     const modalRef = useRef();
     const siteRef = useRef();
     let newPrice = false;
     const {
         currentProduct,
+        setProducts,
     } = useContext(BasketContext);
 
     const {
@@ -47,6 +50,7 @@ export default function ProductModal ({showModal, setShowModal, setSidebar, setC
     }
 
     async function addToBasket(){
+        setIsLoading(true)
         const chosenColor = colors.filter(col => col.name === color);
         const chosenSize = sizes.filter(s => s.name === size);
 
@@ -64,8 +68,12 @@ export default function ProductModal ({showModal, setShowModal, setSidebar, setC
             productId: id,
         }
 
-        await postBasket(userData.token, body); 
+        await postBasket(userData.token, body);
+        setIsLoading(false);
         setShowModal(false);
+        setContent('basket');
+        setSidebar(true);
+        setProducts([])
     }
 
     const modalKeyEvents = useCallback(e => {
@@ -149,7 +157,7 @@ export default function ProductModal ({showModal, setShowModal, setSidebar, setC
                                         <ButtonBlack onClick = {() => {
                                             addToBasket();
                                         }}>
-                                            Adicionar ao carrinho
+                                            {isLoading ?  <Loading spinnerSize = {50}/> : "Adicionar ao carrinho"}
                                         </ButtonBlack>                                       
                                     </ProductsInfoContainer>
                             </ModalBody>

@@ -274,6 +274,7 @@ const Filters = styled.ul`
         background-color: #fff;
         color: #333;
         transform: scaleY(0);
+        transform-origin: top;
         transition: all .3s ease;
         opacity: 0;
         z-index: 5;
@@ -367,7 +368,7 @@ const DropDownOption = styled.li`
     border-bottom: 0px;
     transition: all .3s;
 
-    &:after{
+    &::after{
         content: '';
         position: absolute;
         top: 69%;
@@ -380,7 +381,7 @@ const DropDownOption = styled.li`
         transition: transform 0.3s ease;
     }
     
-    &:hover:after{
+    &:hover::after{
         transform: scale(1);
     }
 
