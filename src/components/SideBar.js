@@ -48,7 +48,7 @@ const Sidebar = ({ sidebar, setSidebar, content, setContent, setShowModal }) => 
                             </>: content === 'search' ?
                             <>
                                 <IoSearchOutline size = {20} color = {"#777"}/>
-                                <input placeholder = "Busque em Sott'lys" className = "nav-menu__search" value = {searchContent}
+                                <input placeholder = "Olá! O que você procura?" className = "nav-menu__search" value = {searchContent}
                                     onChange = {(e) => setSearchContent(e.target.value)}/> 
                             </> :
                             <>

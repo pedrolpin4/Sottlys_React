@@ -1,11 +1,11 @@
 import styled from "styled-components"
 import { useNavigate } from "react-router";
 
-export default function Logo () {
+export default function Logo ({isVisible = true}) {
     const navigate = useNavigate();
     return(
         <>
-            <LogoText src = "../assets/textLogo.png" onClick={()=> navigate("/")}/>
+            <LogoText src = {isVisible ? "../assets/textLogo.png" : "../assets/white.png"} onClick={()=> navigate("/")}/>
             <LogoImg src = "../assets/Girassol.png" onClick={()=> navigate("/")}/>
         </>
 
@@ -29,7 +29,7 @@ const LogoText = styled.img`
 const LogoImg = styled.img`
     opacity: 0;
     cursor: pointer;
-    height: 65%;
+    height: 55%;
     margin-right: 10vw;
 
     @media (max-width: 1000px){

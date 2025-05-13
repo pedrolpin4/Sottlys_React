@@ -4,22 +4,28 @@ import { getProductsBySales } from "../service/reqMainPage";
 import styled from "styled-components";
 import Item from "../components/Item";
 import { getInfoSales } from "../service/pages";
+import BottomPage from "../components/BottomPage";
+import Loading from "../components/Loading";
 
 export default function SalesBody({sidebar, setSidebar, setShowModal}) {
   const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true)
   const [name, setName] = useState("")
   const [erro, setErro] = useState("");
   const { id } = useParams();
 
     async function listProductsBySales(){
+        setIsLoading(true)
         const result = await getProductsBySales(id);
         
         if(result?.data){
+            setIsLoading(false)
             setProducts(result.data);
         }
 
         if(result?.data.length === 0){
-            setErro("Sem itens desta Categoria :(");
+            setIsLoading(false)
+            setErro("Sem itens desta Promoção :(");
             return;
         }
     }
@@ -31,7 +37,7 @@ export default function SalesBody({sidebar, setSidebar, setShowModal}) {
         }
 
         if(result?.data.length === 0){
-            setErro("Esta categoria não existe");
+            setErro("Esta promoção não existe");
             return;
         }
     }
@@ -44,27 +50,53 @@ export default function SalesBody({sidebar, setSidebar, setShowModal}) {
     }, [id])
 
     return(
-        <ContainerBody>
-        <Erro>
-            {erro}
-        </Erro>
-        <Title>
-            {name}
-        </Title>
-        <ContainerItens>
-            {products.map((prod)=>  <Item key={prod.id + 's'} prod={prod} page={true} sidebar = {sidebar} setSidebar = {setSidebar} setShowModal = {setShowModal}/>)}
-        </ContainerItens>
-        </ContainerBody>
+        <>
+        {
+            isLoading ? 
+            <ModalBackground>
+                <Loading spinnerSize = {200}/>
+            </ModalBackground>
+            :
+            <>
+                <ContainerBody>
+                <Title>
+                    {name}
+                </Title>
+                <ContainerItens>
+                    {products.map((prod)=>  <Item key={prod.id + 's'} prod={prod} page={true} sidebar = {sidebar} setSidebar = {setSidebar} setShowModal = {setShowModal}/>)}
+                </ContainerItens>
+                <Erro>
+                    <p>{erro}</p>
+                </Erro>
+                </ContainerBody>
+                <BottomPage />
+            </>
+        }
+        </>
 
     );
 }
+
+const ModalBackground = styled.div`
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0,0,0, 0.7);
+    z-index: 120;
+`
 
 const Erro = styled.div`
     margin-top: 7rem;
     font-size: 28px;
     font-weight: 700;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 
 `
 const ContainerItens = styled.div`
@@ -73,7 +105,6 @@ const ContainerItens = styled.div`
   width: 100%;
   justify-content: center;
   padding: 0 7px;
-  margin-top: 20px;
   @media(max-width: 800px){
         padding: 0;
         margin-left: 0;
@@ -94,11 +125,12 @@ const Title = styled.div`
 `
 
 const ContainerBody = styled.div`
-    min-height: calc(100vh - 7rem - 520px);
+    min-height: calc(100vh - 8rem);
+    margin-top: 8rem;
     @media(max-width: 1000px){
         min-height: calc(100vh - 6rem - 520px);
     }
-    @media(max-width: 600px){
+    @media(max-width: 800px){
         min-height: calc(100vh - 5.5rem - 350px);
     }
 

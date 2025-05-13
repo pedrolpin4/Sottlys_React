@@ -9,7 +9,7 @@ import { getBasket } from "../service/basket";
 import UserContext from "../context/UserContext";
 import BasketContext from "../context/BasketContext";
 
-export default function MainHeader ({sidebar, setSidebar, content, setContent, setShowModal}) {
+export default function MainHeader ({sidebar, setSidebar, content, setContent, setShowModal, isVisible, setIsVisible, setLoad}) {
     const [trends, setTrends] = useState([]);
     const [sales, setSales] = useState([]);
     const [filters, setFilters] = useState([]);
@@ -24,6 +24,7 @@ export default function MainHeader ({sidebar, setSidebar, content, setContent, s
         const result = await getFilters('categories');
 
         if(result?.data){
+            setLoad(prev => prev + 1)
             setCategories(result?.data);
             return;
         }
@@ -38,6 +39,7 @@ export default function MainHeader ({sidebar, setSidebar, content, setContent, s
         const result = await getFilters('trends');
 
         if(result?.data){
+            setIsVisible(true)
             setTrends(result.data);
             return;
         }
@@ -51,6 +53,7 @@ export default function MainHeader ({sidebar, setSidebar, content, setContent, s
         const result = await getFilters('sales');
 
         if(result?.data){
+            setIsVisible(false)
             setSales(result.data);
             return;
         }
@@ -71,6 +74,7 @@ export default function MainHeader ({sidebar, setSidebar, content, setContent, s
 
 
     useEffect(() => {
+        setIsVisible(true)
         listCategories();
         listTrends();
         listSales();
@@ -78,9 +82,9 @@ export default function MainHeader ({sidebar, setSidebar, content, setContent, s
     }, [])
 
     return(
-        <HeaderContainer>
-            <Logo/>
-            <Unifier>
+        <HeaderContainer isVisible = {isVisible} onMouseOver = {() => setIsVisible(true)} onMouseLeave = {() => setLoad(prev => prev+ 1)}>
+            <Logo isVisible = {isVisible}/>
+            <Unifier isVisible = {isVisible}>
                 <Filters categories = {categories}>
                     <DropDownOption onMouseOver = {() => {
                             setFilters([...categories]);
@@ -140,10 +144,10 @@ export default function MainHeader ({sidebar, setSidebar, content, setContent, s
                     </div>
                 </Filters>
                 <DropDownOption onClick = {()=>{navigate("/history")}}>
-                        <p>Histórico</p>
+                    <p>Histórico</p>
                 </DropDownOption>
             </ Unifier>
-            <Icons>
+            <Icons isVisible = {isVisible}>
                 <IoBookOutline size = {25} className = "mobile-view" onClick = {() => navigate("/history")}/>
                 <IoSearchOutline size = {25} onClick = {() => {
                     setSidebar(true);
@@ -173,11 +177,12 @@ const HeaderContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    color: #000;
+    color: ${props => props.isVisible ? "#000" : "#fff"};
     height: 6rem;
-    background-color: #fff;
-    box-shadow: 0px 1px 3px rgba(0, 0,0, 0.1);
+    background-color: ${props => props.isVisible ? "#fff" : "transparent"};
+    box-shadow: ${props => props.isVisible ? "0px 1px 3px rgba(0, 0,0, 0.1)" : "none"};
     z-index: 2;
+    transition: all .1s;
 
     @media (max-width: 1000px){
         height: 6rem;
@@ -216,11 +221,12 @@ const HeaderContainer = styled.div`
 const Unifier = styled.div`
     display: flex;
     height: 100%;
-    width: 100%;;
+    width: 100%;
+    color: ${props => props.isVisible ? "#333" : "#fff"};
 `
 
 const Icons = styled.div`
-    color: #000;
+    color: ${props => props.isVisible ? "#000" : "#fff"};
     display: flex;
     align-items: center;
     backface-visibility: hidden;
@@ -256,7 +262,6 @@ const Filters = styled.ul`
     height: 100%;
     display: flex;
     align-items: center;
-    color: #333;
 
     .sub-menu{
         position: absolute;
@@ -274,7 +279,6 @@ const Filters = styled.ul`
         background-color: #fff;
         color: #333;
         transform: scaleY(0);
-        transform-origin: top;
         transition: all .3s ease;
         opacity: 0;
         z-index: 5;
@@ -366,9 +370,8 @@ const DropDownOption = styled.li`
     font-size: 1.2rem;
     margin-right: 2vw;
     border-bottom: 0px;
-    transition: all .3s;
 
-    &::after{
+    &:after{
         content: '';
         position: absolute;
         top: 69%;
@@ -381,7 +384,7 @@ const DropDownOption = styled.li`
         transition: transform 0.3s ease;
     }
     
-    &:hover::after{
+    &:hover:after{
         transform: scale(1);
     }
 

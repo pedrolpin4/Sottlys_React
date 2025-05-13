@@ -40,6 +40,7 @@ export default function CheckoutBody () {
     }
 
     useEffect(() => {
+        window.scrollTo(0,0)
         if(!localStorage.getItem('sottlysLogin')){
             navigate("/")
         }
@@ -131,6 +132,7 @@ export default function CheckoutBody () {
 }
 
 const CheckoutContainer = styled.div`
+    font-family: 'Poppins', sans-serif;
     width: 100%;
     background-color: #efefef;
     display: flex;
@@ -160,7 +162,7 @@ const ProductsHolder = styled.div`
     background-color: white;
 
     h1{
-        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-family: 'Poppins', sans-serif;
         font-size: 24px;
         margin-top: 10px;
         font-weight: 500;
@@ -208,7 +210,7 @@ const DeliveryOptions1 = styled.div`
 
 const SummaryContainer = styled.div`
     width: 25vw;
-    height: 500px;
+    height: 560px;
     border-radius: 5px;
     padding: 15px;
     margin-bottom: 50px;
@@ -220,7 +222,7 @@ const SummaryContainer = styled.div`
     background-color: white;
 
     h1{
-        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-family: 'Poppins', sans-serif;
         font-size: 24px;
         margin-top: 10px;
         font-weight: 500;

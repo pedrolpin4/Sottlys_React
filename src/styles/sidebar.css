@@ -13,8 +13,10 @@
 }
 
 .nav-menu {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 200;
     background-color: #fff;
+    color: #000;
     width: 350px;
     height: calc(100vh - 20px);
     display: flex;
@@ -61,12 +63,19 @@
     margin-left: 10px;
 }
 
+@media(max-width: 600px){
+    .nav-menu__info svg{
+        margin-right: none;
+    }
+}
+
 .nav-menu__search{
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 200;
     width: 270px;
     height: 50px;
     padding: 5px;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .nav-menu__close{
@@ -103,7 +112,7 @@
     height: 40px;
     color: #777;
     border-bottom: 1px solid black;
-    font-size: 15px;
+    font-size: 13.5px;
     margin-bottom: 20px;
 }
 
@@ -120,7 +129,6 @@
 }
 
 .nav-menu__input::placeholder{
-    font-style: italic;
     text-transform: none;
 }
 
@@ -189,7 +197,7 @@
 .show-password{
     cursor: pointer;
     position: absolute;
-    top: 216px;
+    top: 226px;
     right: 35px;
     z-index: 5;
 }
@@ -197,7 +205,7 @@
 .show-repeatPassword{
     cursor: pointer;
     position: absolute;
-    top: 280px;
+    top: 290px;
     right: 35px;
     z-index: 5;
 }
@@ -205,9 +213,21 @@
 .show-password--login{
     cursor: pointer;
     position: absolute;
-    top: 276px;
+    top: 296px;
     right: 35px;
     z-index: 5;
+}
+
+@media(max-width: 600px){
+    .show-password{
+        right: 15px;
+    }
+    .show-repeatPassword{
+        right: 15px;
+    }
+    .show-password--login{
+        right: 15px;
+    }
 }
 
 .invalid{
@@ -443,7 +463,7 @@
 
 .search-title{
     font-size: 18px;
-    font-weight: 500;
+    font-weight: 300;
     margin-top: 20px;
 }
 

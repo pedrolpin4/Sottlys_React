@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 import BasketContext from "../../context/BasketContext";
 import UserContext from "../../context/UserContext"
 import { getBasket } from "../../service/basket"
+import { postBasket } from "../../service/postBasket";
 import BasketProduct from "../BasketProduct";
 import Loading from "../Loading";
 
@@ -40,7 +41,7 @@ export default function BasketContent({ setQuantity, sidebar, content, setConten
             setQuantity(0);
             setTotal(0);
         };
-    }, [products.length]);
+    }, [products.length, postBasket]);
 
     return(
         products.length ?

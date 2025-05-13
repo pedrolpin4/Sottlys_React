@@ -153,6 +153,4 @@ const More = styled.div`
         color: gray;
         cursor: pointer;
     }
-
-
 `
